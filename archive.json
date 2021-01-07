@@ -1,0 +1,2681 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2021-01-07T01:00:39.461885+00:00",
+  "repo": "ietf-wg-privacypass/base-drafts",
+  "labels": [
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "3a9daa"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    },
+    {
+      "name": "protocol",
+      "description": "Issues related to the pp-protocol document",
+      "color": "006b75"
+    },
+    {
+      "name": "architecture",
+      "description": "Issues related to the pp-architecture document",
+      "color": "8ddd4f"
+    },
+    {
+      "name": "http-api",
+      "description": "Issues related to the pp-http-api document",
+      "color": "e2a60d"
+    },
+    {
+      "name": "charter",
+      "description": "Issues related to the WG charter",
+      "color": "ffc9e8"
+    }
+  ],
+  "issues": [
+    {
+      "number": 2,
+      "id": "MDU6SXNzdWU1NzQ2OTIyODg=",
+      "title": "Effective mechanism for identifying malicious servers",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/2",
+      "state": "OPEN",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "architecture",
+        "help wanted"
+      ],
+      "body": "Need to provide recommendations for section {{recs-srvr}} in the pp-architecture draft. It seems to me that it is easy for individual clients to identify and react to servers that seem to be acting maliciously. For example, the client can monitor and reject key material from servers where the configuration was last modified very recently and how often the rotations seem to be occurring. However, I'm not exactly sure what the reporting mechanism should be to alert other clients to this behavior.",
+      "createdAt": "2020-03-03T14:06:06Z",
+      "updatedAt": "2020-03-23T08:03:39Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Mmm.. this is quite interesting. \r\n\r\nSomething that can be imposed to the server is to have a window of time in which rotations can't happen. I was thinking on something like this:\r\n\r\n* When a server updates their configuration (every 1 to 12 weeks as recommended), it does not immediately use this new configuration; but rather continues using the old one for shorter time frame (less than the 1 to 12 weeks, referred now as `t`), and makes clients aware of a new configuration that is coming. During `t`, the server cannot generate a new configuration. When `t` passes, the server starts using the new configuration (which clients can be sort of aware already). \r\n\r\nThis will make hard for a server to update in quick intervals, and that new configurations are not immediately used.\r\n\r\nI'm not sure about how much this will work, and I'll have to think more about it ;)\r\n\r\nSomething, that I don't know if is mentioned in the drafts is defining what happens is a server is rendered unavailable, in some sort of DoS. Maybe nothing can be done in that case...",
+          "createdAt": "2020-03-23T08:03:39Z",
+          "updatedAt": "2020-03-23T08:03:39Z"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "MDU6SXNzdWU1NzQ2OTM5MzM=",
+      "title": "Should modified parameter hold times of ALL modifications?",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/3",
+      "state": "CLOSED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "architecture"
+      ],
+      "body": "Currently, the `modified` parameter in each server key configuration only includes the latest modification. Perhaps this parameter should be an array that holds ALL of the times when modifications occurred? This would allow clients to check the frequency of key rotations for detecting malicious server behavior?",
+      "createdAt": "2020-03-03T14:08:43Z",
+      "updatedAt": "2020-03-06T14:59:38Z",
+      "closedAt": "2020-03-06T14:59:38Z",
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I've made a change that makes the value of `modified` in the config registry a vector, and all of the times when changes occur are appended to this vector.",
+          "createdAt": "2020-03-06T14:59:38Z",
+          "updatedAt": "2020-03-06T14:59:38Z"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "MDU6SXNzdWU1Nzc2NDY0OTA=",
+      "title": "Normalize setup",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/5",
+      "state": "CLOSED",
+      "author": "martinthomson",
+      "authorAssociation": "NONE",
+      "assignees": [
+        "alxdavids"
+      ],
+      "labels": [],
+      "body": "You seem to be using [this setup](https://github.com/martinthomson/i-d-template).\r\n\r\nThe usual method for having multiple drafts in a repo is to just drop multiple files in the root directory.  The approach you have works until you try to do CI integration or access more advanced features, like the primitive support that exists for cross-document citations.\r\n\r\nSee [QUIC](https://github.com/quicwg/base-drafts) for a complete and operational setup.",
+      "createdAt": "2020-03-09T04:10:54Z",
+      "updatedAt": "2020-03-16T18:38:50Z",
+      "closedAt": "2020-03-16T18:38:50Z",
+      "comments": []
+    },
+    {
+      "number": 8,
+      "id": "MDU6SXNzdWU1ODg3NDgzNTY=",
+      "title": "incorrect link in readme on contributing",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/8",
+      "state": "CLOSED",
+      "author": "npdoty",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "\"guidelines for contributions\" links to some other WG (and its mailing list, etc.).",
+      "createdAt": "2020-03-26T21:44:44Z",
+      "updatedAt": "2020-06-25T14:22:28Z",
+      "closedAt": "2020-06-25T14:22:28Z",
+      "comments": []
+    },
+    {
+      "number": 9,
+      "id": "MDU6SXNzdWU1OTk0ODIyMjc=",
+      "title": "Add motivating use-cases section",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/9",
+      "state": "CLOSED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "alxdavids"
+      ],
+      "labels": [
+        "protocol"
+      ],
+      "body": "The Privacy Pass protocol was [originally designed](https://www.petsymposium.org/2018/files/papers/issue3/popets-2018-0026.pdf) as a response to providing an anonymous authorization users of anonymity-preserving services such as Tor. We should specify this motivating use-case (along with the applications that have arisen since) as a new section to the protocol document.\r\n\r\nThis will ensure that the standardisation of the protocol continues to be informed, and to be driven by, the key problems that we are trying to solve.\r\n\r\nFirst raised here: https://mailarchive.ietf.org/arch/msg/privacy-pass/7IXHIdXy7bEg3OMlScihmNKFRx4/",
+      "createdAt": "2020-04-14T11:00:57Z",
+      "updatedAt": "2020-07-09T10:26:00Z",
+      "closedAt": "2020-07-09T10:26:00Z",
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Added in #33 ",
+          "createdAt": "2020-07-09T10:26:00Z",
+          "updatedAt": "2020-07-09T10:26:00Z"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "MDU6SXNzdWU1OTk0ODYyNTc=",
+      "title": "Establish assumed anonymity guarantees ",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/10",
+      "state": "CLOSED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "alxdavids"
+      ],
+      "labels": [
+        "architecture",
+        "protocol"
+      ],
+      "body": "Throughout the drafts we currently use terms such as `privacy-preserving` & `anonymity` without establishing what properties we are assuming when using these terms. As mentioned on the mailing list, we should align around consistent terminology for the guarantees that we are offering (`anonymous authorization`) and then define exactly what this means in our context. \r\n\r\nIn particular, `anonymity`/`anonymous` refers to the fact that client redemption tokens cannot be linked to any other tokens issued by a given Issuer.\r\n\r\nFirst raised here: https://mailarchive.ietf.org/arch/msg/privacy-pass/7IXHIdXy7bEg3OMlScihmNKFRx4/",
+      "createdAt": "2020-04-14T11:07:42Z",
+      "updatedAt": "2020-07-09T10:25:41Z",
+      "closedAt": "2020-07-09T10:25:41Z",
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Updated anonymity guarantees as part of #33. The idea is that any instantiation of the protocol has to justify that it meets these guarantees to some appropriate extent. Either in the core pp-protocol doc, or in an extension.",
+          "createdAt": "2020-07-09T10:25:40Z",
+          "updatedAt": "2020-07-09T10:25:40Z"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "MDU6SXNzdWU1OTk0OTA0NTk=",
+      "title": "Add discussion on supporting additional metadata in issued tokens",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/11",
+      "state": "CLOSED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "architecture",
+        "protocol"
+      ],
+      "body": "A number of applications expect the Servers to be able to add a small amount of metadata to the Privacy Pass protocol. We should add a discussion on how metadata should be added to tokens, and then describe the subsequent impact that this would have on the client's expected privacy budget. \r\n\r\nGenerally speaking, adding a bit of metadata to tokens is likely to have a very similar impact to introducing an extra Issuer, and so this is something that will have to be covered in the general parametrization guidelines in the architecture document. Specific mechanisms for adding metadata to tokens are yet to be proposed, but may appear as alternative instantiations in the protocol document, or be specified separately as individual extensions.",
+      "createdAt": "2020-04-14T11:14:04Z",
+      "updatedAt": "2020-07-07T17:29:58Z",
+      "closedAt": "2020-07-07T17:29:58Z",
+      "comments": []
+    },
+    {
+      "number": 13,
+      "id": "MDU6SXNzdWU2MTI2ODg0NzY=",
+      "title": "IssuanceMessage should identify the target ServerUpdate",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/13",
+      "state": "CLOSED",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "protocol"
+      ],
+      "body": "... so that servers know clients are using the right key and haven't been downgraded, for whatever reason. In ECHO, we indicate this with a hash of the ECHOConfig structure, which would probably do the trick here, too. For example:\r\n\r\n~~~\r\nstruct {\r\n    uint8 update_digest[32];\r\n     ClientIssuanceElement issue_element<1..n>\r\n} IssuanceMessage;\r\n~~~\r\n\r\nwhere `update_digest = SHA256(server_update)`, or something.\r\n",
+      "createdAt": "2020-05-05T15:23:16Z",
+      "updatedAt": "2020-07-09T10:26:37Z",
+      "closedAt": "2020-07-09T10:26:37Z",
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The protocol doc now assumes that the ciphersuite is known apriori when retrieving the Server public key data.",
+          "createdAt": "2020-07-09T10:26:36Z",
+          "updatedAt": "2020-07-09T10:26:36Z"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "MDU6SXNzdWU2MTI2ODg4MjI=",
+      "title": "Rename IssuanceMessage to IssuanceRequest",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/14",
+      "state": "CLOSED",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "protocol"
+      ],
+      "body": "This will match IssuanceResponse!",
+      "createdAt": "2020-05-05T15:23:44Z",
+      "updatedAt": "2020-10-16T14:25:27Z",
+      "closedAt": "2020-10-16T14:25:22Z",
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This was fixed.",
+          "createdAt": "2020-10-16T14:25:22Z",
+          "updatedAt": "2020-10-16T14:25:27Z"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "MDU6SXNzdWU2MTI2OTM5NDY=",
+      "title": "Add \"configuration\" support",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/15",
+      "state": "CLOSED",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "protocol"
+      ],
+      "body": "The main protocol document assumes that VOPRF is the main instantiation of PrivacyPass. It also has support for ciphersuites that augment this particular instantiation. It's not clear how we'd \"extend\" this protocol to support other features, such as public verifiability or the k-bits of metadata. These seem to be separate \"modes\" or \"configurations\" of PrivacyPass. (I don't think it makes sense to try and cast the metadata bit variant as a different ciphersuite for the main instantiation.) \r\n\r\nI propose we add some text describing different configurations. A configuration is an instantiation of the PrivacyPass API with certain properties. A configuration may (should?) also be extensible where applicable, e.g., in the ServerUpdate message or IssuanceRequest/Response messages. Interoperability across configurations would be unsupported, as they have would like have fundamentally different properties.\r\n\r\nSome initial configurations that come to mind are:\r\n- PrivacyPass with no metadata bits (VOPRF construction)\r\n- PrivacyPass with k metadata bits (Google's design)\r\n- PrivacyPass with public verifiability (blind signatures?)\r\n\r\ncc @alxdavids ",
+      "createdAt": "2020-05-05T15:30:34Z",
+      "updatedAt": "2020-07-09T10:27:54Z",
+      "closedAt": "2020-07-09T10:27:53Z",
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Added some more information about supporting additional metadata in #32. As discussed elsewhere, I think the way to go here is for extensions to just specify new ciphersuites with associated privacy/security guarantees. ",
+          "createdAt": "2020-07-09T10:27:53Z",
+          "updatedAt": "2020-07-09T10:27:53Z"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "MDU6SXNzdWU2MTI3MTQ2NjM=",
+      "title": "Should ServerUpdate messages be versioned?",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/16",
+      "state": "CLOSED",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "protocol"
+      ],
+      "body": "They don't currently have a version. That seems like something which would be good to add. Extension support seems useful, too, so we don't need to rev the version each time we need a small change.",
+      "createdAt": "2020-05-05T16:00:44Z",
+      "updatedAt": "2020-07-09T10:24:33Z",
+      "closedAt": "2020-07-09T10:24:33Z",
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "ServerUpdate does not exist anymore. New extensions should just add a new ciphersuite to the current enum. A server that uses an extension ciphersuite just specifies the ciphersuite with their public key data.",
+          "createdAt": "2020-07-09T10:24:32Z",
+          "updatedAt": "2020-07-09T10:24:32Z"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "MDU6SXNzdWU2MTI3OTk1NTA=",
+      "title": "Rename SecretKey to PrivateKey?",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/17",
+      "state": "CLOSED",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "protocol"
+      ],
+      "body": "SecretKey, to me, implies a symmetric key. Can we make this PrivateKey? That's the terminology used (mostly) in RFC7748, at least.",
+      "createdAt": "2020-05-05T18:16:59Z",
+      "updatedAt": "2020-07-09T10:23:40Z",
+      "closedAt": "2020-07-09T10:23:40Z",
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Done in #31 ",
+          "createdAt": "2020-07-09T10:23:40Z",
+          "updatedAt": "2020-07-09T10:23:40Z"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "MDU6SXNzdWU2MTI3OTk5NzU=",
+      "title": "Simplify ServerSetup",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/18",
+      "state": "CLOSED",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "protocol"
+      ],
+      "body": "This function outputs a `ServerConfig` and `ServerUpdate`. It might simplify things if this just output a config, from which the update could be created. ",
+      "createdAt": "2020-05-05T18:17:44Z",
+      "updatedAt": "2020-07-09T10:28:48Z",
+      "closedAt": "2020-07-09T10:28:48Z",
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Essentially this just corresponds to sampling a new keypair for a chosen ciphersuite now.",
+          "createdAt": "2020-07-09T10:28:48Z",
+          "updatedAt": "2020-07-09T10:28:48Z"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "id": "MDU6SXNzdWU2MTQ4MTMxNTY=",
+      "title": "Guidance on issuer selection",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/20",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "architecture"
+      ],
+      "body": "(This might be done already, but just in case...)\r\n\r\nWe should probably provide guidance on how clients should pick issuers. For example, if a client is presented with a choice of two issuers, what does it do? Pick the same one and use it \"all the time,\" pick one at random, or something else? ",
+      "createdAt": "2020-05-08T15:27:06Z",
+      "updatedAt": "2020-07-09T10:21:03Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I've added some advice on what Issuer features a Client should bear in mind when deciding which to choose. Do you think we still need advice on what to do if presented two at once? I imagine that the Client's should have hard-coded preferences.",
+          "createdAt": "2020-07-09T10:21:03Z",
+          "updatedAt": "2020-07-09T10:21:03Z"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "id": "MDU6SXNzdWU2MTQ4MTU0OTQ=",
+      "title": "Define version/configuration registry",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/21",
+      "state": "CLOSED",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "architecture",
+        "protocol"
+      ],
+      "body": "It might be easiest to fully specify a Privacy Pass configuration, e.g., \"Privacy Pass based on curve448_hkdf_sha512_ell2_ro,\" with a single identifier. That same identifier could go in the `ServerUpdate` structure as a way of fully defining the properties of the structure. ",
+      "createdAt": "2020-05-08T15:31:01Z",
+      "updatedAt": "2020-07-09T10:23:04Z",
+      "closedAt": "2020-07-09T10:23:04Z",
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Replaced Privacy Pass configuration with just a public key and associated ciphersuite. Changes to remove hard-coded key registry means that we don't have to be so prescriptive here anymore.",
+          "createdAt": "2020-07-09T10:23:04Z",
+          "updatedAt": "2020-07-09T10:23:04Z"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "MDU6SXNzdWU2MTQ4NDQ4Mjg=",
+      "title": "Add milestones to Charter",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/22",
+      "state": "CLOSED",
+      "author": "jsalowey",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [
+        "charter"
+      ],
+      "body": "Something like:\r\n\r\n- Specification of protocol & surrounding architecture  - February 2021\r\n- Specification of application-layer requirements (including HTTP integration) - March 20201\r\n- Specification of HTTP browser API (in coordination with W3C) - April 20201",
+      "createdAt": "2020-05-08T16:24:49Z",
+      "updatedAt": "2020-05-14T16:51:44Z",
+      "closedAt": "2020-05-14T16:51:44Z",
+      "comments": []
+    },
+    {
+      "number": 23,
+      "id": "MDU6SXNzdWU2MTQ4NDY3MTY=",
+      "title": "Add formal analysis to charter text",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/23",
+      "state": "CLOSED",
+      "author": "jsalowey",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [
+        "charter"
+      ],
+      "body": "Formal analysis is important for new security protocols.   The charter should include this, maybe add something like this at the end of paragraph 4:\r\n\r\n\"Formal analysis of the protocol will make sure the security and privacy properties of the protocol\r\nare well-understood and well-documented.\"",
+      "createdAt": "2020-05-08T16:28:23Z",
+      "updatedAt": "2020-05-15T15:38:31Z",
+      "closedAt": "2020-05-15T15:38:31Z",
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This was done.",
+          "createdAt": "2020-05-15T15:38:31Z",
+          "updatedAt": "2020-05-15T15:38:31Z"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "id": "MDU6SXNzdWU2MTkwMDczMTM=",
+      "title": "Rewrite privacy analysis based on properties of keys",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/24",
+      "state": "CLOSED",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "architecture"
+      ],
+      "body": "The keys should not be rotated too frequently, for example. We can then refer to the existence of some mechanism that allows us to check this property, such as a log or registry. (We can then move the registry information out of the architecture document and into a separate one entirely.)",
+      "createdAt": "2020-05-15T14:28:43Z",
+      "updatedAt": "2020-07-09T10:21:30Z",
+      "closedAt": "2020-07-09T10:21:29Z",
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This was done in #35 ",
+          "createdAt": "2020-07-09T10:21:29Z",
+          "updatedAt": "2020-07-09T10:21:29Z"
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "id": "MDU6SXNzdWU2NDU2MDYxNzI=",
+      "title": "Update usage of VOPRF API",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/30",
+      "state": "CLOSED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "protocol"
+      ],
+      "body": "API has been updated at https://github.com/cfrg/draft-irtf-cfrg-voprf/ quite substantially.",
+      "createdAt": "2020-06-25T14:23:29Z",
+      "updatedAt": "2020-07-07T17:28:04Z",
+      "closedAt": "2020-07-07T17:28:04Z",
+      "comments": []
+    },
+    {
+      "number": 34,
+      "id": "MDU6SXNzdWU2NDczODIzOTU=",
+      "title": "Move some form of protocol interfaces to HTTP API doc",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/34",
+      "state": "CLOSED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "architecture",
+        "http-api"
+      ],
+      "body": "We currently have interfaces in the architecture document that lay out how messages should be sent and received. I think the architecture document should be solely focused on the building of the ecosystem in a way that maintains the utility of the privacy and security guarantees made by the protocol. The interfaces are mainly used by the HTTP API doc, and so I think this will be a better home for them.",
+      "createdAt": "2020-06-29T13:35:25Z",
+      "updatedAt": "2020-07-09T10:22:06Z",
+      "closedAt": "2020-07-09T10:22:06Z",
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I've removed the interfaces from the architecture doc (#35) and used the protocol API directly in the HTTP doc (#37)",
+          "createdAt": "2020-07-09T10:22:06Z",
+          "updatedAt": "2020-07-09T10:22:06Z"
+        }
+      ]
+    },
+    {
+      "number": 39,
+      "id": "MDU6SXNzdWU2NTQ4MTI3NjQ=",
+      "title": "Determine threshold for metadata bits (bytes?)",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/39",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "architecture"
+      ],
+      "body": "Different applications may want different numbers of metadata bits. This number should probably be bounded, otherwise Privacy Pass... is not so private. ",
+      "createdAt": "2020-07-10T14:14:59Z",
+      "updatedAt": "2020-07-10T16:04:26Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 40,
+      "id": "MDU6SXNzdWU2NTQ4MTQ1NTI=",
+      "title": "Define extension for public verifiability",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/40",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "protocol"
+      ],
+      "body": "Per the charter.",
+      "createdAt": "2020-07-10T14:17:42Z",
+      "updatedAt": "2020-08-11T11:37:21Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Potential instantiation highlighted by @wbl on the mailing list: https://mailarchive.ietf.org/arch/msg/privacy-pass/BDOOhSLwB3uUJcfBiss6nUF5sUA/. Do we want to consider any other schemes?",
+          "createdAt": "2020-08-11T11:37:21Z",
+          "updatedAt": "2020-08-11T11:37:21Z"
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "id": "MDU6SXNzdWU2NTQ5NjgyOTY=",
+      "title": "Define extension for private metadata bit variant",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/42",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "protocol"
+      ],
+      "body": "We say it's possible, but let's be a bit more concrete.",
+      "createdAt": "2020-07-10T18:41:47Z",
+      "updatedAt": "2020-08-11T09:49:36Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think this will depend on having a draft specification of the underlying cryptographic functionality.",
+          "createdAt": "2020-08-11T09:49:36Z",
+          "updatedAt": "2020-08-11T09:49:36Z"
+        }
+      ]
+    },
+    {
+      "number": 44,
+      "id": "MDU6SXNzdWU2OTY2Njk5NDM=",
+      "title": "Specify redemption mode in public config",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/44",
+      "state": "OPEN",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "architecture"
+      ],
+      "body": "Servers should specify accepted redemption modes that they allow as a list associated with their public configuration. This would be a subset of the list `[\"single\", \"proxy\", \"async\", \"public\"]` corresponding to the redemptions modes in https://tools.ietf.org/html/draft-davidson-pp-architecture-01#section-5.\r\n\r\nIn all modes except \"single\" we should also allow optional specification of _allowed_ verifiers that can ask for tokens on the server's behalf. If one of these verifiers asks for a client token associated with the server, then the client will first check this list to ensure that the verifier exists before sending the token. This ensures that clients don't reveal which tokens they hold to untrusted verifiers.\r\n\r\ncc @chris-wood @dvorak42 ",
+      "createdAt": "2020-09-09T09:54:40Z",
+      "updatedAt": "2020-09-09T09:54:40Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 45,
+      "id": "MDU6SXNzdWU2OTY2NzI0MjA=",
+      "title": "Improve documentation on centralization",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/45",
+      "state": "OPEN",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "architecture"
+      ],
+      "body": "There should be documentation that addresses the risks of the centralization in the current Privacy Pass architecture with potential solutions. This was raised in the previous WG meeting: https://codimd.ietf.org/notes-ietf-108-privacypass.\r\n\r\nThis documentation should either be incorporated into the architecture document as a section when discussing the shape of the ecosystem, and/or security considerations. There is also the option of declaring a separate document for addressing this.",
+      "createdAt": "2020-09-09T09:58:04Z",
+      "updatedAt": "2020-09-09T09:58:04Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 46,
+      "id": "MDU6SXNzdWU2OTY2OTkzNTc=",
+      "title": "Remove exposure of token in proxied-verifier",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/46",
+      "state": "OPEN",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "architecture",
+        "protocol"
+      ],
+      "body": "Currently, in the proxied-verifier server running mode, the entire redemption token is sent to the server. However, we may be able to avoid this by only sending the initial `data` inside the RedemptionRequest, and keeping the `tag` and `info` at the proxy. This is because `data` is operated on under the server key, while the rest of the information is just added to a hash function evaluation. This means that the token issuer only sees the token (and can then implement double-spending protection based on this), but nothing else about the request to the verifier.\r\n\r\nThe change will probably drop the requirement for the `VerifyFinalize` API in the VOPRF doc, which is also advantageous. Originally discussed with @chris-wood, @siyengar, and Zutian Luo.",
+      "createdAt": "2020-09-09T10:36:58Z",
+      "updatedAt": "2020-09-09T10:36:58Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 47,
+      "id": "MDU6SXNzdWU3MjMyNzQyODk=",
+      "title": "Describe negative consequences of centralization",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/47",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "architecture"
+      ],
+      "body": "We don't have a good way to address this (now), so we should minimally acknowledge the risks and consequences.",
+      "createdAt": "2020-10-16T14:26:54Z",
+      "updatedAt": "2020-10-19T10:40:20Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 48,
+      "id": "MDU6SXNzdWU3MjMyNzY5MTg=",
+      "title": "Describe privacy implications of underlying transport protocol(s)",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/48",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "architecture"
+      ],
+      "body": "Token issuance and redemption flows from the same IP address, for example, would be linkable, but this isn't a break in the privacy pass protocol. We should discuss these orthogonal privacy considerations.",
+      "createdAt": "2020-10-16T14:30:16Z",
+      "updatedAt": "2020-10-19T10:40:31Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 49,
+      "id": "MDU6SXNzdWU3NTA5MTI0NzU=",
+      "title": "Token expiration",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/49",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "architecture"
+      ],
+      "body": "There's currently no text around token expiration. Minimally, we could say that tokens expire when issuer (and verifier) keys rotate. Do we also want to bake in mechanisms for expiration to be cryptographically bound to issued tokens? For example, one might imagine using PMB-like constructions to encode an expiration \"epoch\" into the metadata bits. The single metadata bit variant would allow two epochs that way. \r\n\r\n@dvorak42, @alxdavids: what do you think?",
+      "createdAt": "2020-11-25T15:26:43Z",
+      "updatedAt": "2021-01-04T12:35:54Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I'm not sure what baking the expiry into the tokens gives that can't be managed by rotating the issuer/verifier keys (or using public metadata (which is effectively the key used to sign))? That way issuers that care about more fine grained token expiration use the key rotation for that and issuers that only care about coarse token expiration use it for other metadata, allowing the protocol to treat both in the same way?",
+          "createdAt": "2020-11-30T16:30:53Z",
+          "updatedAt": "2020-11-30T16:30:53Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Yeah, I think the only two options are (a) rotate keys or (b) include the expiry information as public metadata (and need not be tied to the key used to sign). I'm not advocating for one or the other. \r\n\r\n> That way issuers that care about more fine grained token expiration use the key rotation for that and issuers that only care about coarse token expiration use it for other metadata, allowing the protocol to treat both in the same way?\r\n\r\nSure, that's reasonable. We should probably have text on this point. (That's partly why I filed this issue.)",
+          "createdAt": "2020-11-30T16:34:34Z",
+          "updatedAt": "2020-11-30T16:34:34Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "We should also make sure to note that the validity window does narrow the anonymity set.",
+          "createdAt": "2020-12-11T22:50:12Z",
+          "updatedAt": "2020-12-11T22:50:12Z"
+        }
+      ]
+    },
+    {
+      "number": 50,
+      "id": "MDU6SXNzdWU3NTQ5MjYwODU=",
+      "title": "Accommodating two round protocols",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/50",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "architecture",
+        "protocol"
+      ],
+      "body": "Some protocols, like [blind Schnorr signature schemes](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.3.6950&rep=rep1&type=pdf), require more than 1 round trip to complete. Currently, the protocol assumes a protocol that runs in one round trip, with some offline public key distribution step. In particular, issuance request messages are mapped almost directly to the underlying OPRF blind/request message. \r\n\r\nWe should consider what needs to change, if anything, to accommodate these differently shaped protocols. I suggest we loosen the 1-1 restriction (?) from the Privacy Pass API to the underlying cryptographic protocol APIs. It just so happens that Privacy Pass maps nicely to the OPRF construction, but that need not be the case. For example, and hand waving over details, in the blind Schnorr case, an implementation of the issuance request flow could involve first fetching the nonce commitment from the server, and then sending a blinded value for evaluation. \r\n\r\n@dvorak42, what do you think?",
+      "createdAt": "2020-12-02T04:21:45Z",
+      "updatedAt": "2021-01-04T12:35:34Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 51,
+      "id": "MDU6SXNzdWU3NjMwMTI2NjU=",
+      "title": "Expand metadata discussion",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/51",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "architecture",
+        "protocol"
+      ],
+      "body": "There are several dimensions to metadata, including:\r\n\r\n- public vs private\r\n- verifiable vs non-verifiable\r\n- bounded or arbitrary-length\r\n\r\nIt's worth expanding on these dimensions. For example, the underlying cryptographic primitive may influence or limit one or more of these dimensions in a variety of ways. Also, whether metadata is public or private, or verifiable or not, is important for privacy reasons. (If metadata can't be verified, is it a tracking vector? Can private metadata track clients?)\r\n\r\nIn general, expounding upon these issues would likely be quite valuable for the draft.",
+      "createdAt": "2020-12-11T22:49:16Z",
+      "updatedAt": "2021-01-04T12:35:02Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 52,
+      "id": "MDU6SXNzdWU3NzU2ODg2NzE=",
+      "title": "Safari Extension",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/52",
+      "state": "CLOSED",
+      "author": "balupton",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-12-29T04:17:39Z",
+      "updatedAt": "2021-01-04T12:34:42Z",
+      "closedAt": "2021-01-04T12:34:42Z",
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I don't think there is any work associated with specific browsers that is going to be considered in this working group, so I'm going to close this.",
+          "createdAt": "2021-01-04T12:34:42Z",
+          "updatedAt": "2021-01-04T12:34:42Z"
+        }
+      ]
+    },
+    {
+      "number": 53,
+      "id": "MDU6SXNzdWU3NzY2OTMyNjE=",
+      "title": "A related work: privacy-preserving asynchronous Single Sign-On (EL PASSO)",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/53",
+      "state": "CLOSED",
+      "author": "Zhiyi-Zhang",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Hi there,\r\n\r\nWe have been working on privacy-preserving Single Sign-On and we found our work, called EL PASSO, is very closely related to Privacy Pass.\r\nEL PASSO implements anonymous credentials, enables selective attribute disclosure, and allows users to prove properties about their identity without revealing it in the clear.\r\nWe also have accountability designed in: when a user misbehaves on a relying party, the relying party can report the user to authorities to reveal the identity of that user.\r\nThere are other interesting features in EL PASSO like inter-RP unlinkability and intro-RP linkability that can provide desired security properties.\r\n\r\nA preprint version can be found on arXiv: https://arxiv.org/abs/2002.10289 and a final version will appear in PETS 2021.\r\nWe hope this work can provide some useful input to Privacy Pass and we are also looking forward to future collaborations with Privacy Pass.",
+      "createdAt": "2020-12-31T00:38:25Z",
+      "updatedAt": "2021-01-05T16:50:08Z",
+      "closedAt": "2021-01-05T16:50:08Z",
+      "comments": [
+        {
+          "author": "bemasc",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@Zhiyi-Zhang Thanks for reaching out to Privacy Pass! Could you please [join the mailing list](https://www.ietf.org/mailman/listinfo/privacy-pass) and send this message there?  We use Github primarily for editing the text of draft documents, not for general discussions of new material.",
+          "createdAt": "2021-01-05T16:50:08Z",
+          "updatedAt": "2021-01-05T16:50:08Z"
+        }
+      ]
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "MDExOlB1bGxSZXF1ZXN0MzgyNDY0NDMx",
+      "title": "Initial HTTP API Draft",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/1",
+      "state": "MERGED",
+      "author": "dvorak42",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This is a basic draft for the HTTP API, it still needs work to bring it into sync with the architecture doc (and to fill out some of the registry/storage sections).\r\n\r\nWill keep on iterating on it, but wanted to make the PR so people can start looking at it/responding to it, and also to figure out which bits should be in this doc versus the other PrivacyPass docs.",
+      "createdAt": "2020-03-02T15:57:39Z",
+      "updatedAt": "2020-03-04T17:35:24Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "a8e6ed43f5863a50ad36949c4d9cae3a1e315d74",
+      "headRepository": "dvorak42/privacy-pass-ietf",
+      "headRefName": "master",
+      "headRefOid": "46cb0fb4756d625b7bb07da9e5e904c24aa01327",
+      "closedAt": "2020-03-04T17:35:24Z",
+      "mergedAt": "2020-03-04T17:35:24Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "43e828c9f5535d81cd1a316972ebf3ee689f37e5"
+      },
+      "comments": [
+        {
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Added a section about the global registry.",
+          "createdAt": "2020-03-03T15:55:01Z",
+          "updatedAt": "2020-03-03T15:55:01Z"
+        },
+        {
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yeah, I think there's now enough meet on this to merge it as is, and I can make additional PRs to update it/clean it up. ",
+          "createdAt": "2020-03-04T14:58:16Z",
+          "updatedAt": "2020-03-04T14:58:16Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzY3OTE3NDgx",
+          "commit": {
+            "abbreviatedOid": "45855ed"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "This LGTM so far, I just have a few small comments. We can probably look at merging this once we have more detail about the commitment registry.",
+          "createdAt": "2020-03-03T11:56:18Z",
+          "updatedAt": "2020-03-03T11:59:51Z",
+          "comments": [
+            {
+              "originalPosition": 68,
+              "body": "This is probably hangover from draft-privacy-pass, but we should remove mention of VOPRFs to be as generic as possible",
+              "createdAt": "2020-03-03T11:56:18Z",
+              "updatedAt": "2020-03-04T14:57:22Z"
+            },
+            {
+              "originalPosition": 242,
+              "body": "I guess that this should be `i_data`?",
+              "createdAt": "2020-03-03T11:57:05Z",
+              "updatedAt": "2020-03-04T14:57:22Z"
+            },
+            {
+              "originalPosition": 263,
+              "body": "This is slightly different to how the SERVER_ISSUE interface currently operates, as it this interface that calls CLIENT_ISSUE_FINISH. Perhaps the interface should be modified so that SERVER_ISSUE returns the response to CLIENT_ISSUE_GEN to match what you have here?",
+              "createdAt": "2020-03-03T11:57:41Z",
+              "updatedAt": "2020-03-04T14:57:22Z"
+            },
+            {
+              "originalPosition": 287,
+              "body": "Eventually we may want to be more prescriptive about how additional_data is formed as it is the HMAC input. This document may be the best place to do that.",
+              "createdAt": "2020-03-03T11:58:10Z",
+              "updatedAt": "2020-03-04T14:57:22Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzY4MDQyMTMz",
+          "commit": {
+            "abbreviatedOid": "45855ed"
+          },
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-03-03T14:49:58Z",
+          "updatedAt": "2020-03-03T14:49:58Z",
+          "comments": [
+            {
+              "originalPosition": 263,
+              "body": "Yeah, was going to comment on the architecture doc, in that for some of the interfaces its a bit odd that they internally call back and forth between the server and client, which makes it hard to integrate at the communication between the two.\r\n\r\nOne potential change is making them return these intermediate responses which are then used as inputs to the matching side, and optionally having interfaces that encapsulate the whole flow, so that APIs built on top of them can integrate between the individual steps rather than needing to redefine how they internally call back and forth.\r\n\r\n",
+              "createdAt": "2020-03-03T14:49:58Z",
+              "updatedAt": "2020-03-04T14:57:22Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzY4MDQ0NjU5",
+          "commit": {
+            "abbreviatedOid": "45855ed"
+          },
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-03-03T14:52:46Z",
+          "updatedAt": "2020-03-03T14:52:46Z",
+          "comments": [
+            {
+              "originalPosition": 68,
+              "body": "Ah yeah, synced with a previous copy of the protocol doc, updated.",
+              "createdAt": "2020-03-03T14:52:46Z",
+              "updatedAt": "2020-03-04T14:57:22Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzY4MDU3MjU4",
+          "commit": {
+            "abbreviatedOid": "45855ed"
+          },
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-03-03T15:06:59Z",
+          "updatedAt": "2020-03-03T15:07:00Z",
+          "comments": [
+            {
+              "originalPosition": 287,
+              "body": "Specific construction for the delegated case is down below, but I'm not sure whether the client (UA) which originally has the tokens should be doing PP_Redeem and then passing the result of that to whatever website wants to redeem a token (allowing the UA to set the aux additional_data, so that it can't be reused elsewhere), or whether the website should be taking the raw token and doing its own PP_Redeem with whatever it wants to insert in aux.",
+              "createdAt": "2020-03-03T15:06:59Z",
+              "updatedAt": "2020-03-04T14:57:22Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzY4NTkyMjIy",
+          "commit": {
+            "abbreviatedOid": "9ad2faf"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-03-04T08:47:20Z",
+          "updatedAt": "2020-03-04T08:47:20Z",
+          "comments": [
+            {
+              "originalPosition": 263,
+              "body": "Yeah rewriting the interfaces to return those values synchronously to the calling interface makes sense. I'll write up the change.",
+              "createdAt": "2020-03-04T08:47:20Z",
+              "updatedAt": "2020-03-04T14:57:22Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzY4NTk4NDE2",
+          "commit": {
+            "abbreviatedOid": "9ad2faf"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "A few comments. I think this currently serves as a good starting point. I plan to send some calls for participation around soon, linking to the WIP docs that we currently have. If you would be happy with it, then we could merge this draft in its current state and then continue to iterate on top of it?",
+          "createdAt": "2020-03-04T08:57:17Z",
+          "updatedAt": "2020-03-04T09:01:40Z",
+          "comments": [
+            {
+              "originalPosition": 70,
+              "body": "Can also provide a link to the architecture document here for more details.",
+              "createdAt": "2020-03-04T08:57:18Z",
+              "updatedAt": "2020-03-04T14:57:22Z"
+            },
+            {
+              "originalPosition": 56,
+              "body": "This isn't present in the architecture document but I think it's a good idea to make verification easier. I guess the proof is updated every time the commitment is updated?",
+              "createdAt": "2020-03-04T08:59:03Z",
+              "updatedAt": "2020-03-04T14:57:22Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzY4ODQ2OTk1",
+          "commit": {
+            "abbreviatedOid": "9ad2faf"
+          },
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-03-04T14:57:04Z",
+          "updatedAt": "2020-03-04T14:57:05Z",
+          "comments": [
+            {
+              "originalPosition": 56,
+              "body": "Yeah, wasn't sure if using a system that supports an inclusion proof should be part of the main architecture doc or for specific instantiations of Privacy Pass. But yeah, you'd get a new inclusion proof when you do the commitment (probably some update to the GLOBAL_CONFIG_UPDATE interface to support this).",
+              "createdAt": "2020-03-04T14:57:04Z",
+              "updatedAt": "2020-03-04T14:57:22Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "MDExOlB1bGxSZXF1ZXN0Mzg0ODQ4MzMy",
+      "title": "Fixing draft formatting",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/4",
+      "state": "MERGED",
+      "author": "dvorak42",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-03-06T14:25:05Z",
+      "updatedAt": "2020-03-06T14:58:46Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "19581ad111f8feb11d3e3f9a1762d29830aa86e0",
+      "headRepository": "dvorak42/privacy-pass-ietf",
+      "headRefName": "master",
+      "headRefOid": "8048b7a35d1071283ebd7213b8af0ff95bb8427a",
+      "closedAt": "2020-03-06T14:58:46Z",
+      "mergedAt": "2020-03-06T14:58:46Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "e006b84a4b5ddd9bcd9e939a25dbb0d8ee775692"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzcwMzg0MTQy",
+          "commit": {
+            "abbreviatedOid": "8048b7a"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-03-06T14:58:40Z",
+          "updatedAt": "2020-03-06T14:58:40Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "MDExOlB1bGxSZXF1ZXN0Mzg5NDI5NDM1",
+      "title": "Fix #5: reorg repo",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/6",
+      "state": "MERGED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Borrow repo structure from https://github.com/quicwg/base-drafts/ as per #5.",
+      "createdAt": "2020-03-16T18:37:42Z",
+      "updatedAt": "2020-03-16T18:38:50Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "7be7f305a4620f5c15814d46f90ea9d2b6ddd7be",
+      "headRepository": "ietf-wg-privacypass/base-drafts",
+      "headRefName": "alxdavids/repo-structure",
+      "headRefOid": "69984936b26be5710f7551296202b209dd5be73f",
+      "closedAt": "2020-03-16T18:38:49Z",
+      "mergedAt": "2020-03-16T18:38:49Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "caa104150bd8c21f8347a301db271560a3095b62"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "MDExOlB1bGxSZXF1ZXN0MzkzMzg4MTUz",
+      "title": "Solve some consistency problems",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/7",
+      "state": "MERGED",
+      "author": "claucece",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-03-25T05:12:43Z",
+      "updatedAt": "2020-05-11T12:58:46Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "d220f993d1a2c6dbca62eb8f70af52918ea2080b",
+      "headRepository": "claucece/privacy-pass-ietf",
+      "headRefName": "master",
+      "headRefOid": "39e4a985ab716eb7bfa28792d194fc9242089fec",
+      "closedAt": "2020-05-11T12:58:46Z",
+      "mergedAt": "2020-05-11T12:58:46Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "e17c69355a47bd4354d6ea23bf54cf43edec9bca"
+      },
+      "comments": [
+        {
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I just fixed them all ;)",
+          "createdAt": "2020-04-14T07:49:01Z",
+          "updatedAt": "2020-04-14T07:49:14Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MzkyMTg4NjUx",
+          "commit": {
+            "abbreviatedOid": "ed5352d"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Thanks for these changes, just a few amendments from my side.",
+          "createdAt": "2020-04-13T14:43:18Z",
+          "updatedAt": "2020-04-13T14:49:04Z",
+          "comments": [
+            {
+              "originalPosition": 97,
+              "body": "I think the word `encounter` can be removed here.",
+              "createdAt": "2020-04-13T14:43:18Z",
+              "updatedAt": "2020-04-14T07:45:49Z"
+            },
+            {
+              "originalPosition": 134,
+              "body": "`received from a server`?",
+              "createdAt": "2020-04-13T14:43:50Z",
+              "updatedAt": "2020-04-14T07:45:49Z"
+            },
+            {
+              "originalPosition": 392,
+              "body": "requires minor rewording, perhaps: \r\n```\r\nError occurred when a client attempts to verify the proof...\r\n```",
+              "createdAt": "2020-04-13T14:46:21Z",
+              "updatedAt": "2020-04-14T07:45:49Z"
+            },
+            {
+              "originalPosition": 419,
+              "body": "`perform` -> `performs`",
+              "createdAt": "2020-04-13T14:46:40Z",
+              "updatedAt": "2020-04-14T07:45:49Z"
+            },
+            {
+              "originalPosition": 421,
+              "body": "`doing is` -> `doing this is`\r\n(already existing typo)",
+              "createdAt": "2020-04-13T14:46:58Z",
+              "updatedAt": "2020-04-14T07:45:49Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDA5MTQ2NTE2",
+          "commit": {
+            "abbreviatedOid": "39e4a98"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-05-11T12:58:35Z",
+          "updatedAt": "2020-05-11T12:58:35Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDA2NzI1NzIz",
+      "title": "Updated charter text",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/12",
+      "state": "MERGED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Changes account for feedback received during (and following) virtual BoF session, including:\r\n\r\n- Scoping protocol to application-layer.\r\n- Considering the case of transferable tokens only.\r\n- Specific points to consider potential consolidation/trust issues.\r\n- Not committing to a specific set of documents.\r\n- Ensuring that Clients can verify Issuer key material.\r\n",
+      "createdAt": "2020-04-21T14:51:04Z",
+      "updatedAt": "2020-05-14T16:51:43Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "d220f993d1a2c6dbca62eb8f70af52918ea2080b",
+      "headRepository": "ietf-wg-privacypass/base-drafts",
+      "headRefName": "post-bof-charter",
+      "headRefOid": "24e38dc0f0130cb7cf5fb72704c3ca1b1e408c4c",
+      "closedAt": "2020-05-14T16:51:43Z",
+      "mergedAt": "2020-05-14T16:51:43Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "bf7e53ab85bd05f6a776dde433eda0b2417a39f9"
+      },
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Going to merge this now so that we have a working up-to-date version. Further changes can be made in a new PR.",
+          "createdAt": "2020-05-14T16:51:38Z",
+          "updatedAt": "2020-05-14T16:51:38Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 19,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDEzNzkxMjky",
+      "title": "Rename some fields and fix some nits",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/19",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Rename IssuanceMessage and RedemptionMessage to IssuanceRequest and RedemptionRequest, respectively. Rename SecretKey to PrivateKey. Change `max_evals` to an integer value, rather than opaque vector.\r\n\r\nI also removed company-specific information, which is not really relevant for the document. (That's useful information, but not appropriate for a standards document, I think.)\r\n\r\ncc @alxdavids @dvorak42 ",
+      "createdAt": "2020-05-05T22:50:40Z",
+      "updatedAt": "2020-05-20T07:46:52Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "8f89861020ed4d73c2337c1a1905f2fee7714d69",
+      "headRepository": "chris-wood/privacy-pass-ietf",
+      "headRefName": "caw/nits-and-renaming",
+      "headRefOid": "fc8e56ed4af68ca7cbb5f612709f4fd3dcaf1c41",
+      "closedAt": "2020-05-20T07:46:52Z",
+      "mergedAt": "2020-05-20T07:46:52Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "040a82989fdb41ce30d810a4c6e4a951a8cc08ad"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDE0MjU4NTU2",
+          "commit": {
+            "abbreviatedOid": "79dfa07"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good, just one thing that needs to change I think.",
+          "createdAt": "2020-05-19T09:18:44Z",
+          "updatedAt": "2020-05-19T09:20:07Z",
+          "comments": [
+            {
+              "originalPosition": 46,
+              "body": "```suggestion\r\n\"initialisation\", produces the global server configuration that is\r\n```",
+              "createdAt": "2020-05-19T09:18:45Z",
+              "updatedAt": "2020-05-19T14:57:55Z"
+            },
+            {
+              "originalPosition": 46,
+              "body": "also, existing typo on my part, but maybe it should be initialization?",
+              "createdAt": "2020-05-19T09:19:21Z",
+              "updatedAt": "2020-05-19T14:57:55Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDE1MDczMzMw",
+          "commit": {
+            "abbreviatedOid": "fc8e56e"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-05-20T07:46:30Z",
+          "updatedAt": "2020-05-20T07:46:30Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDE4Njk5MTQ1",
+      "title": "Rename SecretKey to PrivateKey for consistency with PublicKey.",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/25",
+      "state": "CLOSED",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Addresses #17.",
+      "createdAt": "2020-05-15T16:54:24Z",
+      "updatedAt": "2020-05-15T17:04:44Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "bf7e53ab85bd05f6a776dde433eda0b2417a39f9",
+      "headRepository": "chris-wood/privacy-pass-ietf",
+      "headRefName": "caw/rename-secret-key",
+      "headRefOid": "41b58addda7ff968aa2c6477ea5eb2de668e1b27",
+      "closedAt": "2020-05-15T17:04:44Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 26,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDE4NzAzNDc3",
+      "title": "Namespace all PrivacyPass routines.",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/26",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "These functions do not need the \"PP_\" namespace prefix as it's implied\r\nfrom the specification. I also removed underscores in favor of normal\r\ncamel case notation.",
+      "createdAt": "2020-05-15T17:04:18Z",
+      "updatedAt": "2020-05-19T09:17:12Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "bf7e53ab85bd05f6a776dde433eda0b2417a39f9",
+      "headRepository": "chris-wood/privacy-pass-ietf",
+      "headRefName": "caw/namespace",
+      "headRefOid": "72fc5e13e44915cc9fa1eccf890eacb75530817b",
+      "closedAt": "2020-05-19T09:17:11Z",
+      "mergedAt": "2020-05-19T09:17:11Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "8f89861020ed4d73c2337c1a1905f2fee7714d69"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDE0MjU3MDk1",
+          "commit": {
+            "abbreviatedOid": "72fc5e1"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-05-19T09:16:52Z",
+          "updatedAt": "2020-05-19T09:16:52Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDE5OTg2NTE1",
+      "title": "Updates based on 17 May comments",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/27",
+      "state": "MERGED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-05-19T09:14:48Z",
+      "updatedAt": "2020-05-20T07:43:49Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "bf7e53ab85bd05f6a776dde433eda0b2417a39f9",
+      "headRepository": "ietf-wg-privacypass/base-drafts",
+      "headRefName": "alxdavids/charter-updates",
+      "headRefOid": "b7c19fe867913815103ab1bf80f274ea1aba1e22",
+      "closedAt": "2020-05-20T07:43:49Z",
+      "mergedAt": "2020-05-20T07:43:49Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "037ea9c67c2dbcd0d746eb34d57037796a571260"
+      },
+      "comments": [
+        {
+          "author": "jsalowey",
+          "authorAssociation": "NONE",
+          "body": "I think we should merge this change.",
+          "createdAt": "2020-05-20T03:56:51Z",
+          "updatedAt": "2020-05-20T03:56:51Z"
+        },
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Merging the change following approvals from the chairs on list.",
+          "createdAt": "2020-05-20T07:43:44Z",
+          "updatedAt": "2020-05-20T07:43:44Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 28,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDIwOTYyMDQx",
+      "title": "Another take at unlinkability.",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/28",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "And fix some nits.",
+      "createdAt": "2020-05-20T19:00:57Z",
+      "updatedAt": "2020-05-25T16:11:05Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "040a82989fdb41ce30d810a4c6e4a951a8cc08ad",
+      "headRepository": "chris-wood/privacy-pass-ietf",
+      "headRefName": "caw/charter-nits",
+      "headRefOid": "5558d353bc2fc642cab456052aa0c07f018ca01b",
+      "closedAt": "2020-05-25T16:11:05Z",
+      "mergedAt": "2020-05-25T16:11:05Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "6a3120e1c6662dc722302fa95010477d349477dc"
+      },
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Hmm, I think this still needs to say something about keys.\r\n\r\nYeah, good point! ",
+          "createdAt": "2020-05-20T19:26:47Z",
+          "updatedAt": "2020-05-20T19:26:47Z"
+        },
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think this clarification is more specific than the previous wording so I'm happy to add it.",
+          "createdAt": "2020-05-25T16:10:59Z",
+          "updatedAt": "2020-05-25T16:10:59Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDE1NjM4MzU0",
+          "commit": {
+            "abbreviatedOid": "5e246aa"
+          },
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Hmm, I think this still needs to say something about keys.\r\n\r\nIf the issuer issues some users M tokens under key 1 and others L under key 2, you want to say that you can't link them beyond 1/N (where N is either M or L, depending on which key the tokens were issued to).",
+          "createdAt": "2020-05-20T19:11:31Z",
+          "updatedAt": "2020-05-20T19:15:42Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "*Issuer",
+              "createdAt": "2020-05-20T19:11:32Z",
+              "updatedAt": "2020-05-20T19:26:46Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDE3Nzk2Njg5",
+          "commit": {
+            "abbreviatedOid": "5558d35"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-05-25T16:09:40Z",
+          "updatedAt": "2020-05-25T16:09:40Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 29,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDM0NzEwNzA1",
+      "title": "Synchronize charter with datatracker 00-00",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/29",
+      "state": "MERGED",
+      "author": "kaduk",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Before entering the draft charter into the datatracker for IESG+IAB evaluation (https://datatracker.ietf.org/doc/charter-ietf-privacypass/), I made a few edits.  Let's get them in place here as well, to avoid skew in what people see if they look in different places.\r\n\r\nI also put a bit of commentary on the motivation for the changes, at https://github.com/kaduk/privacy-pass-ietf/pull/1/files",
+      "createdAt": "2020-06-15T18:47:19Z",
+      "updatedAt": "2020-06-17T10:17:32Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "2f726b08a6a11aac1ae5703663abd1e6d49c9dc9",
+      "headRepository": "kaduk/privacy-pass-ietf",
+      "headRefName": "master",
+      "headRefOid": "6a33a911fcdb8ec93dad7b48e42d5b6e0065e717",
+      "closedAt": "2020-06-17T10:17:32Z",
+      "mergedAt": "2020-06-17T10:17:32Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "b0d666b8fac64a745763f811bfd92a16c5be4576"
+      },
+      "comments": [
+        {
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "body": "+1, looks good.",
+          "createdAt": "2020-06-16T14:04:54Z",
+          "updatedAt": "2020-06-16T14:04:54Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDMxMzM4MjQ0",
+          "commit": {
+            "abbreviatedOid": "6a33a91"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "\ud83d\udc4d \r\ncc @dvorak42 to get another review before I merge.",
+          "createdAt": "2020-06-16T09:46:41Z",
+          "updatedAt": "2020-06-16T09:46:41Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDQxMzQxNTg2",
+      "title": "Update protocol doc for new VOPRF API (fixes #30)",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/31",
+      "state": "MERGED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Rewrite parts of intro\r\n- Clean up protocol overview\r\n- Rewrite API functions\r\n- Rewrite protocol instantiation\r\n- Update ciphersuites\r\n\r\n(This is a big change, apologies!)\r\n\r\ncc @dvorak42, @chris-wood for reviews (will also notify mailing list).",
+      "createdAt": "2020-06-29T11:32:27Z",
+      "updatedAt": "2020-07-07T17:28:03Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "b0d666b8fac64a745763f811bfd92a16c5be4576",
+      "headRepository": "ietf-wg-privacypass/base-drafts",
+      "headRefName": "alxdavids/update-protocol",
+      "headRefOid": "39988e8de6c1a74abde07af954df8613a69169b8",
+      "closedAt": "2020-07-07T17:28:03Z",
+      "mergedAt": "2020-07-07T17:28:03Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "dcfe294925fdd8d5f0817d0053eddbfc0b8009d3"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQxMTcyNjQ3",
+          "commit": {
+            "abbreviatedOid": "35e1d3d"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2020-07-01T20:24:25Z",
+          "updatedAt": "2020-07-06T19:09:53Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "Should this be @dvorak42?",
+              "createdAt": "2020-07-01T20:24:25Z",
+              "updatedAt": "2020-07-07T10:13:45Z"
+            },
+            {
+              "originalPosition": 1033,
+              "body": "```suggestion\r\nThe RECOMMENDED Issuer ciphersuites are as follows:\r\n```",
+              "createdAt": "2020-07-06T19:08:01Z",
+              "updatedAt": "2020-07-07T10:13:45Z"
+            },
+            {
+              "originalPosition": 1033,
+              "body": "Probably one of them should be MTI too, right?",
+              "createdAt": "2020-07-06T19:08:11Z",
+              "updatedAt": "2020-07-07T10:13:45Z"
+            },
+            {
+              "originalPosition": 1064,
+              "body": "```suggestion\r\nstatic Diffie Hellman attacks. See {{I-D.irtf-cfrg-voprf}} for more details.\r\n```",
+              "createdAt": "2020-07-06T19:08:27Z",
+              "updatedAt": "2020-07-07T10:13:45Z"
+            },
+            {
+              "originalPosition": 1118,
+              "body": "As we removed the batch interface to Blind, this pseudocode probably needs to be updated.",
+              "createdAt": "2020-07-06T19:08:54Z",
+              "updatedAt": "2020-07-07T10:13:45Z"
+            },
+            {
+              "originalPosition": 1175,
+              "body": "Ditto here for the batch interface.",
+              "createdAt": "2020-07-06T19:09:09Z",
+              "updatedAt": "2020-07-07T10:13:45Z"
+            },
+            {
+              "originalPosition": 1287,
+              "body": "Where did \"OPRF2\" come from?",
+              "createdAt": "2020-07-06T19:09:34Z",
+              "updatedAt": "2020-07-07T10:13:45Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQzNjcxODQ1",
+          "commit": {
+            "abbreviatedOid": "35e1d3d"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-07-07T08:27:24Z",
+          "updatedAt": "2020-07-07T08:31:08Z",
+          "comments": [
+            {
+              "originalPosition": 1033,
+              "body": "How is this usually specified?",
+              "createdAt": "2020-07-07T08:27:24Z",
+              "updatedAt": "2020-07-07T10:13:45Z"
+            },
+            {
+              "originalPosition": 1175,
+              "body": "Right, but if we have a batched proof then we'll need to evaluate it over all the evaluated elements at once. I don't think this is will be as easy as pushing it all into the for loop?",
+              "createdAt": "2020-07-07T08:29:01Z",
+              "updatedAt": "2020-07-07T10:13:45Z"
+            },
+            {
+              "originalPosition": 1287,
+              "body": "Due to OPRF ciphersuite with ID=0x0002. I could just call it by its full name, but I thought that it introduced naming redundancy?",
+              "createdAt": "2020-07-07T08:29:53Z",
+              "updatedAt": "2020-07-07T10:13:45Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQ0MDkwNDk2",
+          "commit": {
+            "abbreviatedOid": "39988e8"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-07-07T17:08:57Z",
+          "updatedAt": "2020-07-07T17:08:57Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 32,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDQxMzQ1MTI0",
+      "title": "Permit additional token metadata (fixes #11)",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/32",
+      "state": "MERGED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Add allowances in protocol doc for redemption metadata\r\n- Provide privacy analysis of including metadata to architecture doc\r\n- Update privacy parametrizations\r\n\r\ncc @dvorak42 @chris-wood @mmaker (I don't know everyone's github usernames, so feel free to add others who will be interested in reviewing).",
+      "createdAt": "2020-06-29T11:37:45Z",
+      "updatedAt": "2020-07-07T17:29:57Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "dcfe294925fdd8d5f0817d0053eddbfc0b8009d3",
+      "headRepository": "ietf-wg-privacypass/base-drafts",
+      "headRefName": "alxdavids/metadata",
+      "headRefOid": "abb6e73183265619f9266df11360fe82eeac8342",
+      "closedAt": "2020-07-07T17:29:56Z",
+      "mergedAt": "2020-07-07T17:29:56Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "057bb23552fea28152efd9b630b171de3651935d"
+      },
+      "comments": [
+        {
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "body": "LGTM",
+          "createdAt": "2020-07-06T19:15:37Z",
+          "updatedAt": "2020-07-06T19:15:37Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDM5MzIzMjI1",
+          "commit": {
+            "abbreviatedOid": "63b11a3"
+          },
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-06-29T16:44:25Z",
+          "updatedAt": "2020-06-29T16:52:57Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "I'd leave this pointing at the WICG API (the explainer there and the spec, whenever I get around to actually publishing it) is probably the canonical for Trust Token.",
+              "createdAt": "2020-06-29T16:44:25Z",
+              "updatedAt": "2020-07-07T17:29:10Z"
+            },
+            {
+              "originalPosition": 42,
+              "body": "nit: Issuer",
+              "createdAt": "2020-06-29T16:44:48Z",
+              "updatedAt": "2020-07-07T17:29:10Z"
+            },
+            {
+              "originalPosition": 127,
+              "body": "The initial Trust Token experiment actually has log2(6) metadata bits (allowing 3 different keys to be configured at a time for public metadata and 1 bit of private metadata), though stricter allowed issuers per page limits than here. For the purpose of this spec, I'd guess keeping it at 1 metadata bit as an example, rather than using the amounts from Trust Token.",
+              "createdAt": "2020-06-29T16:51:33Z",
+              "updatedAt": "2020-07-07T17:29:10Z"
+            },
+            {
+              "originalPosition": 24,
+              "body": "You sort of get public metadata from the VOPRF construction by allowing for multiple issuance keys at a time. (which is also how it is handled in Trust Token currently)",
+              "createdAt": "2020-06-29T16:52:52Z",
+              "updatedAt": "2020-07-07T17:29:10Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQzMzUwNjg3",
+          "commit": {
+            "abbreviatedOid": "7bd240a"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "LGTM. We\u2019ll need to work through the extensibility support for the metadata bit variant next.",
+          "createdAt": "2020-07-06T19:28:43Z",
+          "updatedAt": "2020-07-06T19:28:43Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 33,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDQxNDE3OTI0",
+      "title": "Reinforce anonymity requirements and core use-cases",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/33",
+      "state": "MERGED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Add a motivating use-cases section to discuss Tor (#9)\r\n- Add a section to identify what we mean by anonymity (#10)\r\n- Replaced some usages of privacy with anonymity\r\n\r\ncc @chris-wood @dvorak42 @chelseakomlo for feedback",
+      "createdAt": "2020-06-29T13:33:39Z",
+      "updatedAt": "2020-07-08T09:52:04Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "057bb23552fea28152efd9b630b171de3651935d",
+      "headRepository": "ietf-wg-privacypass/base-drafts",
+      "headRefName": "alxdavids/use-cases",
+      "headRefOid": "91323daba8ae15924df0c5e1794387bf3641d3cd",
+      "closedAt": "2020-07-08T09:52:03Z",
+      "mergedAt": "2020-07-08T09:52:03Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "cd9585cb8deb06d02bcf61309bd65137e8e6922d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDM5MjQzOTgw",
+          "commit": {
+            "abbreviatedOid": "b1602cf"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2020-06-29T15:11:57Z",
+          "updatedAt": "2020-06-29T16:19:13Z",
+          "comments": [
+            {
+              "originalPosition": 80,
+              "body": "```suggestion\r\nsuch as Tor. In particular, the protocol allows clients to\r\n```\r\n\r\nI don't think a VPN is an anonymity-preserving tool.",
+              "createdAt": "2020-06-29T15:11:57Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            },
+            {
+              "originalPosition": 109,
+              "body": "```suggestion\r\n  redeem more than `N` valid tokens.\r\n```",
+              "createdAt": "2020-06-29T15:15:05Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            },
+            {
+              "originalPosition": 91,
+              "body": "```suggestion\r\nThe Privacy Pass protocol has a number of use cases in practice. \r\nSee {{DGSTV18}}, {{TrustTokenAPI}}, {{PrivateStorage}}, {{OpenPrivacy}}, \r\nand {{Brave}} for examples.\r\n```",
+              "createdAt": "2020-06-29T16:14:57Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            },
+            {
+              "originalPosition": 106,
+              "body": "```suggestion\r\nWe also require that clients cannot forge tokens, as otherwise Privacy Pass would\r\nhave little value as an authorization protocol. This requirement is stated as follows.\r\n```",
+              "createdAt": "2020-06-29T16:16:16Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            },
+            {
+              "originalPosition": 103,
+              "body": "Focusing on the clients may be overly generic. What if clients were de-anonymized by IP address, for example? Perhaps:\r\n\r\n```suggestion\r\n- A token issued by a server key and subsequently redeemed is indistinguishable from any other \r\n  token issued under the same key.\r\n```",
+              "createdAt": "2020-06-29T16:18:32Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            },
+            {
+              "originalPosition": 112,
+              "body": "```suggestion\r\n{{sec-reqs}} elaborates on these protocol anonymity and security requirements.\r\n```",
+              "createdAt": "2020-06-29T16:19:10Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDM5MzMwOTA2",
+          "commit": {
+            "abbreviatedOid": "b1602cf"
+          },
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-06-29T16:54:34Z",
+          "updatedAt": "2020-06-29T16:57:54Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Probably pointing at the WICG repo as the canonical one makes sense, though maybe point it at the web.dev post until I get around to updating the WICG with the spec.",
+              "createdAt": "2020-06-29T16:54:34Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQyNDg0MjU0",
+          "commit": {
+            "abbreviatedOid": "b1602cf"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-07-03T15:41:18Z",
+          "updatedAt": "2020-07-03T15:41:18Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "I'll change it back, I think what is in the WICG repo works.",
+              "createdAt": "2020-07-03T15:41:18Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQzNDQ5MDAx",
+          "commit": {
+            "abbreviatedOid": "c60ce8f"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-07-06T22:35:16Z",
+          "updatedAt": "2020-07-06T22:41:06Z",
+          "comments": [
+            {
+              "originalPosition": 80,
+              "body": "```suggestion\r\nauthorization of Tor users. In particular, the protocol allows clients to reveal\r\n```",
+              "createdAt": "2020-07-06T22:35:16Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            },
+            {
+              "originalPosition": 86,
+              "body": "```suggestion\r\nBeyond this use case, the Privacy Pass protocol has a number of use cases in practice. See\r\n```",
+              "createdAt": "2020-07-06T22:38:25Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            },
+            {
+              "originalPosition": 93,
+              "body": "```suggestion\r\nPrivacy Pass provides anonymity-preserving authorization tokens for clients. \r\nThroughout this document, we use the terms\r\n```",
+              "createdAt": "2020-07-06T22:39:00Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            },
+            {
+              "originalPosition": 99,
+              "body": "```suggestion\r\nsecurity guarantee of the protocol. Informally, this guarantee means that\r\nany token issued by a server key and subsequently redeemed is indistinguishable \r\nfrom any other token issued under the same key.\r\n```",
+              "createdAt": "2020-07-06T22:40:02Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            },
+            {
+              "originalPosition": 106,
+              "body": "```suggestion\r\nPrivacy Pass also prohibits clients from forging tokens, as otherwise the protocol\r\nwould have little value as an authorization protocol. Informally, this means any client \r\nthat is issued `N` tokens under a given server key cannot redeem more than `N` valid \r\ntokens.\r\n```",
+              "createdAt": "2020-07-06T22:41:02Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQzNDk5NTQ1",
+          "commit": {
+            "abbreviatedOid": "c60ce8f"
+          },
+          "author": "chelseakomlo",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "Looks good- overall I would recommend strengthening the intuition of what it means for tokens to be unlinkable (either in this document or where appropriate), as token unlinkability is the technique that achieves the end goal of Privacy Pass, which is indistinguishability of user access patterns to the server. ",
+          "createdAt": "2020-07-07T01:18:51Z",
+          "updatedAt": "2020-07-07T01:38:13Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "Somewhere in the document, it should specify that the anonymity guarantee of Privacy Pass assumes that client IP addresses are either 1) not monitored/stored by the server, even though the client has no mechanism to verify this (otherwise the server can trivially build a lookup table of client IP addresses to the tokens they have used), or 2) an underlying anonymity tool such as Tor is used to hide the client IP address from the server.  ",
+              "createdAt": "2020-07-07T01:18:51Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            },
+            {
+              "originalPosition": 99,
+              "body": "Importantly, of course, this also requires that all clients are issued tokens under the same key for the same epoch when the key is valid (thereby actually ensuring the global anonymity set). ",
+              "createdAt": "2020-07-07T01:27:12Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            },
+            {
+              "originalPosition": 119,
+              "body": "And of course that clients have a mechanism to verify their view of the Issuer public key is the same as all other clients.",
+              "createdAt": "2020-07-07T01:30:17Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQzNzY0Njg1",
+          "commit": {
+            "abbreviatedOid": "7fbd61a"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-07-07T10:30:48Z",
+          "updatedAt": "2020-07-07T10:30:49Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "That's a good point, I've added a subsection to the assumptions we make on the Client as part of the ecosystem to discuss this.",
+              "createdAt": "2020-07-07T10:30:48Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQzNzY0ODky",
+          "commit": {
+            "abbreviatedOid": "7fbd61a"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-07-07T10:31:08Z",
+          "updatedAt": "2020-07-07T10:31:08Z",
+          "comments": [
+            {
+              "originalPosition": 119,
+              "body": "Added a link to the discussion about this in the architecture doc.",
+              "createdAt": "2020-07-07T10:31:08Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQ0MTI3MTE0",
+          "commit": {
+            "abbreviatedOid": "4150b83"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-07-07T18:00:05Z",
+          "updatedAt": "2020-07-07T18:00:06Z",
+          "comments": [
+            {
+              "originalPosition": 34,
+              "body": "```suggestion\r\n### Client identifying information {#client-ip}\r\n\r\nPrivacy properties of this protocol do not take into account other possibly identifying\r\ninformation available in an implementation, such as a client's IP address. Servers\r\nwhich monitor IP addresses may use this to track client redemption patterns over\r\ntime. Clients cannot check whether servers monitor such identifying information.\r\nThus, clients SHOULD minimize or remove identifying information where possible,\r\ne.g., by using anonymity-preserving tools such as Tor to interact with Servers.\r\n```",
+              "createdAt": "2020-07-07T18:00:05Z",
+              "updatedAt": "2020-07-08T09:49:33Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 35,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDQ0MTIzNTcx",
+      "title": "Rework architecture document",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/35",
+      "state": "MERGED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Removes the interfaces that were previously used (put into HTTP API doc?)\r\n- Removes concrete key management framework in favour of general guidelines for key registry\r\n- Refer to server key pairs rather than configurations: mirrors changes in protocol doc.\r\n- Add public verifiability as a running mode\r\n- TODOs for sections not filled in yet.\r\n\r\ncc @chris-wood @dvorak42 : Probably some inconsistencies here, but this is what I currently have based on our prior conversations around key management advice. Let me know what you think.",
+      "createdAt": "2020-07-03T16:04:58Z",
+      "updatedAt": "2020-07-09T10:13:26Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "cd9585cb8deb06d02bcf61309bd65137e8e6922d",
+      "headRepository": "ietf-wg-privacypass/base-drafts",
+      "headRefName": "alxdavids/arch-changes",
+      "headRefOid": "c14b3464fa17723dd23f24d7b994069518aedaf2",
+      "closedAt": "2020-07-09T10:13:26Z",
+      "mergedAt": "2020-07-09T10:13:26Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "6cb05042b71d2e96dda09684b5bd61a5dadeb2cf"
+      },
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think this is probably ready for full reviews now, I've added some diagrams of the ecosystem and key management. They're pretty general so could maybe be a bit more specific.",
+          "createdAt": "2020-07-07T13:07:41Z",
+          "updatedAt": "2020-07-07T13:07:41Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQzNDUyMzcw",
+          "commit": {
+            "abbreviatedOid": "1b111a2"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "First pass complete. Huge diff, but this is looking great! I very much like the removal of code from the architecture document. Some more figures will certainly help spell out the details more clearly.",
+          "createdAt": "2020-07-06T22:44:31Z",
+          "updatedAt": "2020-07-06T23:06:39Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "\u2764\ufe0f ",
+              "createdAt": "2020-07-06T22:44:31Z",
+              "updatedAt": "2020-07-08T10:02:41Z"
+            },
+            {
+              "originalPosition": 84,
+              "body": "```suggestion\r\n- How clients should evaluate Issuer trust relationships.\r\n- Security and privacy properties of the protocol.\r\n```",
+              "createdAt": "2020-07-06T22:46:03Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 172,
+              "body": "I suspect this would contain, at a minimum, two clients and two issuers? What did you have in mind?",
+              "createdAt": "2020-07-06T22:46:45Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 219,
+              "body": "We haven't defined \"monitored\" yet, right? Should we define or or use a different word?",
+              "createdAt": "2020-07-06T22:47:26Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 228,
+              "body": "```suggestion\r\nto the protocol specification may allow public verification of tokens by \r\nentities which do not hold the secret Privacy Pass keying material. We highlight possible Client and\r\n```",
+              "createdAt": "2020-07-06T22:49:51Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 231,
+              "body": "How do we enforce this availability requirement? Would it be better to simply say that servers have some unique identifier? (Also, how do we define \"globally\"?)",
+              "createdAt": "2020-07-06T22:52:07Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 819,
+              "body": "```suggestion\r\nthat need to be satisfied for a key management system in a Privacy Pass ecosystem.\r\n```",
+              "createdAt": "2020-07-06T22:52:51Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 827,
+              "body": "```suggestion\r\na registry and how it operates will be covered elsewhere.\r\n```",
+              "createdAt": "2020-07-06T22:53:15Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 825,
+              "body": "```suggestion\r\noperating a public key registry in this document. Actual specification of such\r\n```",
+              "createdAt": "2020-07-06T22:53:25Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 838,
+              "body": "We seem to flip flop between Server and Issuer. Should we pick one and be consistent with it?",
+              "createdAt": "2020-07-06T22:53:46Z",
+              "updatedAt": "2020-07-08T10:02:41Z"
+            },
+            {
+              "originalPosition": 850,
+              "body": "```suggestion\r\nIn particular, Server key material MUST be publicly available in a tamper-proof\r\ndata structure, which we refer to as a key registry. A registry must be globally \r\nconsistent. Clients using the same registry should coordinate in some way to \r\nensure they have a  consistent view of said registry. This can be done via gossiping\r\nor some other mechanism. The exact mechanism for this coordination will be described\r\nelsewhere. It is assumed there will be at least one such mechanism.\r\n```\r\n\r\n",
+              "createdAt": "2020-07-06T22:57:06Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 857,
+              "body": "```suggestion\r\nIt is RECOMMENDED that each key registry is an append-only data structure, such as a Merkle Tree. \r\nThe key registry should be operated independently of any Issuer that publishes key material to the \r\nregistry. This ensures that any Client can make better judgements on whether to trust the registry \r\nand, transitively, each Server.\r\n```",
+              "createdAt": "2020-07-06T22:58:14Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 908,
+              "body": "```suggestion\r\nissuing tokens at any given time. Servers may use two or more keys for redemption\r\nto allow Servers for seamless key rotation.\r\n```",
+              "createdAt": "2020-07-06T22:59:38Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 910,
+              "body": "```suggestion\r\nKey rotations must be limited in frequency for similar reasons. See\r\n```",
+              "createdAt": "2020-07-06T22:59:50Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 917,
+              "body": "```suggestion\r\nthis implies that only a single ciphersuite is allowed per issuance period. If\r\n```",
+              "createdAt": "2020-07-06T23:00:21Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 918,
+              "body": "```suggestion\r\na Server wishes to change their ciphersuite, they MUST do so during a\r\n```",
+              "createdAt": "2020-07-06T23:00:29Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 921,
+              "body": "I think we can axe this section, as it's covered by the text above.",
+              "createdAt": "2020-07-06T23:01:07Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 1017,
+              "body": "nit:\r\n\r\n```suggestion\r\nactually processes issuance or redemption data. Finally, we also\r\n```",
+              "createdAt": "2020-07-06T23:01:24Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 1049,
+              "body": "nit: Proxied-Verifier, maybe?",
+              "createdAt": "2020-07-06T23:02:28Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 1359,
+              "body": "nit: bug in this sentence? \"that they only hold redemption tokens 4 Issuers\"",
+              "createdAt": "2020-07-06T23:05:08Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            },
+            {
+              "originalPosition": 1558,
+              "body": "```suggestion\r\n[[OPEN ISSUE: explain potential and mitigations for Issuer centralization]]\r\n```",
+              "createdAt": "2020-07-06T23:05:38Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQzNzcxMDI1",
+          "commit": {
+            "abbreviatedOid": "1b111a2"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-07-07T10:40:44Z",
+          "updatedAt": "2020-07-07T10:40:44Z",
+          "comments": [
+            {
+              "originalPosition": 838,
+              "body": "Yeah I agree, I'm not sure what the best path here is though. Perhaps we should just go with Server everywhere?",
+              "createdAt": "2020-07-07T10:40:44Z",
+              "updatedAt": "2020-07-08T10:02:41Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQzNzkwODA3",
+          "commit": {
+            "abbreviatedOid": "80881c5"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-07-07T11:12:26Z",
+          "updatedAt": "2020-07-07T11:12:26Z",
+          "comments": [
+            {
+              "originalPosition": 219,
+              "body": "Changed to \"are publicly visible\"",
+              "createdAt": "2020-07-07T11:12:26Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQzNzkzNDEz",
+          "commit": {
+            "abbreviatedOid": "80881c5"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-07-07T11:16:41Z",
+          "updatedAt": "2020-07-07T11:16:41Z",
+          "comments": [
+            {
+              "originalPosition": 1049,
+              "body": "Small conflict with abbreviation of public verifier. Would \"Delegated-Verifier\" work?",
+              "createdAt": "2020-07-07T11:16:41Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQ0MDgwNTY1",
+          "commit": {
+            "abbreviatedOid": "2d82fba"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-07-07T16:56:16Z",
+          "updatedAt": "2020-07-07T16:56:16Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "```suggestion\r\nPrivacy Pass tokens from this Server. \r\n```",
+              "createdAt": "2020-07-07T16:56:16Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQ0MDg3MzQx",
+          "commit": {
+            "abbreviatedOid": "2d82fba"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-07-07T17:04:38Z",
+          "updatedAt": "2020-07-07T17:04:40Z",
+          "comments": [
+            {
+              "originalPosition": 95,
+              "body": "```suggestion\r\n~~~\r\n+--------------------------------------------------------+\r\n|                                                        |\r\n| Ecosystem                            +---+             |\r\n|                                      | C |             |\r\n|  +--------------+ <------ pkS1 ----> +---+             |\r\n|  |  Registry 1  |                                      |\r\n|  ++-------------+ <-------------- pkS1 --------> +---+ |\r\n|   |                                              | C | |\r\n|   |   +--------------+ <--------- pkS3 --------> +---+ |\r\n|   |   |  Registry 2  |                                 |\r\n|  pkS1 +----^-------^-+ <--------- pkS2 --------> +---+ |\r\n|   |        |       |                             | C | |\r\n|   |       pkS2    pkS3                           +---+ |\r\n|   |        |       |                                   |\r\n|  ++---+  +-+--+  +-+--+                                |\r\n|  | S1 |  | S2 |  | S3 |                                |\r\n|  +----+  +----+  +----+                                |\r\n|                                                        |\r\n+--------------------------------------------------------+\r\n~~~\r\n```",
+              "createdAt": "2020-07-07T17:04:38Z",
+              "updatedAt": "2020-07-08T10:01:53Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 36,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDQ0ODg0ODU3",
+      "title": "Protocol doc modifications after doing a full read-through",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/36",
+      "state": "MERGED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-07-06T16:37:12Z",
+      "updatedAt": "2020-07-09T10:19:52Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "6cb05042b71d2e96dda09684b5bd61a5dadeb2cf",
+      "headRepository": "ietf-wg-privacypass/base-drafts",
+      "headRefName": "alxdavids/protocol-mods",
+      "headRefOid": "ed470e79bfe25f90b332ce337e48943549678060",
+      "closedAt": "2020-07-09T10:19:52Z",
+      "mergedAt": "2020-07-09T10:19:52Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "9a65207446f267ded879114d7e2750e2a79762d8"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQzNDUxNzE3",
+          "commit": {
+            "abbreviatedOid": "d11fcf9"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "This is fine, though my suggestions in #33 will conflict if landed first.",
+          "createdAt": "2020-07-06T22:42:42Z",
+          "updatedAt": "2020-07-06T22:44:06Z",
+          "comments": [
+            {
+              "originalPosition": 335,
+              "body": "```suggestion\r\nServers SHOULD impose a hard ceiling on the number of\r\n```",
+              "createdAt": "2020-07-06T22:42:42Z",
+              "updatedAt": "2020-07-09T10:18:06Z"
+            },
+            {
+              "originalPosition": 340,
+              "body": "```suggestion\r\ntokens that can be issued in a single issuance phase to a Client. If\r\nthere is no limit, malicious clients could abuse this and cause excessive\r\ncomputation, leading to a Denial-of-Service attack.\r\n```",
+              "createdAt": "2020-07-06T22:43:50Z",
+              "updatedAt": "2020-07-09T10:18:06Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 37,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDQ1NDMzNjkx",
+      "title": "Updates for HTTP API",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/37",
+      "state": "MERGED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "cc @dvorak42 for review. Mainly just removing the interfaces that were previously present and using the API functions from the protocol directly. I've also changed some of the wording around the key registry, and replaced client -> Client and server -> Server.\r\n\r\nLet me know if there is anything that you think I've missed.",
+      "createdAt": "2020-07-07T14:00:33Z",
+      "updatedAt": "2020-07-07T16:58:37Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "b0d666b8fac64a745763f811bfd92a16c5be4576",
+      "headRepository": "ietf-wg-privacypass/base-drafts",
+      "headRefName": "alxdavids/http-api-update",
+      "headRefOid": "3f22f29ce4c245f3a962376767fc25d1bcb330b3",
+      "closedAt": "2020-07-07T16:58:37Z",
+      "mergedAt": "2020-07-07T16:58:37Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "00e18a842eefe9568419616010f85656744e9dcd"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQ0MDMwNzIy",
+          "commit": {
+            "abbreviatedOid": "3f22f29"
+          },
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-07-07T15:56:36Z",
+          "updatedAt": "2020-07-07T15:56:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 38,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDQ3Mzk3Njc5",
+      "title": "Common terminology across documents",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/38",
+      "state": "MERGED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Issuer -> Server\r\n- Decapitalize (client/server)\r\n- Message -> Request\r\n\r\ncc @chris-wood, @dvorak42 \r\n\r\nI think we should be in okay shape to submit new drafts following these changes.",
+      "createdAt": "2020-07-10T11:55:45Z",
+      "updatedAt": "2020-07-10T14:59:52Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "9a65207446f267ded879114d7e2750e2a79762d8",
+      "headRepository": "ietf-wg-privacypass/base-drafts",
+      "headRefName": "alxdavids/consistent-wording",
+      "headRefOid": "bb05056dd53f1e9884328af4ac8bb9478f4e81dc",
+      "closedAt": "2020-07-10T14:59:52Z",
+      "mergedAt": "2020-07-10T14:59:52Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "5fad78c77e02d6bbc848ed2154d8212f088dfb10"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQ2NDU4Mjc0",
+          "commit": {
+            "abbreviatedOid": "bb05056"
+          },
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-07-10T14:41:30Z",
+          "updatedAt": "2020-07-10T14:41:30Z",
+          "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQ2NDY5MDE1",
+          "commit": {
+            "abbreviatedOid": "bb05056"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-07-10T14:54:55Z",
+          "updatedAt": "2020-07-10T14:54:55Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 41,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDQ3NTIxMzY1",
+      "title": "Remove unnecessary key rotation section",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/41",
+      "state": "MERGED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "cc @dvorak42 @chris-wood ",
+      "createdAt": "2020-07-10T16:04:14Z",
+      "updatedAt": "2020-07-10T16:44:56Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "5fad78c77e02d6bbc848ed2154d8212f088dfb10",
+      "headRepository": "ietf-wg-privacypass/base-drafts",
+      "headRefName": "alxdavids/small-edits",
+      "headRefOid": "3d21868cd94f0930d242c17c0dfa60d6b75f4ad4",
+      "closedAt": "2020-07-10T16:44:56Z",
+      "mergedAt": "2020-07-10T16:44:56Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "a3e2e5307edebb819ce0509fe7608d82cb689df3"
+      },
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> LGTM, 1 week might still be too small of a window for actively malicious servers, but I think that ties in to the open issue regarding malicious servers rather than the generic key rotation considerations.\r\n\r\nYeah, I agree. Something to bring up for discussion.",
+          "createdAt": "2020-07-10T16:44:48Z",
+          "updatedAt": "2020-07-10T16:44:48Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQ2NTI2NjAx",
+          "commit": {
+            "abbreviatedOid": "3d21868"
+          },
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM, 1 week might still be too small of a window for actively malicious servers, but I think that ties in to the open issue regarding malicious servers rather than the generic key rotation considerations.",
+          "createdAt": "2020-07-10T16:12:51Z",
+          "updatedAt": "2020-07-10T16:12:51Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 43,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDQ4MTU3NTM2",
+      "title": "Small changes for release-01",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/43",
+      "state": "MERGED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-07-13T10:15:06Z",
+      "updatedAt": "2020-10-16T07:47:05Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "a3e2e5307edebb819ce0509fe7608d82cb689df3",
+      "headRepository": "ietf-wg-privacypass/base-drafts",
+      "headRefName": "alxdavids/release-01",
+      "headRefOid": "72f462b1f5f6208cbdea616ff552345e1170339f",
+      "closedAt": "2020-10-16T07:47:05Z",
+      "mergedAt": "2020-10-16T07:47:05Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "ead20a2bbd26aaedf1b2d3c63b565d6935a952f5"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 54,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTQ4Mzk1ODUx",
+      "title": "Add Armando as a co-author",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/54",
+      "state": "MERGED",
+      "author": "armfazh",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add Armando as a co-author",
+      "createdAt": "2021-01-04T18:35:02Z",
+      "updatedAt": "2021-01-05T10:19:30Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "ead20a2bbd26aaedf1b2d3c63b565d6935a952f5",
+      "headRepository": "armfazh/base-drafts",
+      "headRefName": "patch-1",
+      "headRefOid": "bec65575999cc11d620f86bd0633fa7590c6e9fb",
+      "closedAt": "2021-01-05T10:19:30Z",
+      "mergedAt": "2021-01-05T10:19:30Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "8aed93d50e0e709302e1b4ace204996c46f88ef8"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 55,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTQ4NTk0NzY5",
+      "title": "Add Sof\u00eda Celi as author",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/55",
+      "state": "MERGED",
+      "author": "claucece",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-01-05T02:37:04Z",
+      "updatedAt": "2021-01-05T10:24:09Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "8aed93d50e0e709302e1b4ace204996c46f88ef8",
+      "headRepository": "claucece/privacy-pass-ietf",
+      "headRefName": "master",
+      "headRefOid": "62eda1cb00110682e14c26e3d687c553f5c18b4b",
+      "closedAt": "2021-01-05T10:23:02Z",
+      "mergedAt": "2021-01-05T10:23:02Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "715ed91498a3aaa034fe5892d588a669b36d9c3c"
+      },
+      "comments": [
+        {
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Thank you @alxdavids !",
+          "createdAt": "2021-01-05T10:24:08Z",
+          "updatedAt": "2021-01-05T10:24:08Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTYxNjcyNDI0",
+          "commit": {
+            "abbreviatedOid": "62eda1c"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Just resolved conflicts and alphabetised authors",
+          "createdAt": "2021-01-05T10:22:56Z",
+          "updatedAt": "2021-01-05T10:22:56Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 56,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTQ4ODg1MTUw",
+      "title": "Rename drafts for adoption into WG",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/56",
+      "state": "MERGED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Also update CONTRIBUTING.md with correct links",
+      "createdAt": "2021-01-05T10:41:03Z",
+      "updatedAt": "2021-01-05T16:05:13Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "715ed91498a3aaa034fe5892d588a669b36d9c3c",
+      "headRepository": "ietf-wg-privacypass/base-drafts",
+      "headRefName": "alxdavids/rename-drafts",
+      "headRefOid": "cfcfe45ef5df21bac0c0b8287939cecc9444b03f",
+      "closedAt": "2021-01-05T16:05:13Z",
+      "mergedAt": "2021-01-05T16:05:13Z",
+      "mergedBy": "bemasc",
+      "mergeCommit": {
+        "oid": "0f1ded4703f19a156b2fb35c37d6809152a38b6d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTYxODI3MTI3",
+          "commit": {
+            "abbreviatedOid": "cfcfe45"
+          },
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks reasonable. Once this lands we should see about hooking about the gh-pages generation and link to that.",
+          "createdAt": "2021-01-05T14:22:49Z",
+          "updatedAt": "2021-01-05T14:22:49Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 57,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTQ5MTY1NjQ1",
+      "title": "Add github workflows",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/57",
+      "state": "MERGED",
+      "author": "dvorak42",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This should add it the id-template workflows to automatically generate GH pages.",
+      "createdAt": "2021-01-05T15:21:13Z",
+      "updatedAt": "2021-01-05T16:13:53Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "715ed91498a3aaa034fe5892d588a669b36d9c3c",
+      "headRepository": "dvorak42/privacy-pass-ietf",
+      "headRefName": "add-gh-workflows",
+      "headRefOid": "969b22b3041727fc3f198ef9b912d2ed4b3ef699",
+      "closedAt": "2021-01-05T16:13:53Z",
+      "mergedAt": "2021-01-05T16:13:52Z",
+      "mergedBy": "bemasc",
+      "mergeCommit": {
+        "oid": "6b3e974cbce8c18ffac1bee7aae1afa5704b48f8"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTYxOTI1Nzc2",
+          "commit": {
+            "abbreviatedOid": "969b22b"
+          },
+          "author": "bemasc",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-01-05T16:13:40Z",
+          "updatedAt": "2021-01-05T16:13:40Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
