@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-01-07T01:00:39.461885+00:00",
+  "timestamp": "2021-01-19T01:17:54.507375+00:00",
   "repo": "ietf-wg-privacypass/base-drafts",
   "labels": [
     {
@@ -2676,6 +2676,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 58,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTU2OTQ0NTIz",
+      "title": "Align with voprf draft",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/58",
+      "state": "OPEN",
+      "author": "claucece",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "cc. @chris-wood @alxdavids ",
+      "createdAt": "2021-01-18T17:14:31Z",
+      "updatedAt": "2021-01-18T17:14:31Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "ed5cd0df54a9204f8dc5b91f4fdbc234e2afe8e9",
+      "headRepository": "claucece/privacy-pass-ietf",
+      "headRefName": "master",
+      "headRefOid": "82275a679dae9d08d92b28c67ee4a3c7dd31dde1",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
