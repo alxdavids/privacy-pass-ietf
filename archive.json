@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-01-19T01:17:54.507375+00:00",
+  "timestamp": "2021-01-21T01:19:12.696263+00:00",
   "repo": "ietf-wg-privacypass/base-drafts",
   "labels": [
     {
@@ -2689,7 +2689,7 @@
       "labels": [],
       "body": "cc. @chris-wood @alxdavids ",
       "createdAt": "2021-01-18T17:14:31Z",
-      "updatedAt": "2021-01-18T17:14:31Z",
+      "updatedAt": "2021-01-19T09:28:10Z",
       "baseRepository": "ietf-wg-privacypass/base-drafts",
       "baseRefName": "master",
       "baseRefOid": "ed5cd0df54a9204f8dc5b91f4fdbc234e2afe8e9",
@@ -2701,7 +2701,21 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTcxMDUxNzUy",
+          "commit": {
+            "abbreviatedOid": "82275a6"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2021-01-19T09:28:10Z",
+          "updatedAt": "2021-01-19T09:28:10Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
