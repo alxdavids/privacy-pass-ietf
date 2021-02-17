@@ -20,21 +20,21 @@ performant protocol in the application-layer.
 <meta content="draft-ietf-privacypass-protocol" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.5.0
-    Python 3.8.5
+    Python 3.8.7
     appdirs 1.4.4
     ConfigArgParse 1.2.3
     google-i18n-address 2.4.0
     html5lib 1.1
-    intervaltree 3.0.2
+    intervaltree 3.1.0
     Jinja2 2.11.2
     kitchen 1.2.6
-    lxml 4.5.0
-    pycountry 19.8.18
-    pyflakes 2.1.1
-    PyYAML 5.3.1
-    requests 2.22.0
-    setuptools 45.2.0
-    six 1.14.0
+    lxml 4.6.2
+    pycountry 20.7.3
+    pyflakes 2.2.0
+    PyYAML 5.4.1
+    requests 2.25.1
+    setuptools 51.3.3
+    six 1.15.0
 -->
 <link href="draft-ietf-privacypass-protocol.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -47,7 +47,23 @@ html {
   --link-color: #2a6496;
   --highlight-color: #f9f9f9;
   --line-color: #eee;
+  --pilcrow-weak: #ddd;
+  --pilcrow-strong: #bbb;
   --small-font-size: 14.5px;
+  scrollbar-color: #bbb #eee;
+}
+@media (prefers-color-scheme: dark) {
+html {
+  --background-color: #121212;
+  --text-color: #f0f0f0;
+  --title-color: #fff;
+  --link-color: #4da4f0;
+  --highlight-color: #282828;
+  --line-color: #444;
+  --pilcrow-weak: #444;
+  --pilcrow-strong: #666;
+  scrollbar-color: #777 #333;
+}
 }
 body {
   max-width: 600px;
@@ -265,10 +281,6 @@ figcaption, caption {
     vertical-align: text-bottom;
     padding-bottom: 8px;
   }
-  table {
-    display: inline-block;
-    overflow-x: auto;
-  }
 }
 
 /* aside, blockquote */
@@ -339,17 +351,23 @@ table p {
 /* pilcrow */
 a.pilcrow {
   margin-left: 3px;
-  visibility: hidden;
+  opacity: 0.2;
   user-select: none;
 }
-a.pilcrow[href] { color: #ddd; }
+a.pilcrow[href] { color: var(--pilcrow-weak); }
 a.pilcrow[href]:hover { text-decoration: none; }
-@media screen {
+@media not print {
   :hover > a.pilcrow {
-    visibility: visible;
+    opacity: 1;
   }
-  a.pilcrow:hover {
+  a.pilcrow[href]:hover {
+    color: var(--pilcrow-strong);
     background-color: transparent;
+  }
+}
+@media print {
+  a.pilcrow {
+    display: none;
   }
 }
 
@@ -825,11 +843,11 @@ address div.right {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">PP protocol</td>
-<td class="right">January 2021</td>
+<td class="right">February 2021</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Celi, et al.</td>
-<td class="center">Expires 9 July 2021</td>
+<td class="center">Expires 21 August 2021</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -842,12 +860,12 @@ address div.right {
 <dd class="internet-draft">draft-ietf-privacypass-protocol</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2021-01-05" class="published">5 January 2021</time>
+<time datetime="2021-02-17" class="published">17 February 2021</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2021-07-09">9 July 2021</time></dd>
+<dd class="expires"><time datetime="2021-08-21">21 August 2021</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -892,7 +910,7 @@ performant protocol in the application-layer.<a href="#section-abstract-1" class
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 9 July 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 August 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -920,195 +938,195 @@ performant protocol in the application-layer.<a href="#section-abstract-1" class
         <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
 <a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
         </h2>
-<nav class="toc"><ul class="compact ulEmpty toc">
-<li class="compact ulEmpty toc" id="section-toc.1-1.1">
+<nav class="toc"><ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.1">
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a><a href="#section-toc.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.2">
+          <li class="toc ulEmpty compact" id="section-toc.1-1.2">
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="xref">2</a>.  <a href="#name-terminology" class="xref">Terminology</a><a href="#section-toc.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.3">
+          <li class="toc ulEmpty compact" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-background" class="xref">Background</a><a href="#section-toc.1-1.3.1" class="pilcrow">¶</a></p>
-<ul class="compact ulEmpty toc">
-<li class="compact ulEmpty toc" id="section-toc.1-1.3.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.3.2.1">
                 <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-motivating-use-cases" class="xref">Motivating use-cases</a><a href="#section-toc.1-1.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.3.2.2">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.3.2.2">
                 <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-anonymity-and-security-guar" class="xref">Anonymity and security guarantees</a><a href="#section-toc.1-1.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.3.2.3">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.3.2.3">
                 <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="xref">3.3</a>.  <a href="#name-basic-assumptions" class="xref">Basic assumptions</a><a href="#section-toc.1-1.3.2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.4">
+          <li class="toc ulEmpty compact" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-protocol-description" class="xref">Protocol description</a><a href="#section-toc.1-1.4.1" class="pilcrow">¶</a></p>
-<ul class="compact ulEmpty toc">
-<li class="compact ulEmpty toc" id="section-toc.1-1.4.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.4.2.1">
                 <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="xref">4.1</a>.  <a href="#name-server-setup" class="xref">Server setup</a><a href="#section-toc.1-1.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.2">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.2">
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="xref">4.2</a>.  <a href="#name-client-setup" class="xref">Client setup</a><a href="#section-toc.1-1.4.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.3">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.3">
                 <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-issuance-phase" class="xref">Issuance phase</a><a href="#section-toc.1-1.4.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.4">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.4">
                 <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="xref">4.4</a>.  <a href="#name-redemption-phase" class="xref">Redemption phase</a><a href="#section-toc.1-1.4.2.4.1" class="pilcrow">¶</a></p>
-<ul class="compact ulEmpty toc">
-<li class="compact ulEmpty toc" id="section-toc.1-1.4.2.4.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.4.2.4.2.1">
                     <p id="section-toc.1-1.4.2.4.2.1.1"><a href="#section-4.4.1" class="xref">4.4.1</a>.  <a href="#name-client-info" class="xref">Client info</a><a href="#section-toc.1-1.4.2.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.4.2.2">
+                  <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.4.2.2">
                     <p id="section-toc.1-1.4.2.4.2.2.1"><a href="#section-4.4.2" class="xref">4.4.2</a>.  <a href="#name-double-spend-protection" class="xref">Double-spend protection</a><a href="#section-toc.1-1.4.2.4.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.5">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.5">
                 <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="xref">4.5</a>.  <a href="#name-handling-errors" class="xref">Handling errors</a><a href="#section-toc.1-1.4.2.5.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.5">
+          <li class="toc ulEmpty compact" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-functionality" class="xref">Functionality</a><a href="#section-toc.1-1.5.1" class="pilcrow">¶</a></p>
-<ul class="compact ulEmpty toc">
-<li class="compact ulEmpty toc" id="section-toc.1-1.5.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.5.2.1">
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-data-structures" class="xref">Data structures</a><a href="#section-toc.1-1.5.2.1.1" class="pilcrow">¶</a></p>
-<ul class="compact ulEmpty toc">
-<li class="compact ulEmpty toc" id="section-toc.1-1.5.2.1.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.5.2.1.2.1">
                     <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="xref">5.1.1</a>.  <a href="#name-ciphersuite" class="xref">Ciphersuite</a><a href="#section-toc.1-1.5.2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.1.2.2">
+                  <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.1.2.2">
                     <p id="section-toc.1-1.5.2.1.2.2.1"><a href="#section-5.1.2" class="xref">5.1.2</a>.  <a href="#name-keys" class="xref">Keys</a><a href="#section-toc.1-1.5.2.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.1.2.3">
+                  <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.1.2.3">
                     <p id="section-toc.1-1.5.2.1.2.3.1"><a href="#section-5.1.3" class="xref">5.1.3</a>.  <a href="#name-issuanceinput" class="xref">IssuanceInput</a><a href="#section-toc.1-1.5.2.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.1.2.4">
+                  <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.1.2.4">
                     <p id="section-toc.1-1.5.2.1.2.4.1"><a href="#section-5.1.4" class="xref">5.1.4</a>.  <a href="#name-issuanceresponse" class="xref">IssuanceResponse</a><a href="#section-toc.1-1.5.2.1.2.4.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.1.2.5">
+                  <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.1.2.5">
                     <p id="section-toc.1-1.5.2.1.2.5.1"><a href="#section-5.1.5" class="xref">5.1.5</a>.  <a href="#name-redemptiontoken" class="xref">RedemptionToken</a><a href="#section-toc.1-1.5.2.1.2.5.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.1.2.6">
+                  <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.1.2.6">
                     <p id="section-toc.1-1.5.2.1.2.6.1"><a href="#section-5.1.6" class="xref">5.1.6</a>.  <a href="#name-redemptionrequest" class="xref">RedemptionRequest</a><a href="#section-toc.1-1.5.2.1.2.6.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.1.2.7">
+                  <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.1.2.7">
                     <p id="section-toc.1-1.5.2.1.2.7.1"><a href="#section-5.1.7" class="xref">5.1.7</a>.  <a href="#name-redemptionresponse" class="xref">RedemptionResponse</a><a href="#section-toc.1-1.5.2.1.2.7.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.2">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.2">
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-api-functions" class="xref">API functions</a><a href="#section-toc.1-1.5.2.2.1" class="pilcrow">¶</a></p>
-<ul class="compact ulEmpty toc">
-<li class="compact ulEmpty toc" id="section-toc.1-1.5.2.2.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.5.2.2.2.1">
                     <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="xref">5.2.1</a>.  <a href="#name-generate" class="xref">Generate</a><a href="#section-toc.1-1.5.2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.2.2.2">
+                  <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.2.2.2">
                     <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="xref">5.2.2</a>.  <a href="#name-issue" class="xref">Issue</a><a href="#section-toc.1-1.5.2.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.2.2.3">
+                  <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.2.2.3">
                     <p id="section-toc.1-1.5.2.2.2.3.1"><a href="#section-5.2.3" class="xref">5.2.3</a>.  <a href="#name-process" class="xref">Process</a><a href="#section-toc.1-1.5.2.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.2.2.4">
+                  <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.2.2.4">
                     <p id="section-toc.1-1.5.2.2.2.4.1"><a href="#section-5.2.4" class="xref">5.2.4</a>.  <a href="#name-redeem" class="xref">Redeem</a><a href="#section-toc.1-1.5.2.2.2.4.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.2.2.5">
+                  <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.2.2.5">
                     <p id="section-toc.1-1.5.2.2.2.5.1"><a href="#section-5.2.5" class="xref">5.2.5</a>.  <a href="#name-verify" class="xref">Verify</a><a href="#section-toc.1-1.5.2.2.2.5.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.3">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.3">
                 <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="xref">5.3</a>.  <a href="#name-error-types" class="xref">Error types</a><a href="#section-toc.1-1.5.2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.6">
+          <li class="toc ulEmpty compact" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-security-considerations" class="xref">Security considerations</a><a href="#section-toc.1-1.6.1" class="pilcrow">¶</a></p>
-<ul class="compact ulEmpty toc">
-<li class="compact ulEmpty toc" id="section-toc.1-1.6.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.6.2.1">
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="xref">6.1</a>.  <a href="#name-unlinkability" class="xref">Unlinkability</a><a href="#section-toc.1-1.6.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.6.2.2">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.6.2.2">
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="xref">6.2</a>.  <a href="#name-one-more-unforgeability" class="xref">One-more unforgeability</a><a href="#section-toc.1-1.6.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.6.2.3">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.6.2.3">
                 <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="xref">6.3</a>.  <a href="#name-double-spend-protection-2" class="xref">Double-spend protection</a><a href="#section-toc.1-1.6.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.6.2.4">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.6.2.4">
                 <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="xref">6.4</a>.  <a href="#name-additional-token-metadata" class="xref">Additional token metadata</a><a href="#section-toc.1-1.6.2.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.6.2.5">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.6.2.5">
                 <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="xref">6.5</a>.  <a href="#name-maximum-number-of-tokens-is" class="xref">Maximum number of tokens issued</a><a href="#section-toc.1-1.6.2.5.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.7">
+          <li class="toc ulEmpty compact" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-voprf-instantiation" class="xref">VOPRF instantiation</a><a href="#section-toc.1-1.7.1" class="pilcrow">¶</a></p>
-<ul class="compact ulEmpty toc">
-<li class="compact ulEmpty toc" id="section-toc.1-1.7.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.7.2.1">
                 <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="xref">7.1</a>.  <a href="#name-recommended-ciphersuites" class="xref">Recommended ciphersuites</a><a href="#section-toc.1-1.7.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.7.2.2">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.7.2.2">
                 <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="xref">7.2</a>.  <a href="#name-protocol-contexts" class="xref">Protocol contexts</a><a href="#section-toc.1-1.7.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.7.2.3">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.7.2.3">
                 <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="xref">7.3</a>.  <a href="#name-functionality-2" class="xref">Functionality</a><a href="#section-toc.1-1.7.2.3.1" class="pilcrow">¶</a></p>
-<ul class="compact ulEmpty toc">
-<li class="compact ulEmpty toc" id="section-toc.1-1.7.2.3.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.7.2.3.2.1">
                     <p id="section-toc.1-1.7.2.3.2.1.1"><a href="#section-7.3.1" class="xref">7.3.1</a>.  <a href="#name-generate-2" class="xref">Generate</a><a href="#section-toc.1-1.7.2.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="compact ulEmpty toc" id="section-toc.1-1.7.2.3.2.2">
+                  <li class="toc ulEmpty compact" id="section-toc.1-1.7.2.3.2.2">
                     <p id="section-toc.1-1.7.2.3.2.2.1"><a href="#section-7.3.2" class="xref">7.3.2</a>.  <a href="#name-issue-2" class="xref">Issue</a><a href="#section-toc.1-1.7.2.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="compact ulEmpty toc" id="section-toc.1-1.7.2.3.2.3">
+                  <li class="toc ulEmpty compact" id="section-toc.1-1.7.2.3.2.3">
                     <p id="section-toc.1-1.7.2.3.2.3.1"><a href="#section-7.3.3" class="xref">7.3.3</a>.  <a href="#name-process-2" class="xref">Process</a><a href="#section-toc.1-1.7.2.3.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="compact ulEmpty toc" id="section-toc.1-1.7.2.3.2.4">
+                  <li class="toc ulEmpty compact" id="section-toc.1-1.7.2.3.2.4">
                     <p id="section-toc.1-1.7.2.3.2.4.1"><a href="#section-7.3.4" class="xref">7.3.4</a>.  <a href="#name-redeem-2" class="xref">Redeem</a><a href="#section-toc.1-1.7.2.3.2.4.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="compact ulEmpty toc" id="section-toc.1-1.7.2.3.2.5">
+                  <li class="toc ulEmpty compact" id="section-toc.1-1.7.2.3.2.5">
                     <p id="section-toc.1-1.7.2.3.2.5.1"><a href="#section-7.3.5" class="xref">7.3.5</a>.  <a href="#name-verify-2" class="xref">Verify</a><a href="#section-toc.1-1.7.2.3.2.5.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.7.2.4">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.7.2.4">
                 <p id="section-toc.1-1.7.2.4.1"><a href="#section-7.4" class="xref">7.4</a>.  <a href="#name-security-justification" class="xref">Security justification</a><a href="#section-toc.1-1.7.2.4.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.8">
+          <li class="toc ulEmpty compact" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-protocol-ciphersuites" class="xref">Protocol ciphersuites</a><a href="#section-toc.1-1.8.1" class="pilcrow">¶</a></p>
-<ul class="compact ulEmpty toc">
-<li class="compact ulEmpty toc" id="section-toc.1-1.8.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.8.2.1">
                 <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="xref">8.1</a>.  <a href="#name-ppoprf2" class="xref">PP(OPRF2)</a><a href="#section-toc.1-1.8.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.8.2.2">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.2">
                 <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="xref">8.2</a>.  <a href="#name-ppoprf4" class="xref">PP(OPRF4)</a><a href="#section-toc.1-1.8.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.8.2.3">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.3">
                 <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="xref">8.3</a>.  <a href="#name-ppoprf5" class="xref">PP(OPRF5)</a><a href="#section-toc.1-1.8.2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.9">
+          <li class="toc ulEmpty compact" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="xref">9</a>.  <a href="#name-extensions-framework-policy" class="xref">Extensions framework policy</a><a href="#section-toc.1-1.9.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.10">
+          <li class="toc ulEmpty compact" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref">10</a>. <a href="#name-references" class="xref">References</a><a href="#section-toc.1-1.10.1" class="pilcrow">¶</a></p>
-<ul class="compact ulEmpty toc">
-<li class="compact ulEmpty toc" id="section-toc.1-1.10.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.10.2.1">
                 <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="xref">10.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a><a href="#section-toc.1-1.10.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact ulEmpty toc" id="section-toc.1-1.10.2.2">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.10.2.2">
                 <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="xref">10.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a><a href="#section-toc.1-1.10.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.11">
+          <li class="toc ulEmpty compact" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#section-appendix.a" class="xref">Appendix A</a>.  <a href="#name-document-contributors" class="xref">Document contributors</a><a href="#section-toc.1-1.11.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.12">
+          <li class="toc ulEmpty compact" id="section-toc.1-1.12">
             <p id="section-toc.1-1.12.1"><a href="#section-appendix.b" class="xref"></a><a href="#name-authors-addresses" class="xref">Authors' Addresses</a><a href="#section-toc.1-1.12.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
@@ -1302,7 +1320,7 @@ authorization tokens from the server.<a href="#section-4.3-1" class="pilcrow">¶
                               req
                       -------------------&gt;
 
-                             serverResp = Issue(pkS, skS, req)
+                              issueResp = Issue(pkS, skS, req)
 
                            issueResp
                       &lt;-------------------
@@ -1325,7 +1343,7 @@ phase.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
 <pre>
   Client(info)                                Server(skS, pkS)
   ------------------------------------------------------------
-  token = store[Issue.id].pop()
+  token = store[server.id].pop()
   req = Redeem(token, info)
 
                                req
@@ -1866,7 +1884,7 @@ laid out in <a href="#sec-reqs" class="xref">Section 6</a>, based on the securit
 <p id="section-7.1-1">The RECOMMENDED server ciphersuites are as follows: detailed in
 <span>[<a href="#I-D.irtf-cfrg-voprf" class="xref">I-D.irtf-cfrg-voprf</a>]</span>:<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.1-2.1">OPRF(curve448, SHA-512) (ID = 0x0002);<a href="#section-7.1-2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-7.1-2.1">OPRF(decaf448, SHA-512) (ID = 0x0002);<a href="#section-7.1-2.1" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-7.1-2.2">OPRF(P-384, SHA-512) (ID = 0x0004);<a href="#section-7.1-2.2" class="pilcrow">¶</a>
 </li>
@@ -1874,7 +1892,7 @@ laid out in <a href="#sec-reqs" class="xref">Section 6</a>, based on the securit
 </li>
         </ul>
 <p id="section-7.1-3">We deliberately avoid the usage of smaller ciphersuites (associated with
-P-256 and curve25519) due to the potential to reduce security to
+P-256 and ristretto255) due to the potential to reduce security to
 unfavourable levels via static Diffie Hellman attacks. See
 <span>[<a href="#I-D.irtf-cfrg-voprf" class="xref">I-D.irtf-cfrg-voprf</a>]</span> for more details.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
 </section>
@@ -1887,11 +1905,12 @@ unfavourable levels via static Diffie Hellman attacks. See
 <p id="section-7.2-1">Note that we must run the verifiable version of the protocol in
 <span>[<a href="#I-D.irtf-cfrg-voprf" class="xref">I-D.irtf-cfrg-voprf</a>]</span>. Therefore the <code>server</code> takes the role of the
 <code>Server</code> running in <code>modeVerifiable</code>. In other words, the <code>server</code> runs
-<code>(ctxtI, pkS) = SetupVerifiableServer(suite)</code>; where <code>suite</code> is one of
-the ciphersuites in <a href="#voprf-ciph-recs" class="xref">Section 7.1</a>, <code>ctxt</code> contains the internal
-VOPRF server functionality and secret key <code>skS</code>, and <code>pkS</code> is the server
-public key. Likewise, run <code>ctxtC = SetupVerifiableClient(suite)</code> to
-generate the Client context.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<code>ctxtS = SetupVerifiableServer(suite, skS, pkS)</code>; where <code>suite</code> is one
+of the ciphersuites in <a href="#voprf-ciph-recs" class="xref">Section 7.1</a>, <code>skS</code> and <code>pkS</code> is
+the server's secret and public key respectively (generated by calling <code>KeyGen</code>).
+It returns <code>ctxtS</code>, which is the Server context. Likewise,
+run <code>ctxtC = SetupVerifiableClient(suite, pkS)</code> to generate the Client
+context.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="voprf-api">
@@ -1920,7 +1939,7 @@ def Generate(m):
     token[i] = token
     blindedToken[i] = blindedToken
   return IssuanceInput {
-           internal: tokens,
+           data: tokens,
            req: blindedTokens,
          }
 </pre><a href="#section-7.3.1-1" class="pilcrow">¶</a>
@@ -1940,10 +1959,10 @@ inputs.<a href="#section-7.3.2-1" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-7.3.2-2">
 <pre>
 def Issue(pkS, skS, req):
-  Ev = Evaluate(skS, pkS, req)
+  elements, proof = Evaluate(skS, pkS, req)
   return IssuanceResponse {
-           tokens: Ev.elements,
-           proof: Ev.proof,
+           tokens: elements,
+           proof: proof,
          }
 </pre><a href="#section-7.3.2-2" class="pilcrow">¶</a>
 </div>
@@ -1959,7 +1978,7 @@ inputs to the <code>Unblind</code> function for verifying the batched proof obje
 <div class="artwork art-text alignLeft" id="section-7.3.3-2">
 <pre>
 Process(pkS, input, resp):
-  unblindedTokens = Unblind(pkS, input.data, input.req, resp)
+  unblindedTokens = Unblind(input.data, resp.elements, input.req, pkS, resp.proof)
   redemptionTokens = []
   for bt in unblindedTokens:
     rt = RedemptionToken { data: input.data, issued: bt }
@@ -1995,7 +2014,7 @@ def Redeem(token, info):
 <div class="artwork art-text alignLeft" id="section-7.3.5-1">
 <pre>
 def Verify(pkS, skS, req):
-  resp = VerifyFinalize(skS, pkS, req.data, req.info, req.tag)
+  resp = VerifyFinalize(skS, req.data, req.info, req.tag)
   Output RedemptionResponse {
            success: resp
          }
@@ -2050,7 +2069,7 @@ security considerations in <span>[<a href="#I-D.irtf-cfrg-voprf" class="xref">I-
 <a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-ppoprf2" class="section-name selfRef">PP(OPRF2)</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="section-8.1-1.1">OPRF2 = OPRF(curve448, SHA-512)<a href="#section-8.1-1.1" class="pilcrow">¶</a>
+<li class="normal" id="section-8.1-1.1">OPRF2 = OPRF(decaf448, SHA-512)<a href="#section-8.1-1.1" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-8.1-1.2">ID = 0x0001<a href="#section-8.1-1.2" class="pilcrow">¶</a>
 </li>
@@ -2143,7 +2162,7 @@ introduce.<a href="#section-9-6" class="pilcrow">¶</a></p>
 <dd class="break"></dd>
 <dt id="I-D.irtf-cfrg-voprf">[I-D.irtf-cfrg-voprf]</dt>
         <dd>
-<span class="refAuthor">Davidson, A.</span><span class="refAuthor">, Faz-Hernandez, A.</span><span class="refAuthor">, Sullivan, N.</span><span class="refAuthor">, and C. Wood</span>, <span class="refTitle">"Oblivious Pseudorandom Functions (OPRFs) using Prime-Order Groups"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-voprf-05</span>, <time datetime="2020-11-02" class="refDate">2 November 2020</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-irtf-cfrg-voprf-05.txt">http://www.ietf.org/internet-drafts/draft-irtf-cfrg-voprf-05.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Davidson, A.</span><span class="refAuthor">, Faz-Hernandez, A.</span><span class="refAuthor">, Sullivan, N.</span><span class="refAuthor">, and C. A. Wood</span>, <span class="refTitle">"Oblivious Pseudorandom Functions (OPRFs) using Prime-Order Groups"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-voprf-05</span>, <time datetime="2020-11-02" class="refDate">2 November 2020</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-irtf-cfrg-voprf-05.txt">https://www.ietf.org/archive/id/draft-irtf-cfrg-voprf-05.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
