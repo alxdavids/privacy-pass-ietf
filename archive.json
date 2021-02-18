@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-01-21T01:19:12.696263+00:00",
+  "timestamp": "2021-02-18T00:45:49.754223+00:00",
   "repo": "ietf-wg-privacypass/base-drafts",
   "labels": [
     {
@@ -2682,24 +2682,26 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NTU2OTQ0NTIz",
       "title": "Align with voprf draft",
       "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/58",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "claucece",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "cc. @chris-wood @alxdavids ",
       "createdAt": "2021-01-18T17:14:31Z",
-      "updatedAt": "2021-01-19T09:28:10Z",
+      "updatedAt": "2021-02-17T09:24:58Z",
       "baseRepository": "ietf-wg-privacypass/base-drafts",
       "baseRefName": "master",
       "baseRefOid": "ed5cd0df54a9204f8dc5b91f4fdbc234e2afe8e9",
       "headRepository": "claucece/privacy-pass-ietf",
       "headRefName": "master",
       "headRefOid": "82275a679dae9d08d92b28c67ee4a3c7dd31dde1",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2021-02-17T09:24:58Z",
+      "mergedAt": "2021-02-17T09:24:58Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "0ff3a561f748cd722bc7ad128fe947264257df68"
+      },
       "comments": [],
       "reviews": [
         {
@@ -2713,6 +2715,61 @@
           "body": "LGTM",
           "createdAt": "2021-01-19T09:28:10Z",
           "updatedAt": "2021-01-19T09:28:10Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 59,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTczODc4Njg1",
+      "title": "Fix some issues with the notation",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/59",
+      "state": "MERGED",
+      "author": "claucece",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "cc./ @alxdavids @armfazh @chris-wood ",
+      "createdAt": "2021-02-16T02:03:47Z",
+      "updatedAt": "2021-02-17T09:25:39Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "ed5cd0df54a9204f8dc5b91f4fdbc234e2afe8e9",
+      "headRepository": "claucece/privacy-pass-ietf",
+      "headRefName": "notation-fix",
+      "headRefOid": "78d21082eb394c487d2011d976f6e2f87e5f3af0",
+      "closedAt": "2021-02-17T09:25:39Z",
+      "mergedAt": "2021-02-17T09:25:39Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "396c5683a1cab974111ced49dae6119e8d47031f"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTkwOTA5NzE1",
+          "commit": {
+            "abbreviatedOid": "78d2108"
+          },
+          "author": "armfazh",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-02-16T06:14:01Z",
+          "updatedAt": "2021-02-16T06:14:01Z",
+          "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTkxOTg4NTU2",
+          "commit": {
+            "abbreviatedOid": "78d2108"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-02-17T09:25:32Z",
+          "updatedAt": "2021-02-17T09:25:32Z",
           "comments": []
         }
       ]
