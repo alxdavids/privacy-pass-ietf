@@ -3,9 +3,10 @@
 
 
 Network Working Group                                        A. Davidson
-Internet-Draft                                       Cloudflare Portugal
-Intended status: Informational                          17 February 2021
-Expires: 21 August 2021
+Internet-Draft                                                          
+Intended status: Informational                                 C.A. Wood
+Expires: 22 August 2021                                       Cloudflare
+                                                        18 February 2021
 
 
                   Privacy Pass Architectural Framework
@@ -34,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 August 2021.
+   This Internet-Draft will expire on 22 August 2021.
 
 Copyright Notice
 
@@ -68,41 +69,42 @@ Table of Contents
      5.3.  Asynchronous-Verifier
      5.4.  Public-Verifier
      5.5.  Bounded number of servers
-   6.  Client-Server trust relationship
-   7.  Privacy considerations
-     7.1.  Server key rotation
-     7.2.  Large numbers of servers
-       7.2.1.  Allowing larger number of servers
-     7.3.  Partitioning of server key material
-     7.4.  Additional token metadata
-     7.5.  Tracking and identity leakage
-     7.6.  Client incentives for anonymity reduction
-   8.  Security considerations
-     8.1.  Double-spend protection
-     8.2.  Token exhaustion
-     8.3.  Avoiding server centralization
-   9.  Protocol parametrization
-     9.1.  Justification
-     9.2.  Example parameterization
-     9.3.  Allowing more servers
-   10. Extension integration policy
-   11. Existing applications
-     11.1.  Cloudflare challenge pages
-     11.2.  Trust Token API
-     11.3.  Zero-knowledge Access Passes
-     11.4.  Basic Attention Tokens
-     11.5.  Token Based Services
-   12. References
-     12.1.  Normative References
-     12.2.  Informative References
+   6.  Metadata
+     6.1.  Client privacy implications
+   7.  Client-Server trust relationship
+   8.  Privacy considerations
+     8.1.  Server key rotation
+     8.2.  Large numbers of servers
+       8.2.1.  Allowing larger number of servers
+     8.3.  Partitioning of server key material
+     8.4.  Tracking and identity leakage
+     8.5.  Client incentives for anonymity reduction
+   9.  Security considerations
+     9.1.  Double-spend protection
+     9.2.  Token exhaustion
+     9.3.  Avoiding server centralization
+   10. Protocol parametrization
+     10.1.  Justification
+     10.2.  Example parameterization
+     10.3.  Allowing more servers
+   11. Extension integration policy
+   12. Existing applications
+     12.1.  Cloudflare challenge pages
+     12.2.  Trust Token API
+     12.3.  Zero-knowledge Access Passes
+     12.4.  Basic Attention Tokens
+     12.5.  Token Based Services
+   13. References
+     13.1.  Normative References
+     13.2.  Informative References
    Appendix A.  Contributors
-   Author's Address
+   Authors' Addresses
 
 1.  Introduction
 
    The Privacy Pass protocol provides an anonymity-preserving mechanism
    for authorization of clients with servers.  The protocol is detailed
-   in [draft-davidson-pp-protocol] and is intended for use in the
+   in [I-D.ietf-privacypass-protocol] and is intended for use in the
    application-layer.
 
    The way that the ecosystem around the protocol is set up can have
@@ -167,7 +169,7 @@ Table of Contents
    evaluating the privacy of each individual client.  We assume that a
    client's privacy refers to fraction of users that it represents in
    the anonymity set that it belongs to.  We discuss this more in
-   Section 7.
+   Section 8.
 
        +-----------------------------------------------------+
        |                                                     |
@@ -210,7 +212,7 @@ Table of Contents
 
    Generally, servers in the Privacy Pass ecosystem are entities whose
    primary function is to undertake the role of the "server" in
-   [draft-davidson-pp-protocol].  To facilitate this, the server MUST
+   [I-D.ietf-privacypass-protocol].  To facilitate this, the server MUST
    hold a Privacy Pass protocol keypair at any given time.  The server
    public key MUST be made available to all clients in such a way that
    key rotations and other updates are publicly visible.  The server MAY
@@ -218,7 +220,7 @@ Table of Contents
    discussion in Section 4.
 
    Note that, in the core protocol instantiation from
-   [draft-davidson-pp-protocol], the redemption phase is a symmetric
+   [I-D.ietf-privacypass-protocol], the redemption phase is a symmetric
    protocol.  This means that the server is the same server that
    ultimately processes token redemptions from clients.  However,
    plausible extensions to the protocol specification may allow public
@@ -233,12 +235,12 @@ Table of Contents
 
    Clients in the Privacy Pass ecosystem are entities whose primary
    function is to undertake the role of the "Client" in
-   [draft-davidson-pp-protocol].  Clients are assumed to only store data
-   related to the tokens that it has been issued by the server.  This
-   storage is used for constructing redemption requests.
+   [I-D.ietf-privacypass-protocol].  Clients are assumed to only store
+   data related to the tokens that it has been issued by the server.
+   This storage is used for constructing redemption requests.
 
    Clients MAY choose not to accept tokens from servers that they do not
-   trust.  See Section 6 for a wider discussion.
+   trust.  See Section 7 for a wider discussion.
 
 3.2.1.  Client identifying information
 
@@ -261,7 +263,7 @@ Table of Contents
 
    *  The public keys that are active for the server.
 
-   For reasons that we address later in Section 7, the way that the
+   For reasons that we address later in Section 8, the way that the
    server publishes and maintains this information impacts the effective
    privacy of the clients.  In this section, we describe the main
    policies that need to be satisfied for a key management system in a
@@ -276,7 +278,7 @@ Table of Contents
 
    Server's must provide their public keys to clients along with details
    about the cryptographic ciphersuite that they are using.  In
-   Section 7, we address the importance of providing clients with
+   Section 8, we address the importance of providing clients with
    sources of truth for learning the server's key configuration.
 
    In particular, server key material MUST be publicly available in a
@@ -333,7 +335,7 @@ Table of Contents
    for redemption to allow servers for seamless key rotation.
 
    Key rotations must be limited in frequency for similar reasons.  See
-   Section 9 for guidelines on what frequency of key rotations are
+   Section 10 for guidelines on what frequency of key rotations are
    permitted.
 
 4.3.  Ciphersuites
@@ -439,19 +441,68 @@ Table of Contents
    a bounded number of servers are allowed, and verifiers can invoke
    authorization verification for any of the available servers.
 
-   As we will discuss later in Section 7, configuring a large number of
+   As we will discuss later in Section 8, configuring a large number of
    servers can lead to privacy concerns for the clients in the
    ecosystem.  Therefore, we are careful to ensure that the number of
    servers is kept strictly bounded.  The actual servers can be replaced
    with different servers as long as the total never exceeds this bound.
    Moreover, server replacements also have an effect on client anonymity
-   that is similar to when a key rotation occurs. server so replacement
-   should only be permitted at similar intervals.
+   that is similar to when a key rotation occurs.
 
-   See Section 7 for more details about maintaining privacy with
+   See Section 8 for more details about maintaining privacy with
    multiple servers.
 
-6.  Client-Server trust relationship
+6.  Metadata
+
+   Certain instantiations of Privacy Pass may permit public or private
+   metadata to be cryptographically bound to a token.  As an example,
+   one trivial way to include public metadata is to assign a unique
+   issuer public key for each value of metadata, such that N keys yields
+   log2(N) bits of metadata.  The total amount of metadata bits included
+   in a token is the sum of public and private metadata bits.  See
+   Section 10 for discussion about metadata limits.
+
+   Public metadata is that which clients can observe as part of the
+   token issuance flow.  Public metadata can either be transparent or
+   opaque.  For example, transparent public metadata is a value that the
+   client either generates itself, or the server provides during the
+   issuance flow and the client can check for correctness.  Opaque
+   public metadata is metadata the client can see but cannot check for
+   correctness.  As an example, the opaque public metadata might be a
+   "fraud detection signal", computed on behalf of the server, during
+   token issuance.  In normal circumstances, clients cannot determine if
+   this value is correct or otherwise a tracking vector.
+
+   Private metadata is that which clients cannot observe as part of the
+   token issuance flow.  In [I-D.ietf-privacypass-protocol], it is
+   possible to include private metadata to redemption tokens.  The core
+   protocol instantiation that is described does not include additional
+   metadata.  However, future instantiations may use this functionality
+   to provide redemption verifiers with additional information about the
+   user.  Such instantiations may be built on the Private Metadata Bit
+   construction from Kreuter et al.  [KLOR20] or the attribute-based
+   VOPRF from Huang et al.  [HIJK21].
+
+6.1.  Client privacy implications
+
+   Note that any metadata bits of information can be used to further
+   segment the size of the user's anonymity set.  Any server that wanted
+   to track a single user could add a single metadata bit to user
+   tokens.  For the tracked user it would set the bit to "1", and "0"
+   otherwise.  Adding additional bits provides an exponential increase
+   in tracking granularity similarly to introducing more servers (though
+   with more potential targeting).
+
+   For this reason, the amount of metadata used by an server in creating
+   redemption tokens must be taken into account -- together with the
+   bits of information that server's may learn about clients otherwise.
+   Since this metadata may be useful for practical deployments of
+   Privacy Pass, servers must balance this against the reduction in
+   client privacy.  In general, servers should permit no more than 32
+   bits of metadata, as this can uniquely identify each possible user.
+   We discuss this more in Section 10.
+
+7.  Client-Server trust relationship
 
    It is important, based on the architecture above, that any client can
    determine whether it would like to interact with a given server in
@@ -482,14 +533,15 @@ Table of Contents
    from.  This means that these checks do not have to be performed
    online.
 
-7.  Privacy considerations
+8.  Privacy considerations
 
-   In the Privacy Pass protocol [draft-davidson-pp-protocol], redemption
-   tokens intentionally encode very little information beyond which key
-   was used to sign them.  The protocol intentionally uses components
-   that provide cryptographic guarantees of this fact.  However, even
-   with these guarantees, the way that the ecosystem is constructed can
-   be used to identify clients based on this limited information.
+   In the Privacy Pass protocol [I-D.ietf-privacypass-protocol],
+   redemption tokens intentionally encode very little information beyond
+   which key was used to sign them.  The protocol intentionally uses
+   components that provide cryptographic guarantees of this fact.
+   However, even with these guarantees, the way that the ecosystem is
+   constructed can be used to identify clients based on this limited
+   information.
 
    The goal of the Privacy Pass ecosystem is to construct an environment
    that can easily measure (and maximize) the relative anonymity of any
@@ -505,7 +557,7 @@ Table of Contents
    we provide mitigations that the Privacy Pass ecosystem must implement
    to prevent these actions.
 
-7.1.  Server key rotation
+8.1.  Server key rotation
 
    Techniques to introduce client "segregation" can be used to reduce
    client anonymity.  Such techniques are closely linked to the type of
@@ -533,7 +585,7 @@ Table of Contents
    the key registry; invoking any revocation procedures that may apply
    for the old key.
 
-7.2.  Large numbers of servers
+8.2.  Large numbers of servers
 
    Similarly to the server rotation dynamic that is raised above, if
    there are a large number of servers then segregation can occur.  In
@@ -557,7 +609,7 @@ Table of Contents
    servers in the ecosystem.  We propose that allowing no more than 4
    servers at any one time is highly preferable (leading to a maximum of
    64 possible user segregations).  However, as highlighted in
-   Section 9, having a very large user base (> 5 million users), could
+   Section 10, having a very large user base (> 5 million users), could
    potentially allow for larger values. server replacements should only
    occur with the same frequency as config rotations as they can lead to
    similar losses in anonymity if clients still hold redemption tokens
@@ -569,7 +621,7 @@ Table of Contents
    active, then the client SHOULD refuse to retrieve the server
    configuration during the protocol.
 
-7.2.1.  Allowing larger number of servers
+8.2.1.  Allowing larger number of servers
 
    The bounds on the numbers of servers that we proposed above are very
    restrictive.  This is due to the fact that we considered a situation
@@ -596,7 +648,7 @@ Table of Contents
    this trade-off is important in deciding the effective anonymity of
    each client in the system.
 
-7.3.  Partitioning of server key material
+8.3.  Partitioning of server key material
 
    If there are multiple key registries, or if a key registry colludes
    with an server, then it is possible to provide a split-view of an
@@ -606,47 +658,26 @@ Table of Contents
 
    Key registries should operate independently of server's in the
    ecosystem, and within the guidelines stated in Section 4.  Any client
-   should follow the recommendations in Section 6 for determining
+   should follow the recommendations in Section 7 for determining
    whether an server and its key material should be trusted.
 
-7.4.  Additional token metadata
-
-   In [draft-davidson-pp-protocol], it is permissible to add public and
-   private metadata bits to redemption tokens.  The core protocol
-   instantiation that is described does not include additional metadata.
-   However, future instantiations may use this functionality to provide
-   redemption verifiers with additional information about the user.
-
-   Note that any arbitrary bits of information can be used to further
-   segment the size of the user's anonymity set.  Any server that wanted
-   to track a single user could add a single metadata bit to user
-   tokens.  For the tracked user it would set the bit to "1", and "0"
-   otherwise.  Adding additional bits provides an exponential increase
-   in tracking granularity similarly to introducing more servers (though
-   with more potential targeting).
-
-   For this reason, the amount of metadata used by an server in creating
-   redemption tokens must be taken into account -- together with the
-   bits of information that server's may learn about clients otherwise.
-   We discuss this more in Section 9.
-
-7.5.  Tracking and identity leakage
+8.4.  Tracking and identity leakage
 
    Privacy losses may be encountered if too many redemptions are allowed
    in a short burst.  For instance, in the Internet setting, this may
    allow delegated or asynchronous verifiers to learn more information
    from the metadata that the client may hold (such as first-party
    cookies for other domains).  Mitigations for this issue are similar
-   to those proposed in Section 7.2 for tackling the problem of having
+   to those proposed in Section 8.2 for tackling the problem of having
    large number of servers.
 
    In AV, cached SRRs and their associated server public keys have a
    similar tracking potential to first party cookies in the browser
    setting.  These considerations will be covered in a separate
    document, detailing Privacy Pass protocol integration into the wider
-   web architecture [draft-svaldez-pp-http-api].
+   web architecture [I-D.ietf-privacypass-http-api].
 
-7.6.  Client incentives for anonymity reduction
+8.5.  Client incentives for anonymity reduction
 
    Clients may see an incentive in accepting all tokens that are issued
    by a server, even if the tokens fail later verification checks.  This
@@ -658,7 +689,7 @@ Table of Contents
    privacy.
 
    Firstly, a client behaving in this way would not be compliant with
-   the protocol, as laid out in [draft-davidson-pp-protocol].
+   the protocol, as laid out in [I-D.ietf-privacypass-protocol].
 
    Secondly, acting in this way only affects the privacy of the
    immediate client.  There is an exception if a large number of clients
@@ -666,14 +697,14 @@ Table of Contents
    be part of a smaller anonymity set.  However, such a situation would
    be identical to the situation where the total number of clients in
    the ecosystem is small.  Therefore, the reduction in the size of the
-   anonymity set would be equivalent; see Section 7.2 for more details.
+   anonymity set would be equivalent; see Section 8.2 for more details.
 
-8.  Security considerations
+9.  Security considerations
 
    We present a number of security considerations that prevent malicious
    clients from abusing the protocol.
 
-8.1.  Double-spend protection
+9.1.  Double-spend protection
 
    All issuing server should implement a robust storage-query mechanism
    for checking that tokens sent by clients have not been spent before.
@@ -685,7 +716,7 @@ Table of Contents
    an update is occurring it may be possible for a malicious client to
    spend a token more than once.
 
-8.2.  Token exhaustion
+9.2.  Token exhaustion
 
    When a client holds tokens for an server, it is possible for any
    verifier to invoke that client to redeem tokens for that server.
@@ -708,17 +739,17 @@ Table of Contents
    need be, by providing an expiry date or by signaling that records
    from a particular window need to be refreshed.
 
-8.3.  Avoiding server centralization
+9.3.  Avoiding server centralization
 
    [[OPEN ISSUE: explain potential and mitigations for server
    centralization]]
 
-9.  Protocol parametrization
+10.  Protocol parametrization
 
    We provide a summary of the parameters that we use in the Privacy
    Pass protocol ecosystem.  These parameters are informed by both
-   privacy and security considerations that are highlighted in Section 7
-   and Section 8, respectively.  These parameters are intended as a
+   privacy and security considerations that are highlighted in Section 8
+   and Section 9, respectively.  These parameters are intended as a
    single reference point for those implementing the protocol.
 
    Firstly, let U be the total number of users, I be the total number of
@@ -753,7 +784,7 @@ Table of Contents
 
                                   Table 1
 
-9.1.  Justification
+10.1.  Justification
 
    We make the following assumptions in these parameter choices.
 
@@ -774,7 +805,7 @@ Table of Contents
    then this effectively halves the anonymity set for each server, and
    thus we incur a factor of 2I in the exponent.  By reducing I, we
    limit the possibility of performing the attacks mentioned in
-   Section 7.
+   Section 8.
 
    We must also account for each user holding issued data for more then
    one possible active keys.  While this may also be a vector for
@@ -796,9 +827,9 @@ Table of Contents
    cryptographic security offered by the protocol that is run.  This
    parameter corresponds to the number of operations that any adversary
    has in breaking one of the security guarantees in the Privacy Pass
-   protocol [draft-davidson-pp-protocol].
+   protocol [I-D.ietf-privacypass-protocol].
 
-9.2.  Example parameterization
+10.2.  Example parameterization
 
    Using the specification above, we can give some example
    parameterizations.  For example, the current Privacy Pass browser
@@ -809,27 +840,28 @@ Table of Contents
    If the value of U is much bigger (e.g. 5 million) then this would
    permit I = (log_2(5000000/5000)-1)/2 ~= 4 servers.
 
-9.3.  Allowing more servers
+10.3.  Allowing more servers
 
-   Using the recommendations in Section 7.2.1, it is possible to
+   Using the recommendations in Section 8.2.1, it is possible to
    tolerate larger number of servers if clients in the ecosystem ensure
    that they only store tokens for a small number of them.  In
    particular, if clients limit their storage of redemption tokens to
    the bound implied by I, then prevents a malicious verifier from
    triggering redemptions for all servers in the ecosystem.
 
-10.  Extension integration policy
+11.  Extension integration policy
 
    The Privacy Pass protocol and ecosystem are both intended to be
    receptive to extensions that expand the current set of functionality.
-   As specified in [draft-davidson-pp-protocol], all extensions to the
-   Privacy Pass protocol SHOULD be specified as separate documents that
-   modify the content of this document in some way.  We provide guidance
-   on the type of modifications that are possible in the following.
+   As specified in [I-D.ietf-privacypass-protocol], all extensions to
+   the Privacy Pass protocol SHOULD be specified as separate documents
+   that modify the content of this document in some way.  We provide
+   guidance on the type of modifications that are possible in the
+   following.
 
    Any such extension should also come with a detailed analysis of the
    privacy impacts of the extension, why these impacts are justified,
-   and guidelines on changes to the parametrization in Section 9.
+   and guidelines on changes to the parametrization in Section 10.
    Similarly, extensions MAY also add new server running modes, if
    applicable, to those that are documented in Section 5.
 
@@ -837,13 +869,13 @@ Table of Contents
    guidelines specified in Section 4 for managing server public key
    data.
 
-11.  Existing applications
+12.  Existing applications
 
    The following is a non-exhaustive list of applications that currently
    make use of the Privacy Pass protocol, or some variant of the
    underlying functionality.
 
-11.1.  Cloudflare challenge pages
+12.1.  Cloudflare challenge pages
 
    Cloudflare uses an implementation of the Privacy Pass protocol for
    allowing clients that have previously interacted with their Internet
@@ -860,14 +892,14 @@ Table of Contents
    token is verified by the server, the client passes through the
    security mechanism without completing a challenge.
 
-11.2.  Trust Token API
+12.2.  Trust Token API
 
    The Trust Token API [TrustTokenAPI] has been devised as a generic API
    for providing Privacy Pass functionality in the browser setting.  The
    API is intended to be implemented directly into browsers so that
    server's can directly trigger the Privacy Pass workflow.
 
-11.3.  Zero-knowledge Access Passes
+12.3.  Zero-knowledge Access Passes
 
    The PrivateStorage API developed by Least Authority is a solution for
    uploading and storing end-to-end encrypted data in the cloud.  A
@@ -878,7 +910,7 @@ Table of Contents
    mechanism.  The client receives ZKAPs when it pays for storage space,
    and redeems the passes when it interacts with the PrivateStorage API.
 
-11.4.  Basic Attention Tokens
+12.4.  Basic Attention Tokens
 
    The browser Brave uses Basic Attention Tokens (BATs) to provide the
    basis for an anonymity-preserving rewards scheme [Brave].  The BATs
@@ -888,7 +920,7 @@ Table of Contents
    amasses BATs, it can redeem them with the Brave central server for
    rewards.
 
-11.5.  Token Based Services
+12.5.  Token Based Services
 
    Similarly to BATs, a more generic approach for providing anonymous
    peers to purchase resources from anonymous servers has been proposed
@@ -897,32 +929,49 @@ Table of Contents
    such as message hosting, by using Privacy Pass redemption tokens as a
    form of currency.  This is also similar to how ZKAPs are used.
 
-12.  References
+13.  References
 
-12.1.  Normative References
-
-   [draft-davidson-pp-protocol]
-              Davidson, A., "Privacy Pass: The Protocol", n.d.,
-              <https://tools.ietf.org/html/draft-davidson-pp-protocol-
-              00>.
-
-   [draft-svaldez-pp-http-api]
-              Valdez, S., "Privacy Pass: HTTP API", n.d.,
-              <https://github.com/alxdavids/privacy-pass-
-              ietf/tree/master/drafts/draft-svaldez-pp-http-api>.
+13.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
+              <https://datatracker.ietf.org/doc/html/rfc2119>.
 
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
-              <https://www.rfc-editor.org/info/rfc8446>.
+              <https://datatracker.ietf.org/doc/html/rfc8446>.
 
-12.2.  Informative References
+13.2.  Informative References
 
    [Brave]    "Brave Rewards", n.d., <https://brave.com/brave-rewards/>.
+
+   [HIJK21]   Huang, S., Iyengar, S., Jeyaraman, S., Kushwah, S., Lee,
+              C.K., Luo, Z., Mohassel, P., Raghunathan, A., Shaikh, S.,
+              Sung, Y.C., and A. Zhang, "PrivateStats: De-Identified
+              Authenticated Logging at Scale", January 2021,
+              <https://research.fb.com/wp-content/uploads/2021/01/
+              PrivateStats-De-Identified-Authenticated-Logging-at-
+              Scale_final.pdf>.
+
+   [I-D.ietf-privacypass-http-api]
+              Valdez, S., "Privacy Pass HTTP API", Work in Progress,
+              Internet-Draft, draft-ietf-privacypass-http-api-00, 5
+              January 2021, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-privacypass-http-api-00.txt>.
+
+   [I-D.ietf-privacypass-protocol]
+              Celi, S., Davidson, A., and A. Faz-Hernandez, "Privacy
+              Pass Protocol Specification", Work in Progress, Internet-
+              Draft, draft-ietf-privacypass-protocol-00, 5 January 2021,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-
+              privacypass-protocol-00.txt>.
+
+   [KLOR20]   Kreuter, B., Lepoint, T., Orrù, M., and M. Raykova,
+              "Anonymous Tokens with Private Metadata Bit", Advances in
+              Cryptology - CRYPTO 2020 pp. 308-336,
+              DOI 10.1007/978-3-030-56784-2_11, 2020,
+              <https://doi.org/10.1007/978-3-030-56784-2_11>.
 
    [OpenPrivacy]
               "Token Based Services - Differences from PrivacyPass",
@@ -952,12 +1001,17 @@ Appendix A.  Contributors
 
    *  Christopher Wood (caw@heapingbits.net)
 
-Author's Address
+Authors' Addresses
 
    Alex Davidson
-   Cloudflare Portugal
-   Largo Rafael Bordalo Pinheiro 29
-   Lisbon
-   Portugal
 
    Email: alex.davidson92@gmail.com
+
+
+   Christopher A. Wood
+   Cloudflare
+   101 Townsend St
+   San Francisco,
+   United States of America
+
+   Email: caw@heapingbits.net

@@ -5,10 +5,10 @@
 Network Working Group                                            S. Celi
 Internet-Draft                                                Cloudflare
 Intended status: Informational                               A. Davidson
-Expires: 21 August 2021                                                 
+Expires: 22 August 2021                                                 
                                                         A. Faz-Hernandez
                                                               Cloudflare
-                                                        17 February 2021
+                                                        18 February 2021
 
 
                   Privacy Pass Protocol Specification
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 August 2021.
+   This Internet-Draft will expire on 22 August 2021.
 
 Copyright Notice
 
@@ -879,17 +879,17 @@ Process(pkS, input, resp):
               Wood, "Oblivious Pseudorandom Functions (OPRFs) using
               Prime-Order Groups", Work in Progress, Internet-Draft,
               draft-irtf-cfrg-voprf-05, 2 November 2020,
-              <https://www.ietf.org/archive/id/draft-irtf-cfrg-voprf-
-              05.txt>.
+              <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
+              voprf-05.txt>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
+              <https://datatracker.ietf.org/doc/html/rfc2119>.
 
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
-              <https://www.rfc-editor.org/info/rfc8446>.
+              <https://datatracker.ietf.org/doc/html/rfc8446>.
 
 10.2.  Informative References
 
@@ -914,11 +914,12 @@ Process(pkS, input, resp):
 
    [RFC7049]  Bormann, C. and P. Hoffman, "Concise Binary Object
               Representation (CBOR)", RFC 7049, DOI 10.17487/RFC7049,
-              October 2013, <https://www.rfc-editor.org/info/rfc7049>.
+              October 2013,
+              <https://datatracker.ietf.org/doc/html/rfc7049>.
 
    [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
               Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
-              2014, <https://www.rfc-editor.org/info/rfc7159>.
+              2014, <https://datatracker.ietf.org/doc/html/rfc7159>.
 
    [TrustTokenAPI]
               WICG, ., "Trust Token API", n.d.,
