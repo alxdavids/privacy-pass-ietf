@@ -1356,9 +1356,11 @@ requires the commitment to either be a reference to some state on the server,
 or the commitment be an encrypted (and authenticated) blob that the server can
 use to recover state. The mechanism by which servers handle this state is implementation
 specific, and similar to how TLS session resumption state is managed; see <span>[<a href="#RFC8446" class="xref">RFC8446</a>]</span>
-for details.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+for details. In addition, the <code>GenerateState</code> function is
+implementation-specific and MUST be defined by the underlying
+ciphersuite.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
 <p id="section-4.3-4">When the server does not need to generate this state, the client instead
-DOES NOT send the CommitRequest message, and runs:<a href="#section-4.3-4" class="pilcrow">¶</a></p>
+DOES NOT send the <code>CommitRequest</code> message, and runs:<a href="#section-4.3-4" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-4.3-5">
 <pre>
 cInput = Generate(m, "")
