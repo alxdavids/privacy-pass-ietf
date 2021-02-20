@@ -4,8 +4,8 @@
 
 Network Working Group                                          S. Valdez
 Internet-Draft                                                Google LLC
-Intended status: Informational                          19 February 2021
-Expires: 23 August 2021
+Intended status: Informational                          20 February 2021
+Expires: 24 August 2021
 
 
                          Privacy Pass HTTP API
@@ -32,7 +32,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 August 2021.
+   This Internet-Draft will expire on 24 August 2021.
 
 Copyright Notice
 
