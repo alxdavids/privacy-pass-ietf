@@ -272,12 +272,12 @@ Table of Contents
                        CommitRequest(server.id)
                          ------------------->
 
-                                     st = GenerateState(skS, pkS)
+                               com = GenerateCommitment(skS, pkS)
 
-                                  st
+                                  com
                          <-------------------
 
-     cInput = Generate(m, st)
+     cInput = Generate(m, com)
      req = cInput.req
 
                                  req
@@ -293,29 +293,29 @@ Table of Contents
 
    Note that the first round of the protocol is only necessitated for
    certain ciphersuites that require client and servers commit to some
-   state.  When such state "st" is generated and sent to the client, the
-   client returns the "st" with the "IssuanceRequest" message.  The
-   server MUST check that the state corresponds to "st" that was
-   previously committed.  This requires the commitment to either be a
-   reference to some state on the server, or the commitment be an
+   value.  When such commitment "com" is generated and sent to the
+   client, the client returns "com" with the "IssuanceRequest" message.
+   The server MUST check that the commitment corresponds to "com" that
+   was previously committed.  This requires the commitment to either be
+   a reference to some commitment on the server, or the commitment be an
    encrypted (and authenticated) blob that the server can use to recover
-   state.  The mechanism by which servers handle this state is
+   commitment.  The mechanism by which servers handle this commitment is
    implementation specific, and similar to how TLS session resumption
    state is managed; see [RFC8446] for details.  In addition, the
-   "GenerateState" function is implementation-specific and MUST be
+   "GenerateCommitment" function is implementation-specific and MUST be
    defined by the underlying ciphersuite.
 
-   When the server does not need to generate this state, the client
+   When the server does not need to generate this commitment, the client
    instead DOES NOT send the "CommitRequest" message, and runs:
 
    cInput = Generate(m, "")
 
-   A server that is expecting some non-empty "st" to be passed must
-   abort the protocol on receiving a request containing an empty "st"
+   A server that is expecting some non-empty "com" to be passed must
+   abort the protocol on receiving a request containing an empty "com"
    value.
 
    Note: currently, no ciphersuites are supported that support working
-   with empty state messages.
+   with empty commitment messages.
 
 4.4.  Redemption phase
 
@@ -770,15 +770,15 @@ Table of Contents
 
    The generate functionality generates an initial set of tokens and
    blinded representation on the client-side.  The function also takes
-   an optional (possibly "null") value for a state "st" committed to by
-   the server.
+   an optional (possibly empty) value for a commitment "com" committed
+   to by the server.
 
-   def Generate(m, st):
+   def Generate(m, com):
      tokens = []
      blindedTokens = []
      for i in range(m):
        x = random_bytes()
-       (token, blindedToken) = Blind(x, st)
+       (token, blindedToken) = Blind(x, com)
        tokens[i] = token
        blindedTokens[i] = blindedToken
      return IssuanceInput {
@@ -871,7 +871,7 @@ Process(pkS, input, resp):
    The COMMIT parameter refers to whether the first round of the
    issuance phase of the protocol is necessary.  When this is false, the
    client ignores the first message and uses an empty value for the
-   state parameter to "Generate".
+   commitment parameter to "Generate".
 
 8.1.  PP(OPRF2)
 
