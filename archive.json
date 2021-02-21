@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-02-18T00:45:49.754223+00:00",
+  "timestamp": "2021-02-21T00:38:32.074864+00:00",
   "repo": "ietf-wg-privacypass/base-drafts",
   "labels": [
     {
@@ -42,6 +42,16 @@
       "name": "charter",
       "description": "Issues related to the WG charter",
       "color": "ffc9e8"
+    },
+    {
+      "name": "centralization",
+      "description": "",
+      "color": "1E0DFA"
+    },
+    {
+      "name": "not-ready",
+      "description": "",
+      "color": "d93f0b"
     }
   ],
   "issues": [
@@ -369,7 +379,7 @@
       "id": "MDU6SXNzdWU2MTQ4MTMxNTY=",
       "title": "Guidance on issuer selection",
       "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/20",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "chris-wood",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -378,8 +388,8 @@
       ],
       "body": "(This might be done already, but just in case...)\r\n\r\nWe should probably provide guidance on how clients should pick issuers. For example, if a client is presented with a choice of two issuers, what does it do? Pick the same one and use it \"all the time,\" pick one at random, or something else? ",
       "createdAt": "2020-05-08T15:27:06Z",
-      "updatedAt": "2020-07-09T10:21:03Z",
-      "closedAt": null,
+      "updatedAt": "2021-02-19T19:48:10Z",
+      "closedAt": "2021-02-19T19:48:09Z",
       "comments": [
         {
           "author": "alxdavids",
@@ -387,6 +397,20 @@
           "body": "I've added some advice on what Issuer features a Client should bear in mind when deciding which to choose. Do you think we still need advice on what to do if presented two at once? I imagine that the Client's should have hard-coded preferences.",
           "createdAt": "2020-07-09T10:21:03Z",
           "updatedAt": "2020-07-09T10:21:03Z"
+        },
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@chris-wood Any opinions on best way forward here, happy to tackle this as it doesn't seem like a huge problem.",
+          "createdAt": "2021-02-19T14:57:11Z",
+          "updatedAt": "2021-02-19T14:57:11Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This might be something we punt on, as it's sort of akin to key discovery. I'll close this as such, given that you already have some text in the draft for it now.",
+          "createdAt": "2021-02-19T19:48:09Z",
+          "updatedAt": "2021-02-19T19:48:09Z"
         }
       ]
     },
@@ -537,7 +561,7 @@
       "id": "MDU6SXNzdWU2NTQ4MTI3NjQ=",
       "title": "Determine threshold for metadata bits (bytes?)",
       "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/39",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "chris-wood",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -546,9 +570,17 @@
       ],
       "body": "Different applications may want different numbers of metadata bits. This number should probably be bounded, otherwise Privacy Pass... is not so private. ",
       "createdAt": "2020-07-10T14:14:59Z",
-      "updatedAt": "2020-07-10T16:04:26Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2021-02-18T17:51:04Z",
+      "closedAt": "2021-02-18T17:51:04Z",
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think this is done with the current parameterization text. So, closing.",
+          "createdAt": "2021-02-18T17:51:03Z",
+          "updatedAt": "2021-02-18T17:51:03Z"
+        }
+      ]
     },
     {
       "number": 40,
@@ -560,11 +592,12 @@
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [
+        "not-ready",
         "protocol"
       ],
       "body": "Per the charter.",
       "createdAt": "2020-07-10T14:17:42Z",
-      "updatedAt": "2020-08-11T11:37:21Z",
+      "updatedAt": "2021-02-19T14:56:06Z",
       "closedAt": null,
       "comments": [
         {
@@ -586,11 +619,12 @@
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [
+        "not-ready",
         "protocol"
       ],
       "body": "We say it's possible, but let's be a bit more concrete.",
       "createdAt": "2020-07-10T18:41:47Z",
-      "updatedAt": "2020-08-11T09:49:36Z",
+      "updatedAt": "2021-02-19T14:55:53Z",
       "closedAt": null,
       "comments": [
         {
@@ -612,13 +646,44 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
-        "architecture"
+        "architecture",
+        "http-api",
+        "not-ready"
       ],
       "body": "Servers should specify accepted redemption modes that they allow as a list associated with their public configuration. This would be a subset of the list `[\"single\", \"proxy\", \"async\", \"public\"]` corresponding to the redemptions modes in https://tools.ietf.org/html/draft-davidson-pp-architecture-01#section-5.\r\n\r\nIn all modes except \"single\" we should also allow optional specification of _allowed_ verifiers that can ask for tokens on the server's behalf. If one of these verifiers asks for a client token associated with the server, then the client will first check this list to ensure that the verifier exists before sending the token. This ensures that clients don't reveal which tokens they hold to untrusted verifiers.\r\n\r\ncc @chris-wood @dvorak42 ",
       "createdAt": "2020-09-09T09:54:40Z",
-      "updatedAt": "2020-09-09T09:54:40Z",
+      "updatedAt": "2021-02-19T16:54:24Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Interesting. To what extent are these modes determined by the underlying cryptographic protocol? (The public redemption mode, for example, is certainly dependent on the underlying protocol.) ",
+          "createdAt": "2021-02-18T18:49:58Z",
+          "updatedAt": "2021-02-18T18:49:58Z"
+        },
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "So the first 3 modes are essentially all symmetric running modes, but they should be agnostic to the specific choice of protocol. In deed `public` requires public-key analogues of Privacy Pass, but it shouldn't depend on the actual instantiation (in terms of cryptographic ciphersuite). Does this answer your question?",
+          "createdAt": "2021-02-19T14:50:26Z",
+          "updatedAt": "2021-02-19T14:50:26Z"
+        },
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Requires moe discussion around what information is allowed in the config. This change would imply allowing identifiers for verifiers in the config, which could be URLs etc, but this may narrow use-cases. We should think about this more.",
+          "createdAt": "2021-02-19T16:32:08Z",
+          "updatedAt": "2021-02-19T16:32:08Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "It *seems* like a configuration should contain the minimal cryptographic information necessary to run the protocol securely. But this is indeed quite interesting because *who* clients run the protocol with may impact security. We could maybe allow for (sequences of) opaque identifiers to be provided in the config? Not sure. ",
+          "createdAt": "2021-02-19T16:54:24Z",
+          "updatedAt": "2021-02-19T16:54:24Z"
+        }
+      ]
     },
     {
       "number": 45,
@@ -630,13 +695,21 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
-        "architecture"
+        "centralization"
       ],
       "body": "There should be documentation that addresses the risks of the centralization in the current Privacy Pass architecture with potential solutions. This was raised in the previous WG meeting: https://codimd.ietf.org/notes-ietf-108-privacypass.\r\n\r\nThis documentation should either be incorporated into the architecture document as a section when discussing the shape of the ecosystem, and/or security considerations. There is also the option of declaring a separate document for addressing this.",
       "createdAt": "2020-09-09T09:58:04Z",
-      "updatedAt": "2020-09-09T09:58:04Z",
+      "updatedAt": "2021-02-19T14:55:11Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "A draft has been put forward for this by Mark McFadden: https://tools.ietf.org/html/draft-mcfadden-pp-centralization-problem-00, and will be discussed at IETF 110. Will leave this open for now, until this draft (or some form of it) is accepted.",
+          "createdAt": "2021-02-19T14:54:30Z",
+          "updatedAt": "2021-02-19T14:54:30Z"
+        }
+      ]
     },
     {
       "number": 46,
@@ -653,16 +726,24 @@
       ],
       "body": "Currently, in the proxied-verifier server running mode, the entire redemption token is sent to the server. However, we may be able to avoid this by only sending the initial `data` inside the RedemptionRequest, and keeping the `tag` and `info` at the proxy. This is because `data` is operated on under the server key, while the rest of the information is just added to a hash function evaluation. This means that the token issuer only sees the token (and can then implement double-spending protection based on this), but nothing else about the request to the verifier.\r\n\r\nThe change will probably drop the requirement for the `VerifyFinalize` API in the VOPRF doc, which is also advantageous. Originally discussed with @chris-wood, @siyengar, and Zutian Luo.",
       "createdAt": "2020-09-09T10:36:58Z",
-      "updatedAt": "2020-09-09T10:36:58Z",
+      "updatedAt": "2021-02-19T14:52:16Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@chris-wood, I will take a look at this today. It would be nice to have this in ahead of the PrivateStats ciphersuites.. ",
+          "createdAt": "2021-02-19T14:52:16Z",
+          "updatedAt": "2021-02-19T14:52:16Z"
+        }
+      ]
     },
     {
       "number": 47,
       "id": "MDU6SXNzdWU3MjMyNzQyODk=",
       "title": "Describe negative consequences of centralization",
       "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/47",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "chris-wood",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -671,16 +752,24 @@
       ],
       "body": "We don't have a good way to address this (now), so we should minimally acknowledge the risks and consequences.",
       "createdAt": "2020-10-16T14:26:54Z",
-      "updatedAt": "2020-10-19T10:40:20Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2021-02-18T18:48:09Z",
+      "closedAt": "2021-02-18T18:48:09Z",
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Dupe of #45. Closing.",
+          "createdAt": "2021-02-18T18:48:09Z",
+          "updatedAt": "2021-02-18T18:48:09Z"
+        }
+      ]
     },
     {
       "number": 48,
       "id": "MDU6SXNzdWU3MjMyNzY5MTg=",
       "title": "Describe privacy implications of underlying transport protocol(s)",
       "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/48",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "chris-wood",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -689,16 +778,31 @@
       ],
       "body": "Token issuance and redemption flows from the same IP address, for example, would be linkable, but this isn't a break in the privacy pass protocol. We should discuss these orthogonal privacy considerations.",
       "createdAt": "2020-10-16T14:30:16Z",
-      "updatedAt": "2020-10-19T10:40:31Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2021-02-19T14:51:14Z",
+      "closedAt": "2021-02-19T14:51:14Z",
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think this is already addressed [in the draft](https://github.com/ietf-wg-privacypass/base-drafts/blob/master/draft-ietf-privacypass-architecture.md#client-identifying-information-client-ip). @alxdavids, if you agree, can you please close this?",
+          "createdAt": "2021-02-18T18:47:24Z",
+          "updatedAt": "2021-02-18T18:47:32Z"
+        },
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yep, good point, closing.",
+          "createdAt": "2021-02-19T14:51:14Z",
+          "updatedAt": "2021-02-19T14:51:14Z"
+        }
+      ]
     },
     {
       "number": 49,
       "id": "MDU6SXNzdWU3NTA5MTI0NzU=",
       "title": "Token expiration",
       "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/49",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "chris-wood",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -707,8 +811,8 @@
       ],
       "body": "There's currently no text around token expiration. Minimally, we could say that tokens expire when issuer (and verifier) keys rotate. Do we also want to bake in mechanisms for expiration to be cryptographically bound to issued tokens? For example, one might imagine using PMB-like constructions to encode an expiration \"epoch\" into the metadata bits. The single metadata bit variant would allow two epochs that way. \r\n\r\n@dvorak42, @alxdavids: what do you think?",
       "createdAt": "2020-11-25T15:26:43Z",
-      "updatedAt": "2021-01-04T12:35:54Z",
-      "closedAt": null,
+      "updatedAt": "2021-02-19T14:47:18Z",
+      "closedAt": "2021-02-19T14:47:18Z",
       "comments": [
         {
           "author": "dvorak42",
@@ -741,23 +845,61 @@
       "state": "OPEN",
       "author": "chris-wood",
       "authorAssociation": "CONTRIBUTOR",
-      "assignees": [],
+      "assignees": [
+        "alxdavids"
+      ],
       "labels": [
         "architecture",
         "protocol"
       ],
       "body": "Some protocols, like [blind Schnorr signature schemes](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.3.6950&rep=rep1&type=pdf), require more than 1 round trip to complete. Currently, the protocol assumes a protocol that runs in one round trip, with some offline public key distribution step. In particular, issuance request messages are mapped almost directly to the underlying OPRF blind/request message. \r\n\r\nWe should consider what needs to change, if anything, to accommodate these differently shaped protocols. I suggest we loosen the 1-1 restriction (?) from the Privacy Pass API to the underlying cryptographic protocol APIs. It just so happens that Privacy Pass maps nicely to the OPRF construction, but that need not be the case. For example, and hand waving over details, in the blind Schnorr case, an implementation of the issuance request flow could involve first fetching the nonce commitment from the server, and then sending a blinded value for evaluation. \r\n\r\n@dvorak42, what do you think?",
       "createdAt": "2020-12-02T04:21:45Z",
-      "updatedAt": "2021-01-04T12:35:34Z",
+      "updatedAt": "2021-02-19T17:59:30Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@alxdavids what do you want to do here? Should we refactor the protocol to run in two rounds? Perhaps something like the following:\r\n\r\n- CommitRequest\r\n- CommitResponse\r\n- IssueRequest\r\n- IssueResponse\r\n\r\nDuring the commitment flow (first round trip), the server can provide any sort of nonce or whatever is needed for the underlying protocol. ",
+          "createdAt": "2021-02-18T18:54:27Z",
+          "updatedAt": "2021-02-18T18:54:27Z"
+        },
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think that sounds fine. Presumably in this architecture, the CommitRequest from the Client will mostly be an empty message (at least for 3-round protocols)?",
+          "createdAt": "2021-02-19T14:45:56Z",
+          "updatedAt": "2021-02-19T14:45:56Z"
+        },
+        {
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "body": "For 1 round protocols, would the key commitment/configuration could be used to provide a 'default' result to the CommitResponse, either hardcoded as part of the version (or some parameter in the configuration)?",
+          "createdAt": "2021-02-19T15:01:00Z",
+          "updatedAt": "2021-02-19T15:01:00Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> For 1 round protocols, would the key commitment/configuration could be used to provide a 'default' result to the CommitResponse, either hardcoded as part of the version (or some parameter in the configuration)?\r\n\r\nNot sure! We'd have to play with it and see what works.",
+          "createdAt": "2021-02-19T16:02:42Z",
+          "updatedAt": "2021-02-19T16:02:42Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@alxdavids will draft a PR based on the commit request/response flow, where the response includes some implementation-specific handle to state needed for the subsequent issuance flow. For one round protocols, the handle will be a fixed (empty?) string passed to the issuance flow.",
+          "createdAt": "2021-02-19T16:18:44Z",
+          "updatedAt": "2021-02-19T16:18:44Z"
+        }
+      ]
     },
     {
       "number": 51,
       "id": "MDU6SXNzdWU3NjMwMTI2NjU=",
       "title": "Expand metadata discussion",
       "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/51",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "chris-wood",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -767,8 +909,8 @@
       ],
       "body": "There are several dimensions to metadata, including:\r\n\r\n- public vs private\r\n- verifiable vs non-verifiable\r\n- bounded or arbitrary-length\r\n\r\nIt's worth expanding on these dimensions. For example, the underlying cryptographic primitive may influence or limit one or more of these dimensions in a variety of ways. Also, whether metadata is public or private, or verifiable or not, is important for privacy reasons. (If metadata can't be verified, is it a tracking vector? Can private metadata track clients?)\r\n\r\nIn general, expounding upon these issues would likely be quite valuable for the draft.",
       "createdAt": "2020-12-11T22:49:16Z",
-      "updatedAt": "2021-01-04T12:35:02Z",
-      "closedAt": null,
+      "updatedAt": "2021-02-18T17:56:04Z",
+      "closedAt": "2021-02-18T17:56:04Z",
       "comments": []
     },
     {
@@ -2771,6 +2913,365 @@
           "createdAt": "2021-02-17T09:25:32Z",
           "updatedAt": "2021-02-17T09:25:32Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 60,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc1ODUzNzQ0",
+      "title": "Add metadata discussion.",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/60",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #51, to some extent.\r\n\r\ncc @alxdavids ",
+      "createdAt": "2021-02-18T17:20:43Z",
+      "updatedAt": "2021-02-18T17:56:04Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "396c5683a1cab974111ced49dae6119e8d47031f",
+      "headRepository": "chris-wood/privacy-pass-ietf",
+      "headRefName": "caw/metadata-fix",
+      "headRefOid": "c64510fbdf82e60172b55ab2b5e59d88ee700a58",
+      "closedAt": "2021-02-18T17:56:04Z",
+      "mergedAt": "2021-02-18T17:56:04Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "00bbf4dae86611c96ef1ca9dfec2de602102fd8b"
+      },
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@alxdavids updated with citations. I'll take #49, #48, and #47 next. (Trying to get these done before the upcoming deadline.)",
+          "createdAt": "2021-02-18T17:51:30Z",
+          "updatedAt": "2021-02-18T17:51:30Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTkzNDY5NTk0",
+          "commit": {
+            "abbreviatedOid": "788366e"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Thanks Chris, this looks great (and thanks for joining me! :D). I have a few comments to address. Also, I hadn't considered the differences between opaque and transparent public metadata, but there is an important distinction there so thanks for bringing it up.",
+          "createdAt": "2021-02-18T17:27:07Z",
+          "updatedAt": "2021-02-18T17:32:27Z",
+          "comments": [
+            {
+              "originalPosition": 53,
+              "body": "We probably need to update the refs to use the new WG versions.\r\n```suggestion\r\nissuance flow. In {{draft-ietf-privacypass-protocol}}, it is possible to include\r\n```",
+              "createdAt": "2021-02-18T17:27:07Z",
+              "updatedAt": "2021-02-18T17:49:22Z"
+            },
+            {
+              "originalPosition": 58,
+              "body": "It might be worth separating the last two paragraphs as they relate mostly to privacy considerations. What do you think?\r\n\r\n```suggestion\r\n\r\n## Client privacy implications\r\n\r\n```",
+              "createdAt": "2021-02-18T17:28:57Z",
+              "updatedAt": "2021-02-18T17:49:22Z"
+            },
+            {
+              "originalPosition": 50,
+              "body": "We may want to provide references to constructions that permit such metadata to be added (links to KLOS20 and the FB paper). However, it might just be better to wait for the CFRG drafts?",
+              "createdAt": "2021-02-18T17:30:48Z",
+              "updatedAt": "2021-02-18T17:49:22Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTkzNDgxOTIz",
+          "commit": {
+            "abbreviatedOid": "fb97f57"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-18T17:40:02Z",
+          "updatedAt": "2021-02-18T17:40:02Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "Yeah, good call :-) ",
+              "createdAt": "2021-02-18T17:40:02Z",
+              "updatedAt": "2021-02-18T17:49:22Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTkzNDgyMjE3",
+          "commit": {
+            "abbreviatedOid": "d08a120"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-18T17:40:23Z",
+          "updatedAt": "2021-02-18T17:40:24Z",
+          "comments": [
+            {
+              "originalPosition": 50,
+              "body": "Nah, citing them here is a good idea. Let me add them!",
+              "createdAt": "2021-02-18T17:40:23Z",
+              "updatedAt": "2021-02-18T17:49:22Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTkzNDkwMzA2",
+          "commit": {
+            "abbreviatedOid": "c64510f"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-18T17:49:23Z",
+          "updatedAt": "2021-02-18T17:49:24Z",
+          "comments": [
+            {
+              "originalPosition": 50,
+              "body": "Done!",
+              "createdAt": "2021-02-18T17:49:23Z",
+              "updatedAt": "2021-02-18T17:49:24Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTkzNDk2MTQw",
+          "commit": {
+            "abbreviatedOid": "c64510f"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM! I'll take some of the other issues.",
+          "createdAt": "2021-02-18T17:55:54Z",
+          "updatedAt": "2021-02-18T17:55:54Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 61,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc1OTA1MDY1",
+      "title": "Add token expiration discussion.",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/61",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Replace suggested registry with list of other options. The rationale is that a registry may be sufficient but not necessary. There are other options that might work. \r\n\r\nI suggest we work with @chelseakomlo on a draft describing these techniques in more detail.\r\n\r\ncc @alxdavids \r\n\r\nCloses #49.",
+      "createdAt": "2021-02-18T18:45:56Z",
+      "updatedAt": "2021-02-19T14:47:18Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "00bbf4dae86611c96ef1ca9dfec2de602102fd8b",
+      "headRepository": "chris-wood/privacy-pass-ietf",
+      "headRefName": "caw/add-token-expiration",
+      "headRefOid": "c28e39773a1b893162b4aa8eedb425627694badc",
+      "closedAt": "2021-02-19T14:47:18Z",
+      "mergedAt": "2021-02-19T14:47:18Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "9a5e8aaffd0cdf1c65d79135fa6ba822ff6b27dd"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk0MjU2ODQy",
+          "commit": {
+            "abbreviatedOid": "c28e397"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "This LGTM. Agreed that working on a document that tackles these questions specifically would be worthwhile.",
+          "createdAt": "2021-02-19T14:47:11Z",
+          "updatedAt": "2021-02-19T14:47:11Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 62,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc2NjIxODYx",
+      "title": "First attempt at solving #50.",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/62",
+      "state": "OPEN",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Add an extra round to the issuance phase\r\n- Specify whether commitments are required in ciphersuites\r\n- Allow possibility for null state values\r\n\r\ncc @claucece, @chris-wood, @dvorak42, @armfazh for review.   ",
+      "createdAt": "2021-02-19T17:58:23Z",
+      "updatedAt": "2021-02-20T15:20:49Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "9a5e8aaffd0cdf1c65d79135fa6ba822ff6b27dd",
+      "headRepository": "ietf-wg-privacypass/base-drafts",
+      "headRefName": "alxdavids/50",
+      "headRefOid": "90f28bd87a337a8d4c9b37be30ac115aad01161a",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks @chris-wood, changes all look good. What do you think about the `GenerateState` algorithm? Maybe I can just add some text that leaves this up to the implementer?",
+          "createdAt": "2021-02-20T13:10:40Z",
+          "updatedAt": "2021-02-20T13:10:40Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "That's probably only a function that 3/4-message protocols need to implement, right? I wouldn't expect the VOPRF draft to implement it, since COMMIT=false for those suites.\n\nAlso, what do you think about renaming it to GenerateCommitment?",
+          "createdAt": "2021-02-20T13:48:42Z",
+          "updatedAt": "2021-02-20T13:48:42Z"
+        },
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> That's probably only a function that 3/4-message protocols need to implement, right? I wouldn't expect the VOPRF draft to implement it, since COMMIT=false for those suites.\r\n> \r\n> Also, what do you think about renaming it to GenerateCommitment?\r\n\r\nSounds good, I've also replaced `state` with `commitment` throughout to avoid mishaps. ",
+          "createdAt": "2021-02-20T14:40:22Z",
+          "updatedAt": "2021-02-20T14:40:22Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk0NDQ0Njgy",
+          "commit": {
+            "abbreviatedOid": "162d6a0"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "This looks good! I think we can shift the presentation of the `st` value to be something about a reference to some state, rather than actual state itself. That allows the server to use it as a reference (a key in some database) or as state (encrypted cookie). ",
+          "createdAt": "2021-02-19T18:17:35Z",
+          "updatedAt": "2021-02-19T18:25:36Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "```suggestion\r\ncertain ciphersuites that require client and servers commit to some state. When such\r\n```",
+              "createdAt": "2021-02-19T18:17:35Z",
+              "updatedAt": "2021-02-20T14:39:38Z"
+            },
+            {
+              "originalPosition": 43,
+              "body": "```suggestion\r\n`st` with the `IssuanceRequest` message. The server MUST check that the\r\n```",
+              "createdAt": "2021-02-19T18:17:51Z",
+              "updatedAt": "2021-02-20T14:39:38Z"
+            },
+            {
+              "originalPosition": 44,
+              "body": "```suggestion\r\nstate corresponds to `st` that was previously committed. This\r\n```",
+              "createdAt": "2021-02-19T18:18:51Z",
+              "updatedAt": "2021-02-20T14:39:38Z"
+            },
+            {
+              "originalPosition": 48,
+              "body": "```suggestion\r\nrequires the commitment to either be a reference to some state on the server, \r\nor the commitment be an encrypted (and authenticated) blob that the server can\r\nuse to recover state. The mechanism by which servers handle this state is implementation\r\nspecific, and similar to how TLS session resumption state is managed; see {{RFC8446}}\r\nfor details.\r\n```",
+              "createdAt": "2021-02-19T18:21:28Z",
+              "updatedAt": "2021-02-20T14:39:38Z"
+            },
+            {
+              "originalPosition": 54,
+              "body": "```suggestion\r\ncInput = Generate(m, \"\")\r\n```",
+              "createdAt": "2021-02-19T18:21:51Z",
+              "updatedAt": "2021-02-20T14:39:38Z"
+            },
+            {
+              "originalPosition": 57,
+              "body": "```suggestion\r\nA server that is expecting some non-empty `st` to be passed must abort\r\n```",
+              "createdAt": "2021-02-19T18:22:02Z",
+              "updatedAt": "2021-02-20T14:39:38Z"
+            },
+            {
+              "originalPosition": 58,
+              "body": "```suggestion\r\nthe protocol on receiving a request containing an empty `st` value.\r\n```",
+              "createdAt": "2021-02-19T18:22:10Z",
+              "updatedAt": "2021-02-20T14:39:38Z"
+            },
+            {
+              "originalPosition": 61,
+              "body": "```suggestion\r\nempty state messages.\r\n```",
+              "createdAt": "2021-02-19T18:22:22Z",
+              "updatedAt": "2021-02-20T14:39:38Z"
+            },
+            {
+              "originalPosition": 86,
+              "body": "```suggestion\r\ncorrespond to some state that the server has generated. The structure\r\nand format of this value is implementation specific depending on whether\r\nthe server is stateful.\r\n```",
+              "createdAt": "2021-02-19T18:23:12Z",
+              "updatedAt": "2021-02-20T14:39:38Z"
+            },
+            {
+              "originalPosition": 123,
+              "body": "```suggestion\r\nphase of the protocol is necessary. When this is false, the client\r\n```",
+              "createdAt": "2021-02-19T18:23:40Z",
+              "updatedAt": "2021-02-20T14:39:38Z"
+            },
+            {
+              "originalPosition": 125,
+              "body": "```suggestion\r\nignores the first message and uses an empty value for the state parameter\r\nto `Generate`.\r\n```",
+              "createdAt": "2021-02-19T18:24:14Z",
+              "updatedAt": "2021-02-20T14:39:38Z"
+            },
+            {
+              "originalPosition": 77,
+              "body": "Interesting -- do we need this? Can it be empty?",
+              "createdAt": "2021-02-19T18:24:42Z",
+              "updatedAt": "2021-02-20T14:39:38Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk0NzUwOTY0",
+          "commit": {
+            "abbreviatedOid": "63d6bf4"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-20T13:09:31Z",
+          "updatedAt": "2021-02-20T13:09:32Z",
+          "comments": [
+            {
+              "originalPosition": 77,
+              "body": "I was allowing for the possibility that the client may only want to allow commitments for certain types (e.g. it may only want to allow server S with ciphersuite `c1`, rather than `c2`). The `server_id` was kind of a placeholder for that. However, it is pretty ugly right now, so I would be happy to remove it.",
+              "createdAt": "2021-02-20T13:09:31Z",
+              "updatedAt": "2021-02-20T14:39:38Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk0NzYwNzMw",
+          "commit": {
+            "abbreviatedOid": "90f28bd"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-20T15:20:48Z",
+          "updatedAt": "2021-02-20T15:20:49Z",
+          "comments": [
+            {
+              "originalPosition": 77,
+              "body": "\ud83d\udc4d Eh, it's probably fine for now.",
+              "createdAt": "2021-02-20T15:20:48Z",
+              "updatedAt": "2021-02-20T15:20:49Z"
+            }
+          ]
         }
       ]
     }
