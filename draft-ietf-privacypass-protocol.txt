@@ -5,10 +5,10 @@
 Network Working Group                                            S. Celi
 Internet-Draft                                                Cloudflare
 Intended status: Informational                               A. Davidson
-Expires: 23 August 2021                                                 
+Expires: 26 August 2021                                              LIP
                                                         A. Faz-Hernandez
                                                               Cloudflare
-                                                        19 February 2021
+                                                        22 February 2021
 
 
                   Privacy Pass Protocol Specification
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 August 2021.
+   This Internet-Draft will expire on 26 August 2021.
 
 Copyright Notice
 
@@ -73,17 +73,21 @@ Table of Contents
      5.1.  Data structures
        5.1.1.  Ciphersuite
        5.1.2.  Keys
-       5.1.3.  IssuanceInput
-       5.1.4.  IssuanceResponse
-       5.1.5.  RedemptionToken
-       5.1.6.  RedemptionRequest
-       5.1.7.  RedemptionResponse
+       5.1.3.  CommitRequest
+       5.1.4.  CommitResponse
+       5.1.5.  IssuanceInput
+       5.1.6.  IssuanceResponse
+       5.1.7.  RedemptionToken
+       5.1.8.  RedemptionRequest
+       5.1.9.  RedemptionResponse
      5.2.  API functions
-       5.2.1.  Generate
-       5.2.2.  Issue
-       5.2.3.  Process
-       5.2.4.  Redeem
-       5.2.5.  Verify
+       5.2.1.  Prepare
+       5.2.2.  Commit
+       5.2.3.  Generate
+       5.2.4.  Issue
+       5.2.5.  Process
+       5.2.6.  Redeem
+       5.2.7.  Verify
      5.3.  Error types
    6.  Security considerations
      6.1.  Unlinkability
@@ -259,12 +263,25 @@ Table of Contents
 
 4.3.  Issuance phase
 
-   The issuance phase allows the client to receive "m" anonymous
-   authorization tokens from the server.
+   The issuance phase is a two-round protocol that allows the client to
+   receive "m" anonymous authorization tokens from the server.  The
+   first round sees the server generate a commitment.  The second round
+   sees the server issue a token to the client.
 
-     Client(pkS, m)                              Server(skS, pkS)
+     Client(pkS, m, info)                        Server(skS, pkS)
      ------------------------------------------------------------
-     cInput = Generate(m)
+
+     commit_req = Prepare(info)
+
+                              commit_req
+                         ------------------->
+
+                       commit_resp = Commit(skS, pkS, commit_req)
+
+                             commit_resp
+                         <-------------------
+
+     cInput = Generate(m, com)
      req = cInput.req
 
                                  req
@@ -277,6 +294,32 @@ Table of Contents
 
      tokens = Process(pkS, cInput, serverResp)
      store[server.id].push(tokens)
+
+   Note that the first round of the protocol is only necessitated for
+   certain ciphersuites that require client and servers commit to some
+   value.  When such commitment "com" is generated and sent to the
+   client, the client returns "com" with the "IssuanceRequest" message.
+   The server MUST check that the commitment corresponds to "com" that
+   was previously committed.  This requires the commitment to either be
+   a reference to some commitment on the server, or the commitment be an
+   encrypted (and authenticated) blob that the server can use to recover
+   commitment.  The mechanism by which servers handle this commitment is
+   implementation specific, and similar to how TLS session resumption
+   state is managed; see [RFC8446] for details.  In addition, the
+   "Commit" function is implementation-specific and MUST be defined by
+   the underlying ciphersuite.
+
+   When the server does not need to generate this commitment, the client
+   instead DOES NOT send the "CommitRequest" message, and runs:
+
+   cInput = Generate(m, "")
+
+   A server that is expecting some non-empty "com" to be passed must
+   abort the protocol on receiving a request containing an empty "com"
+   value.
+
+   Note: currently, no ciphersuites are supported that support working
+   with empty commitment messages.
 
 4.4.  Redemption phase
 
@@ -366,7 +409,27 @@ Table of Contents
    opaque PublicKey<1..2^16-1>
    opaque PrivateKey<1..2^16-1>
 
-5.1.3.  IssuanceInput
+5.1.3.  CommitRequest
+
+   The "CommitRequest" struct is simply a fixed message allowing opaque
+   metadata.
+
+   struct {
+     opaque info<1..2^16-1>
+   } CommitRequest;
+
+5.1.4.  CommitResponse
+
+   The "CommitResponse" struct is contains an opaque set of bytes that
+   correspond to some commitment that the server has generated.  The
+   structure and format of this value is implementation specific
+   depending on whether the server is stateful.
+
+   struct {
+     opaque commitment<1..2^16-1>
+   } CommitResponse;
+
+5.1.5.  IssuanceInput
 
    The "IssuanceInput" struct describes the data that is initially
    generated by the client during the issuance phase.
@@ -389,7 +452,7 @@ Table of Contents
    "Internal" and "IssuanceRequest" types corresponding to the number of
    tokens that should be issued.
 
-5.1.4.  IssuanceResponse
+5.1.6.  IssuanceResponse
 
    Firstly, the "IssuedToken" type corresponds to a single sequence of
    bytes that represents a single issued token received from the server.
@@ -407,7 +470,7 @@ Table of Contents
    The value of "m" is equal to the length of the "IssuanceRequest"
    vector sent by the client.
 
-5.1.5.  RedemptionToken
+5.1.7.  RedemptionToken
 
    The "RedemptionToken" struct contains the data required to generate
    the client message in the redemption phase of the Privacy Pass
@@ -418,7 +481,7 @@ Table of Contents
      opaque issued<1..2^16-1>;
    } RedemptionToken;
 
-5.1.6.  RedemptionRequest
+5.1.8.  RedemptionRequest
 
    The "RedemptionRequest" struct consists of the data that is sent by
    the client during the redemption phase of the protocol.
@@ -429,7 +492,7 @@ Table of Contents
      opaque info<1..2^16-1>;
    } RedemptionRequest;
 
-5.1.7.  RedemptionResponse
+5.1.9.  RedemptionResponse
 
    The "RedemptionResponse" struct corresponds to a boolean value that
    indicates whether the "RedemptionRequest" sent by the client is
@@ -448,7 +511,43 @@ Table of Contents
    contents to be defined by specific instantiations or extensions of
    the protocol.
 
-5.2.1.  Generate
+5.2.1.  Prepare
+
+   A function run by the client to prepare for a commitment will used
+   during the issuance flow of the Privacy Pass protocol.
+
+   Inputs:
+
+   "info": An opaque byte application-specific byte string.
+
+   Outputs:
+
+   "commit_req": A "CommitRequest" struct.
+
+   This function should be implemented by any ciphersuites that require
+   a two-phase issuance protocol ("COMMIT=true").
+
+5.2.2.  Commit
+
+   A function run by the server that generates a commitment in the first
+   phase of the issuance protocol.
+
+   Inputs:
+
+   *  "skS": A server "PrivateKey".
+
+   *  "pkS": A server "PublicKey".
+
+   *  "commit_req": A "CommitRequest" struct
+
+   Outputs:
+
+   *  "commit_resp": A "CommitResponse" struct.
+
+   This function should be implemented by any ciphersuites that require
+   a two-phase issuance protocol ("COMMIT=true").
+
+5.2.3.  Generate
 
    A function run by the client to generate the initial data that is
    used as its input in the Privacy Pass protocol.
@@ -462,7 +561,7 @@ Table of Contents
 
    *  "input": An "IssuanceInput" struct.
 
-5.2.2.  Issue
+5.2.4.  Issue
 
    A function run by the server to issue valid redemption tokens to the
    client.
@@ -479,7 +578,11 @@ Table of Contents
 
    *  "resp": An "IssuanceResponse" struct.
 
-5.2.3.  Process
+   Throws:
+
+   *  "ERR_FAILED_COMMITMENT" (Section 5.3)
+
+5.2.5.  Process
 
    Run by the client when processing the server response in the issuance
    phase of the protocol.
@@ -502,7 +605,7 @@ Table of Contents
 
    *  "ERR_PROOF_VALIDATION" (Section 5.3)
 
-5.2.4.  Redeem
+5.2.6.  Redeem
 
    Run by the client in the redemption phase of the protocol to generate
    the client's message.
@@ -519,7 +622,7 @@ Table of Contents
 
    *  "req": A "RedemptionRequest" struct.
 
-5.2.5.  Verify
+5.2.7.  Verify
 
    Run by the server in the redemption phase of the protocol.
    Determines whether the data sent by the client is valid.
@@ -543,6 +646,10 @@ Table of Contents
 
    *  "ERR_DOUBLE_SPEND": Error occurred when a client has attempted to
       redeem a token that has already been used for authorization.
+
+   *  "ERR_FAILED_COMMITMENT": Error occurs during issuance phase if
+      non-empty commitment does not match the commitment generated in
+      the first round.
 
 6.  Security considerations
 
@@ -709,12 +816,17 @@ Table of Contents
 
 7.3.1.  Generate
 
-   def Generate(m):
+   The generate functionality generates an initial set of tokens and
+   blinded representation on the client-side.  The function also takes
+   an optional (possibly empty) value for a commitment "com" committed
+   to by the server.
+
+   def Generate(m, com):
      tokens = []
      blindedTokens = []
      for i in range(m):
        x = random_bytes()
-       (token, blindedToken) = Blind(x)
+       (token, blindedToken) = Blind(x, com)
        tokens[i] = token
        blindedTokens[i] = blindedToken
      return IssuanceInput {
@@ -804,11 +916,18 @@ Process(pkS, input, resp):
    lower.  See the security considerations in [I-D.irtf-cfrg-voprf] for
    examples.
 
+   The COMMIT parameter refers to whether the first round of the
+   issuance phase of the protocol is necessary.  When this is false, the
+   client ignores the first message and uses an empty value for the
+   commitment parameter to "Generate".
+
 8.1.  PP(OPRF2)
 
    *  OPRF2 = OPRF(decaf448, SHA-512)
 
    *  ID = 0x0001
+
+   *  COMMIT = false
 
    *  Maximum security provided: 224 bits
 
@@ -818,6 +937,8 @@ Process(pkS, input, resp):
 
    *  ID = 0x0002
 
+   *  COMMIT = false
+
    *  Maximum security provided: 192 bits
 
 8.3.  PP(OPRF5)
@@ -825,6 +946,8 @@ Process(pkS, input, resp):
    *  OPRF5 = OPRF(P-521, SHA-512)
 
    *  ID = 0x0003
+
+   *  COMMIT = false
 
    *  Maximum security provided: 256 bits
 
@@ -878,9 +1001,9 @@ Process(pkS, input, resp):
               Davidson, A., Faz-Hernandez, A., Sullivan, N., and C. A.
               Wood, "Oblivious Pseudorandom Functions (OPRFs) using
               Prime-Order Groups", Work in Progress, Internet-Draft,
-              draft-irtf-cfrg-voprf-05, 2 November 2020,
+              draft-irtf-cfrg-voprf-06, 21 February 2021,
               <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
-              voprf-05.txt>.
+              voprf-06.txt>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -944,6 +1067,7 @@ Authors' Addresses
 
 
    Alex Davidson
+   LIP
    Lisbon
    Portugal
 

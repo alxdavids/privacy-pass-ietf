@@ -3,10 +3,10 @@
 
 
 Network Working Group                                        A. Davidson
-Internet-Draft                                                          
+Internet-Draft                                                       LIP
 Intended status: Informational                                 C.A. Wood
-Expires: 23 August 2021                                       Cloudflare
-                                                        19 February 2021
+Expires: 26 August 2021                                       Cloudflare
+                                                        22 February 2021
 
 
                   Privacy Pass Architectural Framework
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 August 2021.
+   This Internet-Draft will expire on 26 August 2021.
 
 Copyright Notice
 
@@ -981,6 +981,9 @@ Appendix A.  Contributors
 Authors' Addresses
 
    Alex Davidson
+   LIP
+   Lisbon
+   Portugal
 
    Email: alex.davidson92@gmail.com
 
