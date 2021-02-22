@@ -17,7 +17,7 @@ performant protocol in the application-layer.
     " name="description">
 <meta content="xml2rfc 3.5.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
-<meta content="draft-ietf-privacypass-protocol" name="ietf.draft">
+<meta content="draft-ietf-privacypass-protocol-01" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.5.0
     Python 3.8.7
@@ -857,7 +857,7 @@ address div.right {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">Network Working Group</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ietf-privacypass-protocol</dd>
+<dd class="internet-draft">draft-ietf-privacypass-protocol-01</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
 <time datetime="2021-02-22" class="published">22 February 2021</time>
@@ -1357,16 +1357,16 @@ server issue a token to the client.<a href="#section-4.3-1" class="pilcrow">¶</
 </div>
 <p id="section-4.3-3">Note that the first round of the protocol is only necessitated for
 certain ciphersuites that require client and servers commit to some
-value. When such commitment <code>commit_resp</code> is generated and sent to the client,
-the client returns <code>commit_resp</code> with the <code>IssuanceRequest</code> message. The server
-MUST check that the commitment corresponds to <code>commit_resp</code> that was previously
-committed. This requires the commitment to either be a reference to some
-commitment on the server, or the commitment be an encrypted (and
-authenticated) blob that the server can use to recover commitment. The
-mechanism by which servers handle this commitment is implementation
-specific, and similar to how TLS session resumption state is
-managed; see <span>[<a href="#RFC8446" class="xref">RFC8446</a>]</span> for details. In addition, the
-<code>Commit</code> function is implementation-specific and MUST be
+value. When such commitment <code>commit_resp</code> is generated and sent to the
+client, the client returns <code>commit_resp</code> with the <code>IssuanceRequest</code>
+message. The server MUST check that the commitment corresponds to
+<code>commit_resp</code> that was previously committed. This requires the
+commitment to either be a reference to some commitment on the server, or
+the commitment be an encrypted (and authenticated) blob that the server
+can use to recover commitment. The mechanism by which servers handle
+this commitment is implementation specific, and similar to how TLS
+session resumption state is managed; see <span>[<a href="#RFC8446" class="xref">RFC8446</a>]</span> for details. In
+addition, the <code>Commit</code> function is implementation-specific and MUST be
 defined by the underlying ciphersuite.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
 <p id="section-4.3-4">When the server does not need to generate this commitment, the client
 instead DOES NOT send the <code>CommitRequest</code> message, and runs:<a href="#section-4.3-4" class="pilcrow">¶</a></p>
@@ -1375,8 +1375,9 @@ instead DOES NOT send the <code>CommitRequest</code> message, and runs:<a href="
 cInput = Generate(m, "")
 </pre><a href="#section-4.3-5" class="pilcrow">¶</a>
 </div>
-<p id="section-4.3-6">A server that is expecting some non-empty <code>commit_resp</code> to be passed must abort
-the protocol on receiving a request containing an empty <code>commit_resp</code> value.<a href="#section-4.3-6" class="pilcrow">¶</a></p>
+<p id="section-4.3-6">A server that is expecting some non-empty <code>commit_resp</code> to be passed
+must abort the protocol on receiving a request containing an empty
+<code>commit_resp</code> value.<a href="#section-4.3-6" class="pilcrow">¶</a></p>
 <p id="section-4.3-7">Note: currently, no ciphersuites are supported that support working with
 empty commitment messages.<a href="#section-4.3-7" class="pilcrow">¶</a></p>
 </section>
@@ -1527,9 +1528,9 @@ struct {
 <a href="#section-5.1.4" class="section-number selfRef">5.1.4. </a><a href="#name-commitresponse" class="section-name selfRef">CommitResponse</a>
           </h4>
 <p id="section-5.1.4-1">The <code>CommitResponse</code> struct is contains an opaque set of bytes that
-correspond to some commitment that the server has generated. The structure
-and format of this value is implementation specific depending on whether
-the server is stateful.<a href="#section-5.1.4-1" class="pilcrow">¶</a></p>
+correspond to some commitment that the server has generated. The
+structure and format of this value is implementation specific depending
+on whether the server is stateful.<a href="#section-5.1.4-1" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-5.1.4-2">
 <pre>
 struct {
@@ -2121,7 +2122,8 @@ inputs to the <code>Unblind</code> function for verifying the batched proof obje
 <div class="artwork art-text alignLeft" id="section-7.3.3-2">
 <pre>
 Process(pkS, input, resp):
-  unblindedTokens = Unblind(input.data, resp.elements, input.req, pkS, resp.proof)
+  unblindedTokens = Unblind(input.data, resp.elements,
+                              input.req, pkS, resp.proof)
   redemptionTokens = []
   for bt in unblindedTokens:
     rt = RedemptionToken { data: input.data, issued: bt }
