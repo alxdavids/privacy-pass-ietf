@@ -12,7 +12,7 @@ Expires: 26 August 2021                                              LIP
 
 
                   Privacy Pass Protocol Specification
-                   draft-ietf-privacypass-protocol-01
+                    draft-ietf-privacypass-protocol
 
 Abstract
 

@@ -936,9 +936,9 @@ Table of Contents
    [I-D.ietf-privacypass-protocol]
               Celi, S., Davidson, A., and A. Faz-Hernandez, "Privacy
               Pass Protocol Specification", Work in Progress, Internet-
-              Draft, draft-ietf-privacypass-protocol-00, 5 January 2021,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-
-              privacypass-protocol-00.txt>.
+              Draft, draft-ietf-privacypass-protocol-01, 22 February
+              2021, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              privacypass-protocol-01.txt>.
 
    [KLOR20]   Kreuter, B., Lepoint, T., Orrù, M., and M. Raykova,
               "Anonymous Tokens with Private Metadata Bit", Advances in
