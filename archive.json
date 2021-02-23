@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-02-21T00:38:32.074864+00:00",
+  "timestamp": "2021-02-23T00:37:05.207835+00:00",
   "repo": "ietf-wg-privacypass/base-drafts",
   "labels": [
     {
@@ -722,11 +722,12 @@
       "assignees": [],
       "labels": [
         "architecture",
+        "not-ready",
         "protocol"
       ],
       "body": "Currently, in the proxied-verifier server running mode, the entire redemption token is sent to the server. However, we may be able to avoid this by only sending the initial `data` inside the RedemptionRequest, and keeping the `tag` and `info` at the proxy. This is because `data` is operated on under the server key, while the rest of the information is just added to a hash function evaluation. This means that the token issuer only sees the token (and can then implement double-spending protection based on this), but nothing else about the request to the verifier.\r\n\r\nThe change will probably drop the requirement for the `VerifyFinalize` API in the VOPRF doc, which is also advantageous. Originally discussed with @chris-wood, @siyengar, and Zutian Luo.",
       "createdAt": "2020-09-09T10:36:58Z",
-      "updatedAt": "2021-02-19T14:52:16Z",
+      "updatedAt": "2021-02-21T09:12:34Z",
       "closedAt": null,
       "comments": [
         {
@@ -735,6 +736,13 @@
           "body": "@chris-wood, I will take a look at this today. It would be nice to have this in ahead of the PrivateStats ciphersuites.. ",
           "createdAt": "2021-02-19T14:52:16Z",
           "updatedAt": "2021-02-19T14:52:16Z"
+        },
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I don't think that we're quite ready to move forward with this, but we can consider it for a future draft release.",
+          "createdAt": "2021-02-21T09:12:34Z",
+          "updatedAt": "2021-02-21T09:12:34Z"
         }
       ]
     },
@@ -960,6 +968,22 @@
           "updatedAt": "2021-01-05T16:50:08Z"
         }
       ]
+    },
+    {
+      "number": 63,
+      "id": "MDU6SXNzdWU4MTI4NzUyNjk=",
+      "title": "Accommodate client and server metadata ",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/63",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The APIs currently do not allow clients or servers to supply metadata into the issuance flow. Absent a slot for metadata, how would one implement the PMB or the PrivateStats variants? One way would be to add client public metadata to the Generate API, and server public and private metadata to the Issue API, and communicate these in the requests and responses as needed. The instantiations/ciphersuites could then impose limits on these inputs as needed. For example, the PMB variant might limit the server private metadata to a single byte of value 0x00 or 0x01, and the public metadata would be empty. \r\n\r\n@dvorak42, would that be workable?\r\n",
+      "createdAt": "2021-02-21T15:04:15Z",
+      "updatedAt": "2021-02-21T15:04:15Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -3105,24 +3129,26 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NTc2NjIxODYx",
       "title": "First attempt at solving #50.",
       "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/62",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "alxdavids",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "- Add an extra round to the issuance phase\r\n- Specify whether commitments are required in ciphersuites\r\n- Allow possibility for null state values\r\n\r\ncc @claucece, @chris-wood, @dvorak42, @armfazh for review.   ",
       "createdAt": "2021-02-19T17:58:23Z",
-      "updatedAt": "2021-02-20T15:20:49Z",
+      "updatedAt": "2021-02-22T08:33:13Z",
       "baseRepository": "ietf-wg-privacypass/base-drafts",
       "baseRefName": "master",
       "baseRefOid": "9a5e8aaffd0cdf1c65d79135fa6ba822ff6b27dd",
       "headRepository": "ietf-wg-privacypass/base-drafts",
       "headRefName": "alxdavids/50",
-      "headRefOid": "90f28bd87a337a8d4c9b37be30ac115aad01161a",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "5c749d6f7360d21595e75520e8883b2d095c7de7",
+      "closedAt": "2021-02-22T08:33:13Z",
+      "mergedAt": "2021-02-22T08:33:13Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "cdb894f95d7c3d3f4bf0e6a365be222d97763586"
+      },
       "comments": [
         {
           "author": "alxdavids",
@@ -3144,6 +3170,55 @@
           "body": "> That's probably only a function that 3/4-message protocols need to implement, right? I wouldn't expect the VOPRF draft to implement it, since COMMIT=false for those suites.\r\n> \r\n> Also, what do you think about renaming it to GenerateCommitment?\r\n\r\nSounds good, I've also replaced `state` with `commitment` throughout to avoid mishaps. ",
           "createdAt": "2021-02-20T14:40:22Z",
           "updatedAt": "2021-02-20T14:40:22Z"
+        },
+        {
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I like this ;) Thank you @alxdavids ! But, should the `CommitRequest` and `GenerateCommitment` should be added to the `API functions` sections, as `Generate` and others?",
+          "createdAt": "2021-02-21T01:32:40Z",
+          "updatedAt": "2021-02-21T13:21:05Z"
+        },
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> \r\n> \r\n> I like this ;) Thank you @alxdavids ! But, should the `CommitRequest and `GenerateCommitment`should be added to the`API functions`sections, as`Generate` and others?\r\n\r\nYeah I think you're right. I didn't add them as I wasn't exactly sure how they should be implemented, but I guess that we can leave that for the underlying ciphersuites to decide.",
+          "createdAt": "2021-02-21T09:11:30Z",
+          "updatedAt": "2021-02-21T09:11:30Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Yeah, maybe just leave an OPEN ISSUE noting that they should be defined? If you want something, maybe this would work? (I replaced server_id with metadata, though I wonder if client-provided metadata is best supplied during the commit flow or the issuance flow?) \r\n\r\n```\r\nPrepare\r\n\r\nA function run by the client to prepare for a commitment will used during the issuance flow of the Privacy Pass protocol.\r\n\r\nInputs:\r\n\r\ninfo: An opaque byte application-specific byte string.\r\n\r\nNone\r\n\r\nOutputs:\r\n\r\ncommit_req: A CommitRequest struct.\r\n\r\n\r\n\r\nCommit\r\n\r\nA function run by the server to commit to a Privacy Pass issuance flow.\r\n\r\nInputs:\r\n\r\npkS: A server PublicKey.\r\nskS: A server PrivateKey.\r\ncommit_req: A CommitRequest struct.\r\n\r\nOutputs:\r\n\r\ncommit_resp: A CommitResponse struct.\r\n```",
+          "createdAt": "2021-02-21T14:57:37Z",
+          "updatedAt": "2021-02-21T14:57:37Z"
+        },
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@chris-wood Thanks for the example, I've altered the PR to include this and @claucece's feedback.",
+          "createdAt": "2021-02-21T16:01:38Z",
+          "updatedAt": "2021-02-21T16:01:38Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Looks good! Shall we merge and the submit this and -architecture?\r\n",
+          "createdAt": "2021-02-21T16:38:53Z",
+          "updatedAt": "2021-02-21T16:38:53Z"
+        },
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> \r\n> \r\n> Looks good! Shall we merge and the submit this and -architecture?\r\n\r\nSGTM! I'm AFK for the rest of today, but I'll handle it tomorrow if that's okay with everyone else?",
+          "createdAt": "2021-02-21T16:41:25Z",
+          "updatedAt": "2021-02-21T16:41:25Z"
+        },
+        {
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@alxdavids thank you! looking good ;)",
+          "createdAt": "2021-02-21T20:41:17Z",
+          "updatedAt": "2021-02-21T20:41:17Z"
         }
       ],
       "reviews": [
@@ -3163,73 +3238,73 @@
               "originalPosition": 41,
               "body": "```suggestion\r\ncertain ciphersuites that require client and servers commit to some state. When such\r\n```",
               "createdAt": "2021-02-19T18:17:35Z",
-              "updatedAt": "2021-02-20T14:39:38Z"
+              "updatedAt": "2021-02-21T16:24:11Z"
             },
             {
               "originalPosition": 43,
               "body": "```suggestion\r\n`st` with the `IssuanceRequest` message. The server MUST check that the\r\n```",
               "createdAt": "2021-02-19T18:17:51Z",
-              "updatedAt": "2021-02-20T14:39:38Z"
+              "updatedAt": "2021-02-21T16:24:11Z"
             },
             {
               "originalPosition": 44,
               "body": "```suggestion\r\nstate corresponds to `st` that was previously committed. This\r\n```",
               "createdAt": "2021-02-19T18:18:51Z",
-              "updatedAt": "2021-02-20T14:39:38Z"
+              "updatedAt": "2021-02-21T16:24:11Z"
             },
             {
               "originalPosition": 48,
               "body": "```suggestion\r\nrequires the commitment to either be a reference to some state on the server, \r\nor the commitment be an encrypted (and authenticated) blob that the server can\r\nuse to recover state. The mechanism by which servers handle this state is implementation\r\nspecific, and similar to how TLS session resumption state is managed; see {{RFC8446}}\r\nfor details.\r\n```",
               "createdAt": "2021-02-19T18:21:28Z",
-              "updatedAt": "2021-02-20T14:39:38Z"
+              "updatedAt": "2021-02-21T16:24:11Z"
             },
             {
               "originalPosition": 54,
               "body": "```suggestion\r\ncInput = Generate(m, \"\")\r\n```",
               "createdAt": "2021-02-19T18:21:51Z",
-              "updatedAt": "2021-02-20T14:39:38Z"
+              "updatedAt": "2021-02-21T16:24:11Z"
             },
             {
               "originalPosition": 57,
               "body": "```suggestion\r\nA server that is expecting some non-empty `st` to be passed must abort\r\n```",
               "createdAt": "2021-02-19T18:22:02Z",
-              "updatedAt": "2021-02-20T14:39:38Z"
+              "updatedAt": "2021-02-21T16:24:11Z"
             },
             {
               "originalPosition": 58,
               "body": "```suggestion\r\nthe protocol on receiving a request containing an empty `st` value.\r\n```",
               "createdAt": "2021-02-19T18:22:10Z",
-              "updatedAt": "2021-02-20T14:39:38Z"
+              "updatedAt": "2021-02-21T16:24:11Z"
             },
             {
               "originalPosition": 61,
               "body": "```suggestion\r\nempty state messages.\r\n```",
               "createdAt": "2021-02-19T18:22:22Z",
-              "updatedAt": "2021-02-20T14:39:38Z"
+              "updatedAt": "2021-02-21T16:24:11Z"
             },
             {
               "originalPosition": 86,
               "body": "```suggestion\r\ncorrespond to some state that the server has generated. The structure\r\nand format of this value is implementation specific depending on whether\r\nthe server is stateful.\r\n```",
               "createdAt": "2021-02-19T18:23:12Z",
-              "updatedAt": "2021-02-20T14:39:38Z"
+              "updatedAt": "2021-02-21T16:24:11Z"
             },
             {
               "originalPosition": 123,
               "body": "```suggestion\r\nphase of the protocol is necessary. When this is false, the client\r\n```",
               "createdAt": "2021-02-19T18:23:40Z",
-              "updatedAt": "2021-02-20T14:39:38Z"
+              "updatedAt": "2021-02-21T16:24:11Z"
             },
             {
               "originalPosition": 125,
               "body": "```suggestion\r\nignores the first message and uses an empty value for the state parameter\r\nto `Generate`.\r\n```",
               "createdAt": "2021-02-19T18:24:14Z",
-              "updatedAt": "2021-02-20T14:39:38Z"
+              "updatedAt": "2021-02-21T16:24:11Z"
             },
             {
               "originalPosition": 77,
               "body": "Interesting -- do we need this? Can it be empty?",
               "createdAt": "2021-02-19T18:24:42Z",
-              "updatedAt": "2021-02-20T14:39:38Z"
+              "updatedAt": "2021-02-21T16:24:11Z"
             }
           ]
         },
@@ -3249,7 +3324,7 @@
               "originalPosition": 77,
               "body": "I was allowing for the possibility that the client may only want to allow commitments for certain types (e.g. it may only want to allow server S with ciphersuite `c1`, rather than `c2`). The `server_id` was kind of a placeholder for that. However, it is pretty ugly right now, so I would be happy to remove it.",
               "createdAt": "2021-02-20T13:09:31Z",
-              "updatedAt": "2021-02-20T14:39:38Z"
+              "updatedAt": "2021-02-21T16:24:11Z"
             }
           ]
         },
@@ -3269,7 +3344,94 @@
               "originalPosition": 77,
               "body": "\ud83d\udc4d Eh, it's probably fine for now.",
               "createdAt": "2021-02-20T15:20:48Z",
-              "updatedAt": "2021-02-20T15:20:49Z"
+              "updatedAt": "2021-02-21T16:24:11Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk0Nzk4NTQw",
+          "commit": {
+            "abbreviatedOid": "90f28bd"
+          },
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-21T01:31:52Z",
+          "updatedAt": "2021-02-21T01:31:53Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "When the commitment does not correspond to `com` that was previously\r\ncommitted, should this define a specific error that we need to add to the `Error types`? ",
+              "createdAt": "2021-02-21T01:31:52Z",
+              "updatedAt": "2021-02-21T16:24:11Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk0ODIxMzUy",
+          "commit": {
+            "abbreviatedOid": "90f28bd"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-21T09:10:35Z",
+          "updatedAt": "2021-02-21T09:10:35Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "@claucece Good point! Yes it should be.",
+              "createdAt": "2021-02-21T09:10:35Z",
+              "updatedAt": "2021-02-21T16:24:11Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 64,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc3NDUxMjI5",
+      "title": "Fix minor typos before -01 release",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/64",
+      "state": "OPEN",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-02-22T08:40:00Z",
+      "updatedAt": "2021-02-22T15:18:17Z",
+      "baseRepository": "ietf-wg-privacypass/base-drafts",
+      "baseRefName": "master",
+      "baseRefOid": "cdb894f95d7c3d3f4bf0e6a365be222d97763586",
+      "headRepository": "ietf-wg-privacypass/base-drafts",
+      "headRefName": "alxdavids/minor-change",
+      "headRefOid": "c722abf664f78f9646d0bf0e0549c1c56e771aa5",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk1NDI2OTg0",
+          "commit": {
+            "abbreviatedOid": "c807fb9"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "LGTM modulo the -latest change.",
+          "createdAt": "2021-02-22T14:50:21Z",
+          "updatedAt": "2021-02-22T14:50:40Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "This typically stays `latest` -- are you trying to build `-01`? If so, let's chat offline and I can help you figure it out!",
+              "createdAt": "2021-02-22T14:50:21Z",
+              "updatedAt": "2021-02-22T15:18:17Z"
             }
           ]
         }
