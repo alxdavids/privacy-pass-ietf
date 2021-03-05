@@ -5,8 +5,8 @@
 Network Working Group                                        A. Davidson
 Internet-Draft                                                       LIP
 Intended status: Informational                                 C.A. Wood
-Expires: 26 August 2021                                       Cloudflare
-                                                        22 February 2021
+Expires: 6 September 2021                                     Cloudflare
+                                                            5 March 2021
 
 
                   Privacy Pass Architectural Framework
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 August 2021.
+   This Internet-Draft will expire on 6 September 2021.
 
 Copyright Notice
 
@@ -936,9 +936,9 @@ Table of Contents
    [I-D.ietf-privacypass-protocol]
               Celi, S., Davidson, A., and A. Faz-Hernandez, "Privacy
               Pass Protocol Specification", Work in Progress, Internet-
-              Draft, draft-ietf-privacypass-protocol-00, 5 January 2021,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-
-              privacypass-protocol-00.txt>.
+              Draft, draft-ietf-privacypass-protocol-01, 22 February
+              2021, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              privacypass-protocol-01.txt>.
 
    [KLOR20]   Kreuter, B., Lepoint, T., Orrù, M., and M. Raykova,
               "Anonymous Tokens with Private Metadata Bit", Advances in
