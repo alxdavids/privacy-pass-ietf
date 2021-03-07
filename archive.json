@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-02-23T00:37:05.207835+00:00",
+  "timestamp": "2021-03-07T00:40:46.624517+00:00",
   "repo": "ietf-wg-privacypass/base-drafts",
   "labels": [
     {
@@ -850,7 +850,7 @@
       "id": "MDU6SXNzdWU3NTQ5MjYwODU=",
       "title": "Accommodating two round protocols",
       "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/50",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "chris-wood",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [
@@ -862,8 +862,8 @@
       ],
       "body": "Some protocols, like [blind Schnorr signature schemes](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.3.6950&rep=rep1&type=pdf), require more than 1 round trip to complete. Currently, the protocol assumes a protocol that runs in one round trip, with some offline public key distribution step. In particular, issuance request messages are mapped almost directly to the underlying OPRF blind/request message. \r\n\r\nWe should consider what needs to change, if anything, to accommodate these differently shaped protocols. I suggest we loosen the 1-1 restriction (?) from the Privacy Pass API to the underlying cryptographic protocol APIs. It just so happens that Privacy Pass maps nicely to the OPRF construction, but that need not be the case. For example, and hand waving over details, in the blind Schnorr case, an implementation of the issuance request flow could involve first fetching the nonce commitment from the server, and then sending a blinded value for evaluation. \r\n\r\n@dvorak42, what do you think?",
       "createdAt": "2020-12-02T04:21:45Z",
-      "updatedAt": "2021-02-19T17:59:30Z",
-      "closedAt": null,
+      "updatedAt": "2021-03-05T13:16:11Z",
+      "closedAt": "2021-03-05T13:16:11Z",
       "comments": [
         {
           "author": "chris-wood",
@@ -899,6 +899,13 @@
           "body": "@alxdavids will draft a PR based on the commit request/response flow, where the response includes some implementation-specific handle to state needed for the subsequent issuance flow. For one round protocols, the handle will be a fixed (empty?) string passed to the issuance flow.",
           "createdAt": "2021-02-19T16:18:44Z",
           "updatedAt": "2021-02-19T16:18:44Z"
+        },
+        {
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think this has been fixed by #62, @chris-wood to confirm? ",
+          "createdAt": "2021-03-05T09:34:28Z",
+          "updatedAt": "2021-03-05T09:34:28Z"
         }
       ]
     },
@@ -978,10 +985,12 @@
       "author": "chris-wood",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "protocol"
+      ],
       "body": "The APIs currently do not allow clients or servers to supply metadata into the issuance flow. Absent a slot for metadata, how would one implement the PMB or the PrivateStats variants? One way would be to add client public metadata to the Generate API, and server public and private metadata to the Issue API, and communicate these in the requests and responses as needed. The instantiations/ciphersuites could then impose limits on these inputs as needed. For example, the PMB variant might limit the server private metadata to a single byte of value 0x00 or 0x01, and the public metadata would be empty. \r\n\r\n@dvorak42, would that be workable?\r\n",
       "createdAt": "2021-02-21T15:04:15Z",
-      "updatedAt": "2021-02-21T15:04:15Z",
+      "updatedAt": "2021-03-05T09:32:50Z",
       "closedAt": null,
       "comments": []
     }
@@ -3395,24 +3404,26 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NTc3NDUxMjI5",
       "title": "Fix minor typos before -01 release",
       "url": "https://github.com/ietf-wg-privacypass/base-drafts/pull/64",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "alxdavids",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2021-02-22T08:40:00Z",
-      "updatedAt": "2021-02-22T15:18:17Z",
+      "updatedAt": "2021-03-05T09:33:44Z",
       "baseRepository": "ietf-wg-privacypass/base-drafts",
       "baseRefName": "master",
       "baseRefOid": "cdb894f95d7c3d3f4bf0e6a365be222d97763586",
       "headRepository": "ietf-wg-privacypass/base-drafts",
       "headRefName": "alxdavids/minor-change",
       "headRefOid": "c722abf664f78f9646d0bf0e0549c1c56e771aa5",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2021-03-05T09:33:44Z",
+      "mergedAt": "2021-03-05T09:33:44Z",
+      "mergedBy": "alxdavids",
+      "mergeCommit": {
+        "oid": "cde660567c79230d4ac514e2567445ae478b63e2"
+      },
       "comments": [],
       "reviews": [
         {
