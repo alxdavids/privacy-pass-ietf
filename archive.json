@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-03-07T00:40:46.624517+00:00",
+  "timestamp": "2021-03-11T00:38:55.443319+00:00",
   "repo": "ietf-wg-privacypass/base-drafts",
   "labels": [
     {
@@ -990,7 +990,38 @@
       ],
       "body": "The APIs currently do not allow clients or servers to supply metadata into the issuance flow. Absent a slot for metadata, how would one implement the PMB or the PrivateStats variants? One way would be to add client public metadata to the Generate API, and server public and private metadata to the Issue API, and communicate these in the requests and responses as needed. The instantiations/ciphersuites could then impose limits on these inputs as needed. For example, the PMB variant might limit the server private metadata to a single byte of value 0x00 or 0x01, and the public metadata would be empty. \r\n\r\n@dvorak42, would that be workable?\r\n",
       "createdAt": "2021-02-21T15:04:15Z",
-      "updatedAt": "2021-03-05T09:32:50Z",
+      "updatedAt": "2021-03-09T21:47:44Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "dvorak42",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I'd guess it would be cleanest in the Issue API, especially for the private metadata variant, but seems like a reasonable way. The PrivateStats variant may need a bit more to support larger amounts of public metadata.",
+          "createdAt": "2021-03-09T15:58:09Z",
+          "updatedAt": "2021-03-09T15:58:09Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Cool. I'll prep a PR!",
+          "createdAt": "2021-03-09T21:47:44Z",
+          "updatedAt": "2021-03-09T21:47:44Z"
+        }
+      ]
+    },
+    {
+      "number": 65,
+      "id": "MDU6SXNzdWU4MjYxNTE5ODE=",
+      "title": "Update Privacy Calculations in Architecture Document",
+      "url": "https://github.com/ietf-wg-privacypass/base-drafts/issues/65",
+      "state": "OPEN",
+      "author": "dvorak42",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The privacy calculations should be updated to take into account metadata more explicitly, and take into account the cost of the number of redemptions, rather than the global issuer count.\r\n\r\nIf used in a multiple disjoint architecture ecosystem, then the math should also be taken in terms of a specific 'context' rather than treating the whole PrivacyPass ecosystem as a single global system (allowing for more nuanced requirements/limitations on issuer counts).",
+      "createdAt": "2021-03-09T15:59:47Z",
+      "updatedAt": "2021-03-09T15:59:47Z",
       "closedAt": null,
       "comments": []
     }
